@@ -1,11 +1,11 @@
 # ✅ Checklist do Projeto - Grupo Java - Raro Academy
 
 ## 🟦 Etapa 1 - Análise + MER/DER (Pessoa 1 e Pessoa 2)
-- [ ] Analisar requisitos com base no enunciado
-- [ ] Levantar entidades e relacionamentos
-- [ ] Criar o MER (Modelo Entidade Relacionamento)
-- [ ] Gerar o DER (Diagrama Entidade Relacionamento)
-- [ ] Validar o MER/DER com o grupo
+- [✅] Analisar requisitos com base no enunciado
+- [✅] Levantar entidades e relacionamentos
+- [✅] Criar o MER (Modelo Entidade Relacionamento)
+- [✅] Gerar o DER (Diagrama Entidade Relacionamento)
+- [✅] Validar o MER/DER com o grupo
 
 ## ⚙️ Etapa 2 - Estrutura do Projeto (Pessoa 1)
 - [ ] Criar projeto com Spring Initializr (Java 21, Spring Boot 3)
