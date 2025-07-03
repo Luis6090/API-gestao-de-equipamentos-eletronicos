@@ -76,7 +76,7 @@ CREATE TABLE ALERTA (
     FOREIGN KEY (id_parametro) REFERENCES PARAMETROS_SISTEMA(id_parametro)
 );
 CREATE TABLE ESTOQUE (
-    id_estoque INT PRIMARY KEY AUTO_INCREMENT,
+    id_estoque INT PRIMARY KEY,
     id_equipamento INT NOT NULL,
     quantidade_disponivel INT NOT NULL,
     quantidade_em_uso INT NOT NULL,
