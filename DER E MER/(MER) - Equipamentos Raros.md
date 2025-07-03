@@ -114,6 +114,16 @@ Com base na descrição do projeto "Equipamentos Raros - Controle de inventário
     *   `descricao`
 
 ---
+**8. Entidade: ESTOQUE**
+
+*   **Atributos:**
+    *   `id_estoque` (Identificador Único - Chave Primária)
+    *   `quantidade_disponivel` 
+    *   `quantidade_em_uso`
+    *   `quantidade_defeituosa`
+  
+
+---
 
 #### Relacionamentos (com Cardinalidades no padrão Peter Chen - (min, max)):
 
@@ -151,5 +161,16 @@ Com base na descrição do projeto "Equipamentos Raros - Controle de inventário
     *   **Descrição:** Um `ALERTA` *é baseado em* `PARÂMETROS_SISTEMA`. Muitos alertas podem ser gerados a partir do mesmo conjunto de parâmetros.
     *   **Notação Peter Chen:**
         *   `ALERTA` -- (0,N) -- `BASEADO_EM` -- (1,1) -- `PARÂMETROS_SISTEMA`
+        
+8.  **EQUIPAMENTO -- (possui) -- ESTOQUE**
+    *   **Descrição:** Um `Equipamento` pode estar vinculado a um ou mais registros de `Estoque` (por tipo, localização, ou status).Um `Estoque` se refere sempre a um único `Equipamento`.
+    *   **Notação Peter Chen:**
+        *   `EQUIPAMENTO` (1,1) — `possui` — (1,1) `ESTOQUE`
+        
+9.  **PARÂMETROS_SISTEMA — (define_niveis) — ESTOQUE**
+    *   **Descrição:** Os parâmetros do sistema definem políticas e limites como o estoque mínimo de segurança, que se aplicam à gestão dos estoques.Cada registro de estoque pode ser influenciado por apenas um conjunto de parâmetros.
+    *   **Notação Peter Chen:**
+        *   `PARÂMETROS_SISTEMA` (1,1) — `define_niveis` — (0,N) `ESTOQUE`
+                        
 
 ---
