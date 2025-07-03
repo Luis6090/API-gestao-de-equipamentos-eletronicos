@@ -8,11 +8,11 @@
 - [✅] Validar o MER/DER com o grupo
 
 ## ⚙️ Etapa 2 - Estrutura do Projeto (Pessoa 1)
-- [ ] Criar projeto com Spring Initializr (Java 21, Spring Boot 3)
-- [ ] Configurar conexão com PostgreSQL
-- [ ] Integrar API ViaCEP
-- [ ] Adicionar Swagger UI para documentação
-- [ ] Configurar envio de e-mails (Mailtrap ou similar)
+- [✅] Criar projeto com Spring Initializr (Java 21, Spring Boot 3)
+- [✅] Configurar conexão com PostgreSQL
+- [✅] Integrar API ViaCEP
+- [✅] Adicionar Swagger UI para documentação
+- [✅] Configurar envio de e-mails (Mailtrap ou similar)
 
 ## 👤 Etapa 3 - Autenticação e Usuário (Pessoa 2)
 - [ ] Criar entidade `User`
