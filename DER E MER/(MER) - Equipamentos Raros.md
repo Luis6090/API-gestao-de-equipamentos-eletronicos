@@ -165,7 +165,7 @@ Com base na descrição do projeto "Equipamentos Raros - Controle de inventário
 8.  **EQUIPAMENTO -- (possui) -- ESTOQUE**
     *   **Descrição:** Um `Equipamento` pode estar vinculado a um ou mais registros de `Estoque` (por tipo, localização, ou status).Um `Estoque` se refere sempre a um único `Equipamento`.
     *   **Notação Peter Chen:**
-        *   `EQUIPAMENTO` (1,1) — `possui` — (1,1) `ESTOQUE`
+        *   `EQUIPAMENTO` (1,1) — `possui` — (0,1) `ESTOQUE`
         
 9.  **PARÂMETROS_SISTEMA — (define_niveis) — ESTOQUE**
     *   **Descrição:** Os parâmetros do sistema definem políticas e limites como o estoque mínimo de segurança, que se aplicam à gestão dos estoques.Cada registro de estoque pode ser influenciado por apenas um conjunto de parâmetros.

@@ -15,11 +15,11 @@
 - [✅] Configurar envio de e-mails (Mailtrap ou similar)
 
 ## 👤 Etapa 3 - Autenticação e Usuário (Pessoa 2)
-- [ ] Criar entidade `User`
-- [ ] Implementar cadastro com verificação por email
-- [ ] Implementar login com JWT
-- [ ] Implementar recuperação de senha com validade de 2 horas
-- [ ] Proteger rotas com Spring Security
+- [✅ ] Criar entidade `User`
+- [✅] Implementar cadastro com verificação por email
+- [✅] Implementar login com JWT
+- [✅] Implementar recuperação de senha com validade de 2 horas
+- [✅] Proteger rotas com Spring Security
 
 ## 👥 Etapa 4 - CRUD Colaboradores (Pessoa 3)
 - [ ] Criar entidade `Colaborador`
