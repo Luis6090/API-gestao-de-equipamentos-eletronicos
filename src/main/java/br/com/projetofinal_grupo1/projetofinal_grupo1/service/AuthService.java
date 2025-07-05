@@ -1,9 +1,9 @@
 package br.com.projetofinal_grupo1.projetofinal_grupo1.service;
 
-import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.LoginRequestDTO;
-import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.RegisterRequestDTO;
-import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.TokenResponseDTO;
-import br.com.projetofinal_grupo1.projetofinal_grupo1.model.Usuario;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.domain.DTO.LoginRequestDTO;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.domain.DTO.RegisterRequestDTO;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.domain.DTO.TokenResponseDTO;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.domain.model.Usuario;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.repository.UsuarioRepository;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.security.JwtUtil;
 import org.springframework.security.crypto.password.PasswordEncoder;

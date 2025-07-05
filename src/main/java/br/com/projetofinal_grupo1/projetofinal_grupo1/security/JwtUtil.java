@@ -1,7 +1,7 @@
 package br.com.projetofinal_grupo1.projetofinal_grupo1.security;
 
 
-import br.com.projetofinal_grupo1.projetofinal_grupo1.model.Usuario;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.domain.model.Usuario;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;

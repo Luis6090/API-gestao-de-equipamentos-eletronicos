@@ -1,6 +1,6 @@
 package br.com.projetofinal_grupo1.projetofinal_grupo1.controller;
 
-import br.com.projetofinal_grupo1.projetofinal_grupo1.model.Equipamento;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.domain.model.Equipamento;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.repository.EquipamentoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
