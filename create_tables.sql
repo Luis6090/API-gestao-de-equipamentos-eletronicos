@@ -23,9 +23,6 @@ CREATE TABLE PARAMETROS_SISTEMA (
     estoque_minimo_seguranca INT NOT NULL
 );
 
-
-
-
 -- Tabela COLABORADOR
 CREATE TABLE COLABORADOR (
     id_colaborador SERIAL PRIMARY KEY,
@@ -75,6 +72,7 @@ CREATE TABLE ALERTA (
     FOREIGN KEY (id_equipamento) REFERENCES EQUIPAMENTO(id_equipamento),
     FOREIGN KEY (id_parametro) REFERENCES PARAMETROS_SISTEMA(id_parametro)
 );
+
 CREATE TABLE ESTOQUE (
     id_estoque INT PRIMARY KEY,
     id_equipamento INT NOT NULL,
