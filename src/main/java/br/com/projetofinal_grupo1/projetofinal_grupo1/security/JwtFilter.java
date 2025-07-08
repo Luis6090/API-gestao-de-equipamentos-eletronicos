@@ -7,12 +7,14 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.List;
 
 @Component
 public class JwtFilter extends OncePerRequestFilter {
@@ -37,16 +39,20 @@ public class JwtFilter extends OncePerRequestFilter {
             try {
                 String email = jwtUtil.getEmailDoToken(token);
 
-                usuarioRepository.findByEmail(email).ifPresent(usuario -> {
-                    UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
-                            usuario, null, null
-                    );
-                    auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                    SecurityContextHolder.getContext().setAuthentication(auth);
-                });
+                if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                    usuarioRepository.findByEmail(email).ifPresent(usuario -> {
+                        UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
+                                usuario,
+                                null,
+                                usuario.getAuthorities() // 👈 ESSENCIAL
+                        );
+                        auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                        SecurityContextHolder.getContext().setAuthentication(auth);
+                    });
+                }
 
             } catch (JWTVerificationException ex) {
-                // Token inválido - ignora e segue sem autenticar
+                System.out.println("❌ Token inválido: " + ex.getMessage());
             }
         }
 
