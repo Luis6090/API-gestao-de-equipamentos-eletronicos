@@ -1,17 +1,17 @@
 package br.com.projetofinal_grupo1.projetofinal_grupo1.controller;
 
 import br.com.projetofinal_grupo1.projetofinal_grupo1.model.Equipamento;
-import br.com.projetofinal_grupo1.projetofinal_grupo1.repository.EquipamentoRepository;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.service.EquipamentoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@SecurityRequirement(name = "BearerAuth")
 @RestController
 @RequestMapping("/equipamentos")
 public class EquipamentoController {

@@ -11,6 +11,7 @@ import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.TokenResponseDTO;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.service.AuthService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.core.Authentication;
 
 @SecurityRequirement(name = "BearerAuth")
 @RestController
@@ -68,6 +69,13 @@ public class AuthController {
     ) {
         authService.redefinirSenha(token, novaSenha);
         return ResponseEntity.ok("Senha redefinida com sucesso.");
+    }
+    @GetMapping("/test-auth")
+    public ResponseEntity<?> testAuth(Authentication auth) {
+        if (auth == null) {
+            return ResponseEntity.status(401).body("Usuário não autenticado");
+        }
+        return ResponseEntity.ok("Usuário autenticado: " + auth.getName());
     }
 }
 
