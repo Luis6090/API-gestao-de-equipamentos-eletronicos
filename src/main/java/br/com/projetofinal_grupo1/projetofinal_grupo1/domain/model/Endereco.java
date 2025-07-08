@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 public class Endereco {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String cep;
     private String logradouro;
     private String complemento;
