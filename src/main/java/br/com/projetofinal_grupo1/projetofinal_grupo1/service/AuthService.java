@@ -34,12 +34,30 @@ public class AuthService {
             throw new RuntimeException("Email já cadastrado");
         }
 
+        // Criar o usuário com e-mail ainda não confirmado
         Usuario usuario = new Usuario();
         usuario.setEmail(dto.getEmail());
         usuario.setSenha(passwordEncoder.encode(dto.getSenha()));
-        usuario.setEmailConfirmado(true); // ou false, se for fazer confirmação por e-mail
+        usuario.setEmailConfirmado(false); // ⚠️ Ainda não confirmado
 
+        // Gerar token de confirmação
+        String token = UUID.randomUUID().toString();
+        usuario.setTokenRecuperacao(token);
+        usuario.setTokenRecuperacaoValidade(LocalDateTime.now().plusHours(2));
+
+        // Salvar o usuário com o token
         usuarioRepository.save(usuario);
+
+        // Link para confirmação
+        String linkConfirmacao = "http://localhost:8080/usuarios/confirmar?token=" + token;
+
+        // Enviar o e-mail de confirmação
+        emailService.enviarEmailSimples(
+                usuario.getEmail(),
+                "Confirme seu e-mail",
+                "Clique no link para ativar sua conta: " + linkConfirmacao
+        );
+
     }
 
     public TokenResponseDTO login(LoginRequestDTO dto) {
