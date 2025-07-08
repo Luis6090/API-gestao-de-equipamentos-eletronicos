@@ -26,7 +26,7 @@ public class AuthController {
     @Operation(summary = "Registrar um novo usuário")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Usuário registrado com sucesso"),
-            @ApiResponse(responseCode = "400", description = "Email já cadastrado")
+            @ApiResponse(responseCode = "403", description = "Email já cadastrado")
     })
     @PostMapping("/register")
     public ResponseEntity<String> registrar(@RequestBody RegisterRequestDTO dto) {

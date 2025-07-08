@@ -19,10 +19,12 @@ public class Usuario implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
+    @Column(unique = true, nullable = false)
     private String email;
 
+    @Column(nullable = false)
     private String senha;
 
     private boolean emailConfirmado;
@@ -31,7 +33,7 @@ public class Usuario implements UserDetails {
 
     private LocalDateTime tokenRecuperacaoValidade;
 
-    // Implementação do UserDetails
+    // Métodos obrigatórios do UserDetails
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
