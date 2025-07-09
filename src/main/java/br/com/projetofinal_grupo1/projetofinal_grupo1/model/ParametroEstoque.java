@@ -1,0 +1,36 @@
+package br.com.projetofinal_grupo1.projetofinal_grupo1.model;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name = "parametros_sistema")
+public class ParametroEstoque {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_parametro")
+    private int idParametro;
+
+    @Column(name = "tempo_medio_reposicao", nullable = false)
+    private int tempoMedioReposicao; // em dias, por exemplo
+
+    @Column(name = "tempo_medio_consumo_estoque", nullable = false)
+    private int tempoMedioConsumoEstoque; // em dias, por exemplo
+
+    @Column(name = "tempo_medio_envio", nullable = false)
+    private int tempoMedioEnvio; // em dias, por exemplo
+
+    @Column(name = "taxa_media_equipamentos_defeituosos", nullable = false)
+    private double taxaMediaEquipamentosDefeituosos;
+
+    @Column(name = "estoque_minimo_seguranca", nullable = false)
+    private int estoqueMinimoSeguranca;
+}

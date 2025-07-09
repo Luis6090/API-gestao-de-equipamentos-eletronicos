@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;
 
-
 @Getter
 @Setter
 @NoArgsConstructor
@@ -17,31 +16,39 @@ public class Equipamento {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_equipamento")
     private int id;
-
-    @JsonProperty("especificacoes")
-    private String especificacoes;
-
-    @JsonProperty("numeroSerie")
-    private String numeroSerie;
-
-    @JsonProperty("marca")
-    private String marca;
-
-    @JsonProperty("modelo")
-    private String modelo;
-
-    @JsonProperty("dataAquisicao")
-    private LocalDate dataAquisicao;
-
-    @JsonProperty("mesesDeUso")
-    private int mesesDeUso;
-
-    @JsonProperty("tipoEquipamento")
-    private String tipoEquipamento;
 
     public void setId(int id) {
         this.id = id;
     }
+
+    @Column(name = "especificacoes")
+    @JsonProperty("especificacoes")
+    private String especificacoes;
+
+    @Column(name = "numero_serie", unique = true, nullable = false)
+    @JsonProperty("numeroSerie")
+    private String numeroSerie;
+
+    @Column(name = "marca")
+    @JsonProperty("marca")
+    private String marca;
+
+    @Column(name = "modelo")
+    @JsonProperty("modelo")
+    private String modelo;
+
+    @Column(name = "data_aquisicao")
+    @JsonProperty("dataAquisicao")
+    private LocalDate dataAquisicao;
+
+    @Column(name = "tempo_uso")
+    @JsonProperty("mesesDeUso")
+    private int tempoUso;
+
+    @ManyToOne
+    @JoinColumn(name = "id_tipo_equipamento", nullable = false)
+    private TipoEquipamento tipoEquipamento;
 
 }
