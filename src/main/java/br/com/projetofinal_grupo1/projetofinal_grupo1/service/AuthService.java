@@ -10,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -34,24 +35,24 @@ public class AuthService {
             throw new RuntimeException("Email já cadastrado");
         }
 
-        // Criar o usuário com e-mail ainda não confirmado
+
         Usuario usuario = new Usuario();
         usuario.setEmail(dto.getEmail());
         usuario.setSenha(passwordEncoder.encode(dto.getSenha()));
         usuario.setEmailConfirmado(false); // ⚠️ Ainda não confirmado
 
-        // Gerar token de confirmação
+
         String token = UUID.randomUUID().toString();
         usuario.setTokenRecuperacao(token);
         usuario.setTokenRecuperacaoValidade(LocalDateTime.now().plusHours(2));
 
-        // Salvar o usuário com o token
+
         usuarioRepository.save(usuario);
 
-        // Link para confirmação
+
         String linkConfirmacao = "http://localhost:8080/usuarios/confirmar?token=" + token;
 
-        // Enviar o e-mail de confirmação
+
         emailService.enviarEmailSimples(
                 usuario.getEmail(),
                 "Confirme seu e-mail",
@@ -73,8 +74,14 @@ public class AuthService {
             throw new RuntimeException("Email ou senha inválidos");
         }
 
-        String token = jwtUtil.gerarToken(usuario);
-        return new TokenResponseDTO(token);
+        String accessToken = jwtUtil.gerarToken(usuario);
+        String refreshToken = jwtUtil.gerarRefreshToken(usuario);
+
+        return new TokenResponseDTO(
+                accessToken,
+                refreshToken,
+                jwtUtil.getExpiracao(accessToken).toString()
+        );
     }
 
     public void solicitarRecuperacaoSenha(String email) {
@@ -107,5 +114,24 @@ public class AuthService {
         usuario.setTokenRecuperacao(null);
         usuario.setTokenRecuperacaoValidade(null);
         usuarioRepository.save(usuario);
+    }
+    public TokenResponseDTO refreshToken(String refreshHeader) {
+        String refreshToken = refreshHeader.replace("Bearer ", "");
+
+        if (!jwtUtil.validarToken(refreshToken)) {
+            throw new RuntimeException("Refresh token inválido");
+        }
+
+        String email = jwtUtil.getEmailDoToken(refreshToken);
+        Usuario usuario = usuarioRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+        String novoAccessToken = jwtUtil.gerarToken(usuario);
+
+        return new TokenResponseDTO(
+                novoAccessToken,
+                refreshToken, // Retorna o mesmo refresh
+                jwtUtil.getExpiracao(novoAccessToken).toString()
+        );
     }
 }

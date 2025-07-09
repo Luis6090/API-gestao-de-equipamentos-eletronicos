@@ -77,5 +77,15 @@ public class AuthController {
         }
         return ResponseEntity.ok("Usuário autenticado: " + auth.getName());
     }
+    @Operation(summary = "Renovar token JWT usando o refresh token")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Token renovado com sucesso"),
+            @ApiResponse(responseCode = "401", description = "Refresh token inválido ou expirado")
+    })
+    @PostMapping("/refresh")
+    public ResponseEntity<TokenResponseDTO> refreshToken(@RequestHeader("Authorization") String refreshToken) {
+        TokenResponseDTO response = authService.refreshToken(refreshToken);
+        return ResponseEntity.ok(response);
+    }
 }
 
