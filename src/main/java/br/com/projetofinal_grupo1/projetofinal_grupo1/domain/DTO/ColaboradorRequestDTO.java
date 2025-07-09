@@ -2,6 +2,8 @@ package br.com.projetofinal_grupo1.projetofinal_grupo1.domain.DTO;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.PastOrPresent;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,11 +25,14 @@ public class ColaboradorRequestDTO {
     @NotBlank
     private String cep;
     @NotNull
+    @Past
     private LocalDate data_aniversario;
     @NotNull
+    @PastOrPresent
     private LocalDate data_contratacao_inicio;
     @NotNull
+    @PastOrPresent
     private LocalDate data_contratacao_recisao;
-    @NotNull
+    @NotBlank
     private String especificacao_equipamento;
 }

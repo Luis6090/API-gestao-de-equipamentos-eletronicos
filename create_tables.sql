@@ -23,14 +23,33 @@ CREATE TABLE PARAMETROS_SISTEMA (
     estoque_minimo_seguranca INT NOT NULL
 );
 
+-- Tabela ENDEREÇO
+CREATE TABLE ENDERECO(
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    cep CHAR(8) NOT NULL,
+    logradouro VARCHAR(50) NOT NULL,
+    complemento TEXT NOT NULL,
+    unidade VARCHAR(255) NOT NULL,
+    bairro VARCHAR(30) NOT NULL,
+    localidade VARCHAR(255) NOT NULL,
+    uf CHAR(2) NOT NULL,
+    estado VARCHAR(30) NOT NULL,
+    regiao VARCHAR(20) NOT NULL,
+    ibge CHAR(7) NOT NULL,
+    gia CHAR(4) NOT NULL,
+    ddd CHAR(2) NOT NULL,
+    siafi CHAR(7) NOT NULL
+);
+
 -- Tabela COLABORADOR
 CREATE TABLE COLABORADOR (
     id_colaborador SERIAL PRIMARY KEY,
     nome VARCHAR(255) NOT NULL,
-    dados_pessoais TEXT,
-    endereco TEXT,
-    data_inicio_contrato DATE,
-    data_rescisao_contrato DATE,
+    cpf VARCHAR(13) NOT NULL,
+    cep CHAR(8) NOT NULL,
+    data_aniversario DATE NOT NULL,
+    data_inicio_contrato DATE NOT NULL,
+    data_rescisao_contrato DATE NOT NULL,
     especificacoes_equipamentos_necessarios TEXT,
     email_usuario VARCHAR(255) UNIQUE,
     FOREIGN KEY (email_usuario) REFERENCES USUARIO(email)

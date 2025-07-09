@@ -1,10 +1,16 @@
 package br.com.projetofinal_grupo1.projetofinal_grupo1.controller;
 
 import br.com.projetofinal_grupo1.projetofinal_grupo1.domain.DTO.ColaboradorRequestDTO;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.domain.DTO.ColaboradorResponseDTO;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.domain.DTO.ColaboradorUpdateDTO;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.domain.model.Colaborador;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.service.ColaboradorService;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController("/colaborador")
 public class ColaboradorController {
@@ -15,9 +21,27 @@ public class ColaboradorController {
         this.colaboradorService = colaboradorService;
     }
 
-    @PostMapping(path = "cadastrar")
-    public ResponseEntity<Void> cadastrarColaborador(ColaboradorRequestDTO colaboradorRequestDTO){
+    @PostMapping(path = "cadastrar-colaborador")
+    public ResponseEntity<Void> cadastrarColaborador(@RequestBody @Valid ColaboradorRequestDTO colaboradorRequestDTO){
         colaboradorService.registrarColaborador(colaboradorRequestDTO);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping(path = "imprimir-colaboradores")
+    public ResponseEntity<List<ColaboradorResponseDTO>> imprimir(){
+        List<ColaboradorResponseDTO> listaDeColaborador = colaboradorService.devolverTodosOsColaborador();
+        return ResponseEntity.status(HttpStatus.OK).body(listaDeColaborador);
+    }
+
+    @PatchMapping(path = "editar-colaborador/{id}")
+    public ResponseEntity<Void> editarColaborador (@PathVariable Long id, @RequestBody @Valid ColaboradorUpdateDTO colaboradorUpdateDTO){
+        colaboradorService.editarNomeEmailDataContratacaoDataRecisaoEspecificacaoEquipamentoDoColaborador(id, colaboradorUpdateDTO);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping(path = "deleta-colaborador/{id}")
+    public ResponseEntity<Void> deletarColaborador(@PathVariable Long id){
+        colaboradorService.deletarColaboradorPorId(id);
+        return ResponseEntity.noContent().build();
     }
 }

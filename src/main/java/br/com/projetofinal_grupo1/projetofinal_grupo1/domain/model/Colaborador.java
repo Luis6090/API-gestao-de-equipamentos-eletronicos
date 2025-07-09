@@ -1,15 +1,17 @@
 package br.com.projetofinal_grupo1.projetofinal_grupo1.domain.model;
 
 import br.com.projetofinal_grupo1.projetofinal_grupo1.domain.DTO.ColaboradorRequestDTO;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.domain.DTO.ColaboradorUpdateDTO;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
 @Getter
-@AllArgsConstructor
+@Setter
 @NoArgsConstructor
 @Entity
 @Table(name = "COLABORADOR")
@@ -27,8 +29,24 @@ public class Colaborador {
     private String equipamento_especificacao;
 
     public static Colaborador converterParaColaborador(ColaboradorRequestDTO colaboradorRequestDTO){
-        return new Colaborador(colaboradorRequestDTO.getCpf(),colaboradorRequestDTO.getNome(), colaboradorRequestDTO.getEmail(), colaboradorRequestDTO.getCep()
-                                , colaboradorRequestDTO.getData_aniversario(), colaboradorRequestDTO.getData_contratacao_inicio(), colaboradorRequestDTO.getData_contratacao_recisao()
-                                , colaboradorRequestDTO.getEspecificacao_equipamento());
+        Colaborador colaborador = new Colaborador();
+        colaborador.setNome(colaboradorRequestDTO.getNome());
+        colaborador.setCpf(colaboradorRequestDTO.getCpf());
+        colaborador.setEmail(colaboradorRequestDTO.getEmail());
+        colaborador.setCep(colaboradorRequestDTO.getCep());
+        colaborador.setData_aniversario(colaboradorRequestDTO.getData_aniversario());
+        colaborador.setData_contratacao_inicio(colaboradorRequestDTO.getData_contratacao_inicio());
+        colaborador.setData_contratacao_recisao(colaboradorRequestDTO.getData_contratacao_recisao());
+        colaborador.setEquipamento_especificacao(colaboradorRequestDTO.getEspecificacao_equipamento());
+
+        return colaborador;
+    }
+
+    public void atualizarColaborador(ColaboradorUpdateDTO colaboradorUpdateDTO){
+        setNome(colaboradorUpdateDTO.getNome());
+        setCep(colaboradorUpdateDTO.getCep());
+        setEmail(colaboradorUpdateDTO.getEmail());
+        setData_contratacao_inicio(colaboradorUpdateDTO.getDataContratacaoInicio());
+        setEquipamento_especificacao(colaboradorUpdateDTO.getEquipamentoEspecificacao());
     }
 }

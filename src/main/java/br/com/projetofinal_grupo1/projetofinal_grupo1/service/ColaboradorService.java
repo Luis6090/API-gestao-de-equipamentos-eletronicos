@@ -50,12 +50,15 @@ public class ColaboradorService {
         return listaDeColaboradoresResponseDTO;
     }
 
-    public ColaboradorResponseDTO atualizarNomeEmailDataContratacaoDataRecisaoEspecificacaoEquipamentoDoColaborador(ColaboradorUpdateDTO colaboradorUpdateDTO){
-        return null;
+    public void editarNomeEmailDataContratacaoDataRecisaoEspecificacaoEquipamentoDoColaborador(Long id, ColaboradorUpdateDTO colaboradorUpdateDTO){
+        Optional<Colaborador> colaborador = colaboradorRepository.findById(id);
+        if(colaborador.isPresent()) {
+            colaborador.get().atualizarColaborador(colaboradorUpdateDTO);
+        }
     }
 
-    public void deletarColaboradorPorCep(String cep){
-        Optional<Colaborador> colaboradorDemitido = colaboradorRepository.findById(cep);
+    public void deletarColaboradorPorId(Long id){
+        Optional<Colaborador> colaboradorDemitido = colaboradorRepository.findById(id);
         if(colaboradorDemitido.isPresent()){
             colaboradorRepository.delete(colaboradorDemitido.get());
         }
