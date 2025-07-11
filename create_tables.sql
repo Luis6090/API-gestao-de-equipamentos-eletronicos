@@ -23,9 +23,6 @@ CREATE TABLE PARAMETROS_SISTEMA (
     estoque_minimo_seguranca INT NOT NULL
 );
 
-
-
-
 -- Tabela COLABORADOR
 CREATE TABLE COLABORADOR (
     id_colaborador SERIAL PRIMARY KEY,

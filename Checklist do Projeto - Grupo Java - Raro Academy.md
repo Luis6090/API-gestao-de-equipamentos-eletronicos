@@ -22,14 +22,14 @@
 - [✅] Proteger rotas com Spring Security
 
 ## 👥 Etapa 4 - CRUD Colaboradores (Luis)
-- [ ] Criar entidade `Colaborador`
-- [ ] Integrar endereço com ViaCEP
-- [ ] Implementar CRUD completo
-- [ ] Associar equipamentos desejados
+- [✅] Criar entidade `Colaborador`
+- [✅] Integrar endereço com ViaCEP
+- [✅] Implementar CRUD completo
+- [✅] Associar equipamentos desejados
 
-## 💻 Etapa 5 - CRUD Equipamentos (João)
-- [ ] Criar entidade `Equipamento`
-- [ ] Implementar CRUD completo com número de série, marca, modelo, etc.
+## 💻 Etapa 5 - CRUD Equipamentos (Lara)
+- [✅] Criar entidade `Equipamento`
+- [✅] Implementar CRUD completo com número de série, marca, modelo, etc.
 
 ## 🔁 Etapa 6 - Entregas e Devoluções (João)
 - [ ] Criar entidade `EquipamentoColaborador`
@@ -37,9 +37,9 @@
 - [ ] Implementar registro de devoluções
 
 ## 📊 Etapa 7 - Parâmetros + Relatórios (Lara)
-- [ ] Criar entidade `ParametroEstoque`
-- [ ] Implementar CRUD com estoque mínimo, tempos médios, etc.
-- [ ] Criar endpoint de relatório de previsão de falta de equipamentos
+- [✅] Criar entidade `ParametroEstoque`
+- [✅] Implementar CRUD com estoque mínimo, tempos médios, etc.
+- [✅] Criar endpoint de relatório de previsão de falta de equipamentos
 
 ## 🔔 Etapa 8 - Alertas (Lara)
 - [ ] Disparar e-mail quando estoque estiver abaixo do mínimo de segurança
