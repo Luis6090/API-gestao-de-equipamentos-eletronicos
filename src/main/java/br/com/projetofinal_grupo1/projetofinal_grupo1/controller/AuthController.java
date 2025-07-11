@@ -11,6 +11,7 @@ import br.com.projetofinal_grupo1.projetofinal_grupo1.domain.DTO.TokenResponseDT
 import br.com.projetofinal_grupo1.projetofinal_grupo1.service.AuthService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.core.Authentication;
 
 @SecurityRequirement(name = "BearerAuth")
 @RestController
@@ -25,7 +26,7 @@ public class AuthController {
     @Operation(summary = "Registrar um novo usuário")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Usuário registrado com sucesso"),
-            @ApiResponse(responseCode = "400", description = "Email já cadastrado")
+            @ApiResponse(responseCode = "403", description = "Email já cadastrado")
     })
     @PostMapping("/register")
     public ResponseEntity<String> registrar(@RequestBody RegisterRequestDTO dto) {
@@ -68,6 +69,23 @@ public class AuthController {
     ) {
         authService.redefinirSenha(token, novaSenha);
         return ResponseEntity.ok("Senha redefinida com sucesso.");
+    }
+    @GetMapping("/test-auth")
+    public ResponseEntity<?> testAuth(Authentication auth) {
+        if (auth == null) {
+            return ResponseEntity.status(401).body("Usuário não autenticado");
+        }
+        return ResponseEntity.ok("Usuário autenticado: " + auth.getName());
+    }
+    @Operation(summary = "Renovar token JWT usando o refresh token")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Token renovado com sucesso"),
+            @ApiResponse(responseCode = "401", description = "Refresh token inválido ou expirado")
+    })
+    @PostMapping("/refresh")
+    public ResponseEntity<TokenResponseDTO> refreshToken(@RequestHeader("Authorization") String refreshToken) {
+        TokenResponseDTO response = authService.refreshToken(refreshToken);
+        return ResponseEntity.ok(response);
     }
 }
 

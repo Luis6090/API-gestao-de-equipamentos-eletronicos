@@ -37,16 +37,20 @@ public class JwtFilter extends OncePerRequestFilter {
             try {
                 String email = jwtUtil.getEmailDoToken(token);
 
-                usuarioRepository.findByEmail(email).ifPresent(usuario -> {
-                    UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
-                            usuario, null, null
-                    );
-                    auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                    SecurityContextHolder.getContext().setAuthentication(auth);
-                });
+                if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                    usuarioRepository.findByEmail(email).ifPresent(usuario -> {
+                        UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
+                                usuario,
+                                null,
+                                usuario.getAuthorities()
+                        );
+                        auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                        SecurityContextHolder.getContext().setAuthentication(auth);
+                    });
+                }
 
             } catch (JWTVerificationException ex) {
-                // Token inválido - ignora e segue sem autenticar
+                System.out.println("❌ Token inválido: " + ex.getMessage());
             }
         }
 
