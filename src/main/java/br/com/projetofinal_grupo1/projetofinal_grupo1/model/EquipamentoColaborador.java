@@ -11,9 +11,8 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name ="emprestimo_devolucao")
-@Getter
-@Setter
-@ToString
+@Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class EquipamentoColaborador {
