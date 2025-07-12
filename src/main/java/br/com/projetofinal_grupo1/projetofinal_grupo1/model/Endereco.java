@@ -1,5 +1,6 @@
 package br.com.projetofinal_grupo1.projetofinal_grupo1.model;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
 public class Endereco {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

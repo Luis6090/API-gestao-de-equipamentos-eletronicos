@@ -3,6 +3,7 @@ package br.com.projetofinal_grupo1.projetofinal_grupo1.model;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.ColaboradorRequestDTO;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.ColaboradorUpdateDTO;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

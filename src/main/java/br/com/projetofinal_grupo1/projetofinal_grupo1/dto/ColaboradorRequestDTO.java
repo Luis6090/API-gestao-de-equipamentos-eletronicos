@@ -1,5 +1,6 @@
 package br.com.projetofinal_grupo1.projetofinal_grupo1.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
@@ -24,15 +25,21 @@ public class ColaboradorRequestDTO {
     private String email;
     @NotBlank
     private String cep;
+
     @NotNull
     @Past
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private LocalDate data_aniversario;
+
     @NotNull
     @PastOrPresent
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private LocalDate data_contratacao_inicio;
+
     @NotNull
-    @PastOrPresent
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private LocalDate data_contratacao_recisao;
+
     @NotBlank
     private String especificacao_equipamento;
 }

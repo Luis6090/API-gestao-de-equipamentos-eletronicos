@@ -4,6 +4,7 @@ import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.ColaboradorRequestDTO;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.ColaboradorResponseDTO;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.ColaboradorUpdateDTO;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.service.ColaboradorService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +12,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController("/colaborador")
+@SecurityRequirement(name = "BearerAuth")
+@RestController
+@RequestMapping("/colaborador")
 public class ColaboradorController {
 
     private final ColaboradorService colaboradorService;
