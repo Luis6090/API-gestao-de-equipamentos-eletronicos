@@ -1,11 +1,13 @@
 package br.com.projetofinal_grupo1.projetofinal_grupo1.controller;
 
 import br.com.projetofinal_grupo1.projetofinal_grupo1.service.EmailService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+@SecurityRequirement(name = "bearerAuth")
 @RestController
 @RequestMapping("/email")
 public class EmailController {

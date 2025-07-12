@@ -1,19 +1,31 @@
 package br.com.projetofinal_grupo1.projetofinal_grupo1.service;
 
 import br.com.projetofinal_grupo1.projetofinal_grupo1.model.Equipamento;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.model.Estoque;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.model.TipoEquipamento;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.repository.EquipamentoRepository;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.repository.EstoqueRepository;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.repository.TipoEquipamentoRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EquipamentoService {
 
     private final EquipamentoRepository equipamentoRepository;
+    private final EstoqueRepository estoqueRepository;
+    private final TipoEquipamentoRepository tipoEquipamentoRepository;
 
-    public EquipamentoService(EquipamentoRepository equipamentoRepository) {
+    public EquipamentoService(EquipamentoRepository equipamentoRepository,
+                              EstoqueRepository estoqueRepository,
+                              TipoEquipamentoRepository tipoEquipamentoRepository) {
         this.equipamentoRepository = equipamentoRepository;
+        this.estoqueRepository = estoqueRepository;
+        this.tipoEquipamentoRepository = tipoEquipamentoRepository;
     }
 
     public List<Equipamento> listarTodos() {
@@ -26,25 +38,47 @@ public class EquipamentoService {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @Transactional
     public Equipamento salvar(Equipamento equipamento) {
+        // Busca o tipo de equipamento
+        TipoEquipamento tipoEquipamento = tipoEquipamentoRepository.findById(equipamento.getTipoEquipamento().getId())
+                .orElseThrow(() -> new RuntimeException("Tipo de equipamento não encontrado com o ID: " + equipamento.getTipoEquipamento().getId()));
+
+        equipamento.setTipoEquipamento(tipoEquipamento);
+
+        // Criação do estoque vinculado ao equipamento
+        Estoque estoque = new Estoque();
+        estoque.setQuantidadeDisponivel(1);
+        estoque.setQuantidadeEmUso(0);
+        estoque.setQuantidadeDefeituosa(0);
+        estoque.setEquipamento(equipamento); // vincula o equipamento no estoque
+
+        equipamento.setEstoque(estoque); // vincula o estoque no equipamento
+
+        // Salva o equipamento com estoque via cascade
         return equipamentoRepository.save(equipamento);
     }
 
+    @Transactional
     public ResponseEntity<Equipamento> atualizar(int id, Equipamento equipamento) {
         return equipamentoRepository.findById(id)
-                .map(e -> {
+                .map(existing -> {
                     equipamento.setId(id);
+                    equipamento.setEstoque(existing.getEstoque()); // preserva o estoque vinculado
                     return ResponseEntity.ok(equipamentoRepository.save(equipamento));
                 })
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @Transactional
     public ResponseEntity<Void> deletar(int id) {
-        if (equipamentoRepository.existsById(id)) {
-            equipamentoRepository.deleteById(id);
+        Optional<Equipamento> equipamentoOpt = equipamentoRepository.findById(id);
+
+        if (equipamentoOpt.isPresent()) {
+            equipamentoRepository.delete(equipamentoOpt.get());
             return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
         }
+
+        return ResponseEntity.notFound().build();
     }
 }

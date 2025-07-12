@@ -1,7 +1,8 @@
 package br.com.projetofinal_grupo1.projetofinal_grupo1.config;
 
+
 import br.com.projetofinal_grupo1.projetofinal_grupo1.security.JwtFilter;
-import br.com.projetofinal_grupo1.projetofinal_grupo1.service.UsuarioDetailsService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,17 +15,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+@RequiredArgsConstructor
 @Configuration
 @EnableWebSecurity
 public class ConfigSeguranca {
 
     private final JwtFilter jwtFilter;
-    private final UsuarioDetailsService usuarioDetailsService;
-
-    public ConfigSeguranca(JwtFilter jwtFilter, UsuarioDetailsService usuarioDetailsService ) {
-        this.jwtFilter = jwtFilter;
-        this.usuarioDetailsService = usuarioDetailsService;
-    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -32,27 +28,30 @@ public class ConfigSeguranca {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http ) throws Exception {
-        http
-                .csrf(csrf -> csrf.disable( ))
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**").permitAll()
-                        // Permite acesso público ao Swagger UI
-                        .requestMatchers(
-                                "/v3/api-docs/**",
-                                "/swagger-ui.html",
-                                "/swagger-ui/**"
-                        ).permitAll()
-                        .anyRequest().authenticated() // Todas as outras requisições exigem JWT
-                )
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-
-        return http.build( );
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+        return config.getAuthenticationManager();
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
-        return config.getAuthenticationManager();
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        return http
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/usuarios/confirmar").permitAll()
+                        .requestMatchers(org.springframework.http.HttpMethod.POST, "/usuarios").permitAll()
+                        .requestMatchers(
+                                "/swagger-ui/**",
+                                "/swagger-ui.html",
+                                "/v3/api-docs/**",
+                                "/swagger-resources/**",
+                                "/webjars/**",
+                                "/error"
+                        ).permitAll()
+                        .anyRequest().authenticated()
+                )
+                .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+                .build();
     }
 }

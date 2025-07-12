@@ -1,10 +1,8 @@
 package br.com.projetofinal_grupo1.projetofinal_grupo1.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
@@ -15,20 +13,25 @@ import lombok.Setter;
 public class Estoque {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_estoque")
-    private int idEstoque;
+    private int id;
 
-    @OneToOne
-    @JoinColumn(name = "id_equipamento", nullable = false)
-    @MapsId
-    private Equipamento equipamento;
-
-    @Column(name = "quantidade_disponivel", nullable = false)
+    @Column(name = "quantidade_disponivel")
     private int quantidadeDisponivel;
 
-    @Column(name = "quantidade_em_uso", nullable = false)
+    @Column(name = "quantidade_em_uso")
     private int quantidadeEmUso;
 
-    @Column(name = "quantidade_defeituosa", nullable = false)
+    @Column(name = "quantidade_defeituosa")
     private int quantidadeDefeituosa;
+
+    @JsonBackReference
+    @OneToOne
+    @JoinColumn(name = "id_equipamento", nullable = false, unique = true)
+    private Equipamento equipamento;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "id_tipo_equipamento")
+    private TipoEquipamento tipoEquipamento;
 }

@@ -8,6 +8,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnore; // Importação adicionada
 
 @Entity
 @Getter
@@ -25,6 +26,7 @@ public class Usuario implements UserDetails {
     private String email;
 
     @Column(nullable = false)
+    @JsonIgnore // <--- Adicionado
     private String senha;
 
     private boolean emailConfirmado;
@@ -32,6 +34,8 @@ public class Usuario implements UserDetails {
     private String tokenRecuperacao;
 
     private LocalDateTime tokenRecuperacaoValidade;
+
+    private String tokenConfirmacao;
 
     // Métodos obrigatórios do UserDetails
 

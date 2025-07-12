@@ -47,7 +47,7 @@ public class ParametroEstoqueService {
         return parametro;
     }
 
-    // Operações Create, Read, Update, Delete
+
     @Transactional
     public ParametroEstoqueResponseDTO criarParametro(ParametroEstoqueRequestDTO dto) {
         ParametroEstoque parametro = toEntity(dto);
@@ -91,15 +91,15 @@ public class ParametroEstoqueService {
         parametroEstoqueRepository.deleteById(id);
     }
 
-     @Transactional(readOnly = true)
+    @Transactional(readOnly = true)
     public Optional<ParametroEstoque> getLatestParametroEstoque() {
-       return parametroEstoqueRepository.findAll().stream()
+        return parametroEstoqueRepository.findAll().stream()
                 .max((p1, p2) -> Integer.compare(p1.getIdParametro(), p2.getIdParametro()));
     }
 
     @Transactional(readOnly = true)
     public List<PrevisaoFaltaResponseDTO> gerarRelatorioPrevisaoFalta() {
-        ParametroEstoque parametros = (ParametroEstoque) parametroEstoqueRepository.getLatestParametroEstoque()
+        ParametroEstoque parametros = parametroEstoqueRepository.getLatestParametroEstoque()
                 .orElseThrow(() -> new RuntimeException("Parâmetros de estoque não configurados."));
 
         List<Estoque> todosEstoques = estoqueRepository.findAll();
@@ -108,6 +108,10 @@ public class ParametroEstoqueService {
         double consumoDiarioBase = (double) parametros.getTempoMedioConsumoEstoque();
 
         for (Estoque estoque : todosEstoques) {
+            if (estoque.getTipoEquipamento() == null) {
+                System.out.println("Estoque com ID " + estoque.getId() + " não possui TipoEquipamento associado. Ignorando no relatório.");
+                continue;
+            }
 
             double consumoDiarioEstimado = 0;
             if (consumoDiarioBase > 0) {
@@ -124,9 +128,9 @@ public class ParametroEstoqueService {
             String mensagemAlerta = emRiscoDeFalta ? "ATENÇÃO: Em risco de falta!" : "Estoque suficiente.";
 
             relatorio.add(PrevisaoFaltaResponseDTO.builder()
-                    .idEquipamento(estoque.getEquipamento().getId())
-                    .numeroSerieEquipamento(estoque.getEquipamento().getNumeroSerie())
-                    .tipoEquipamento(estoque.getEquipamento().getTipoEquipamento() != null ? estoque.getEquipamento().getTipoEquipamento().getNomeTipo() : "N/A")
+
+                    .idTipoEquipamento(estoque.getTipoEquipamento().getId())
+                    .nomeTipoEquipamento(estoque.getTipoEquipamento().getNomeTipo())
                     .quantidadeDisponivelAtual(estoque.getQuantidadeDisponivel())
                     .quantidadeEmUsoAtual(estoque.getQuantidadeEmUso())
                     .quantidadeDefeituosaAtual(estoque.getQuantidadeDefeituosa())

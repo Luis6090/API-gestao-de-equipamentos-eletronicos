@@ -1,9 +1,10 @@
 package br.com.projetofinal_grupo1.projetofinal_grupo1.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;
+
 
 @Getter
 @Setter
@@ -19,36 +20,29 @@ public class Equipamento {
     @Column(name = "id_equipamento")
     private int id;
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     @Column(name = "especificacoes")
-    @JsonProperty("especificacoes")
     private String especificacoes;
 
     @Column(name = "numero_serie", unique = true, nullable = false)
-    @JsonProperty("numeroSerie")
     private String numeroSerie;
 
     @Column(name = "marca")
-    @JsonProperty("marca")
     private String marca;
 
     @Column(name = "modelo")
-    @JsonProperty("modelo")
     private String modelo;
 
     @Column(name = "data_aquisicao")
-    @JsonProperty("dataAquisicao")
     private LocalDate dataAquisicao;
 
     @Column(name = "tempo_uso")
-    @JsonProperty("mesesDeUso")
     private int tempoUso;
 
     @ManyToOne
     @JoinColumn(name = "id_tipo_equipamento", nullable = false)
     private TipoEquipamento tipoEquipamento;
 
+    @JsonManagedReference
+    @OneToOne(mappedBy = "equipamento", cascade = CascadeType.ALL)
+    private Estoque estoque;
 }
