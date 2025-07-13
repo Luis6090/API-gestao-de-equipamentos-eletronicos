@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,9 +16,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
+@Tag(name = "Parâmetros do estoque", description = "Define os parametros de estoque (tempo de reposição, consumo, envio, taxa de equipamentos defeituosos e estoque minimo de segurança).")
+@SecurityRequirement(name = "bearerAuth")
 @RestController
 @RequestMapping("/parametros-estoque")
-@SecurityRequirement(name = "BearerAuth")
 public class ParametroEstoqueController {
 
     private final ParametroEstoqueService parametroEstoqueService;

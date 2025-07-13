@@ -41,7 +41,11 @@
 - [ ] Implementar CRUD com estoque mínimo, tempos médios, etc.
 - [ ] Criar endpoint de relatório de previsão de falta de equipamentos
 
-## 🔔 Etapa 8 - Alertas (Lara)
+## 💻 Etapa 7.5 - Alertas (Rodrigo)
+- [ ] Criar o CRUD tipo_Equipamento
+
+## 🔔 Etapa 8 - Alertas (Rodrigo)
+- [ ] Criar A entidade Alerta
 - [ ] Disparar e-mail quando estoque estiver abaixo do mínimo de segurança
 
 ## 🧪 Etapa 9 - Testes Unitários (Rodrigo)
