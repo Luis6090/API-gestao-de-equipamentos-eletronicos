@@ -1,4 +1,4 @@
-package br.com.projetofinal_grupo1.projetofinal_grupo1.dto;
+package br.com.projetofinal_grupo1.projetofinal_grupo1.DTO;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;

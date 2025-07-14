@@ -1,4 +1,4 @@
-package br.com.projetofinal_grupo1.projetofinal_grupo1.domain.DTO;
+package br.com.projetofinal_grupo1.projetofinal_grupo1.DTO;
 
 import lombok.*;
 

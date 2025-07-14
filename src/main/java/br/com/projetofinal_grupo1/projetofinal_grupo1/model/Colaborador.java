@@ -1,9 +1,8 @@
-package br.com.projetofinal_grupo1.projetofinal_grupo1.domain.model;
+package br.com.projetofinal_grupo1.projetofinal_grupo1.model;
 
-import br.com.projetofinal_grupo1.projetofinal_grupo1.domain.DTO.ColaboradorRequestDTO;
-import br.com.projetofinal_grupo1.projetofinal_grupo1.domain.DTO.ColaboradorUpdateDTO;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.DTO.ColaboradorRequestDTO;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.DTO.ColaboradorUpdateDTO;
 import jakarta.persistence.*;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,7 +13,7 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "COLABORADOR")
+@Table(name = "colaborador")
 public class Colaborador {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,6 +26,10 @@ public class Colaborador {
     private LocalDate data_contratacao_inicio;
     private LocalDate data_contratacao_recisao;
     private String equipamento_especificacao;
+
+    @OneToOne(mappedBy = "colaborador", cascade = CascadeType.ALL, optional = false)
+    @PrimaryKeyJoinColumn
+    private Endereco enderco;
 
     public static Colaborador converterParaColaborador(ColaboradorRequestDTO colaboradorRequestDTO){
         Colaborador colaborador = new Colaborador();

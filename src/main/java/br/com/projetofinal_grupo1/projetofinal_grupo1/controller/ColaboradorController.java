@@ -1,10 +1,10 @@
 package br.com.projetofinal_grupo1.projetofinal_grupo1.controller;
 
-import br.com.projetofinal_grupo1.projetofinal_grupo1.domain.DTO.ColaboradorRequestDTO;
-import br.com.projetofinal_grupo1.projetofinal_grupo1.domain.DTO.ColaboradorResponseDTO;
-import br.com.projetofinal_grupo1.projetofinal_grupo1.domain.DTO.ColaboradorUpdateDTO;
-import br.com.projetofinal_grupo1.projetofinal_grupo1.domain.model.Colaborador;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.DTO.ColaboradorRequestDTO;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.DTO.ColaboradorResponseDTO;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.DTO.ColaboradorUpdateDTO;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.service.ColaboradorService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@SecurityRequirement(name = "BearerAuth")
 @RestController("/colaborador")
 public class ColaboradorController {
 

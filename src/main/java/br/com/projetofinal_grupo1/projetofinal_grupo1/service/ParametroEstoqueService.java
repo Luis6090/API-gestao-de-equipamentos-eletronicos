@@ -1,8 +1,8 @@
 package br.com.projetofinal_grupo1.projetofinal_grupo1.service;
 
-import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.ParametroEstoqueRequestDTO;
-import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.ParametroEstoqueResponseDTO;
-import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.PrevisaoFaltaResponseDTO;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.DTO.ParametroEstoqueRequestDTO;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.DTO.ParametroEstoqueResponseDTO;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.DTO.PrevisaoFaltaResponseDTO;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.model.Estoque;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.model.ParametroEstoque;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.repository.EstoqueRepository;
@@ -56,11 +56,13 @@ public class ParametroEstoqueService {
     }
 
     @Transactional(readOnly = true)
-    public Optional<ParametroEstoqueResponseDTO> buscarParametroPorId(int id) {
+    public ParametroEstoqueResponseDTO buscarParametroPorId(int id) {
         return parametroEstoqueRepository.findById(id)
-                .map(this::toResponseDTO);
+                .map(this::toResponseDTO)
+                .get();
     }
 
+    //Ver com a Nanda se isso pode ser feito
     @Transactional(readOnly = true)
     public List<ParametroEstoqueResponseDTO> listarTodosParametros() {
         return parametroEstoqueRepository.findAll().stream()

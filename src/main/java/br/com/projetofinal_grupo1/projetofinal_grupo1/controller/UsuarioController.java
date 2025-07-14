@@ -3,8 +3,8 @@ package br.com.projetofinal_grupo1.projetofinal_grupo1.controller;
 
 import br.com.projetofinal_grupo1.projetofinal_grupo1.model.Usuario;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.repository.UsuarioRepository;
-import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.UsuarioCriacaoDTO;
-import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.UsuarioAtualizacaoDTO;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.DTO.UsuarioCriacaoDTO;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.DTO.UsuarioAtualizacaoDTO;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

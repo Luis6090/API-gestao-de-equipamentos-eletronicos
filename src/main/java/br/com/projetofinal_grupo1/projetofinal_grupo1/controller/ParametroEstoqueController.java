@@ -1,8 +1,8 @@
 package br.com.projetofinal_grupo1.projetofinal_grupo1.controller;
 
-import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.ParametroEstoqueRequestDTO;
-import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.ParametroEstoqueResponseDTO;
-import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.PrevisaoFaltaResponseDTO;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.DTO.ParametroEstoqueRequestDTO;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.DTO.ParametroEstoqueResponseDTO;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.DTO.PrevisaoFaltaResponseDTO;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.service.ParametroEstoqueService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -45,9 +45,12 @@ public class ParametroEstoqueController {
     })
     @GetMapping("/{id}")
     public ResponseEntity<ParametroEstoqueResponseDTO> buscarParametroPorId(@PathVariable int id) {
-        return parametroEstoqueService.buscarParametroPorId(id)
-                .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(parametroEstoqueService.buscarParametroPorId(id));
+        }catch(Exception e){
+            System.out.println("Parâmetro não encontrado");
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @Operation(summary = "Cria um novo parâmetro de estoque")

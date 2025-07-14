@@ -1,4 +1,4 @@
-package br.com.projetofinal_grupo1.projetofinal_grupo1.dto;
+package br.com.projetofinal_grupo1.projetofinal_grupo1.DTO;
 
 import lombok.Builder;
 import lombok.Getter;

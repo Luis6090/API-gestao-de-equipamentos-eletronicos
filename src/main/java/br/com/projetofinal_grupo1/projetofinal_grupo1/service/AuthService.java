@@ -1,16 +1,15 @@
 package br.com.projetofinal_grupo1.projetofinal_grupo1.service;
 
-import br.com.projetofinal_grupo1.projetofinal_grupo1.domain.DTO.LoginRequestDTO;
-import br.com.projetofinal_grupo1.projetofinal_grupo1.domain.DTO.RegisterRequestDTO;
-import br.com.projetofinal_grupo1.projetofinal_grupo1.domain.DTO.TokenResponseDTO;
-import br.com.projetofinal_grupo1.projetofinal_grupo1.domain.model.Usuario;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.DTO.LoginRequestDTO;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.DTO.RegisterRequestDTO;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.DTO.TokenResponseDTO;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.model.Usuario;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.repository.UsuarioRepository;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.security.JwtUtil;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.Optional;
 import java.util.UUID;
 

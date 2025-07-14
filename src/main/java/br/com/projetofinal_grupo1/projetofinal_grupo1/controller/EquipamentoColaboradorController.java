@@ -1,6 +1,5 @@
 package br.com.projetofinal_grupo1.projetofinal_grupo1.controller;
 
-import br.com.projetofinal_grupo1.projetofinal_grupo1.model.Equipamento;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.model.EquipamentoColaborador;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.service.EquipamentoColaboradorService;
 import io.swagger.v3.oas.annotations.Operation;

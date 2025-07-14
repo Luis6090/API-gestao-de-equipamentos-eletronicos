@@ -1,11 +1,10 @@
-package br.com.projetofinal_grupo1.projetofinal_grupo1.domain.DTO;
+package br.com.projetofinal_grupo1.projetofinal_grupo1.DTO;
 
-import br.com.projetofinal_grupo1.projetofinal_grupo1.domain.model.Colaborador;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.model.Colaborador;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Getter
 @AllArgsConstructor

@@ -1,4 +1,4 @@
-package br.com.projetofinal_grupo1.projetofinal_grupo1.domain.model;
+package br.com.projetofinal_grupo1.projetofinal_grupo1.model;
 
 import jakarta.persistence.*;
 import lombok.*;
