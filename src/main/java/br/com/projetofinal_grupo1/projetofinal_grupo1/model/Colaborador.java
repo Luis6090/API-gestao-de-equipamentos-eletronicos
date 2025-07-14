@@ -3,6 +3,7 @@ package br.com.projetofinal_grupo1.projetofinal_grupo1.model;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.DTO.ColaboradorRequestDTO;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.DTO.ColaboradorUpdateDTO;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,6 +12,7 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
+@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "colaborador")

@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "endereco")
 public class Endereco {
     @Id
+    @Column(name = "colaborador_id_fk")
     private Long id;
     private String cep;
     private String logradouro;
@@ -29,5 +30,6 @@ public class Endereco {
 
     @OneToOne
     @MapsId
+    @JoinColumn(name = "colaborador_id_fk")
     private Colaborador colaborador;
 }
