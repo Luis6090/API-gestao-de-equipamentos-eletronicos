@@ -1,4 +1,4 @@
-package br.com.projetofinal_grupo1.projetofinal_grupo1.DTO;
+package br.com.projetofinal_grupo1.projetofinal_grupo1.dto;
 
 import br.com.projetofinal_grupo1.projetofinal_grupo1.model.Colaborador;
 import lombok.AllArgsConstructor;

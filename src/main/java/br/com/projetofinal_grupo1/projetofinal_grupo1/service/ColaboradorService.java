@@ -1,8 +1,8 @@
 package br.com.projetofinal_grupo1.projetofinal_grupo1.service;
 
-import br.com.projetofinal_grupo1.projetofinal_grupo1.DTO.ColaboradorRequestDTO;
-import br.com.projetofinal_grupo1.projetofinal_grupo1.DTO.ColaboradorResponseDTO;
-import br.com.projetofinal_grupo1.projetofinal_grupo1.DTO.ColaboradorUpdateDTO;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.ColaboradorRequestDTO;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.ColaboradorResponseDTO;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.ColaboradorUpdateDTO;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.model.Colaborador;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.model.Endereco;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.feign.EnderecoClient;

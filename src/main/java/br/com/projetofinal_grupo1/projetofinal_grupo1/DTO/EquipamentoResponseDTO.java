@@ -27,9 +27,12 @@ public class EquipamentoResponseDTO {
     @JsonProperty("dataAquisicao")
     private LocalDate dataAquisicao;
 
-    @JsonProperty("mesesDeUso")
-    private int mesesDeUso;
+    @JsonProperty("tempoUso")
+    private int tempoUso;
 
-    @JsonProperty("tipoEquipamento")
-    private String tipoEquipamento; // Nome do tipo de equipamento
+    @JsonProperty("id_tipo_equipamento")
+    private int idTipoEquipamento;
+
+    // Novo campo opcional, para evitar referência cíclica
+    private EstoqueResumoDTO estoque;
 }

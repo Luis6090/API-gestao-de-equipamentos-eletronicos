@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @Component
-@FeignClient(name = "enderecoCliente", url = "https://viacep.com.br/ws")
+@FeignClient(name = "endereco-client", url = "http://viacep.com.br/ws")
 public interface EnderecoClient {
 
     @GetMapping("{cep}/json")

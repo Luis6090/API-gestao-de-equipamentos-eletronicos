@@ -1,6 +1,9 @@
 package br.com.projetofinal_grupo1.projetofinal_grupo1.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,10 +12,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "endereco")
 public class Endereco {
     @Id
-    @Column(name = "colaborador_id_fk")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String cep;
     private String logradouro;
@@ -27,9 +29,4 @@ public class Endereco {
     private String gia;
     private String ddd;
     private String siafi;
-
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "colaborador_id_fk")
-    private Colaborador colaborador;
 }

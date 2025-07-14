@@ -1,16 +1,15 @@
 package br.com.projetofinal_grupo1.projetofinal_grupo1.DTO;
 
 import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
-@Builder // Pro PrametroEstoqueService
+@Data
+@Builder
 public class PrevisaoFaltaResponseDTO {
-    private int idEquipamento;
-    private String numeroSerieEquipamento;
-    private String tipoEquipamento;
+
+    private int idTipoEquipamento;
+    private String nomeTipoEquipamento;
+
     private int quantidadeDisponivelAtual;
     private int quantidadeEmUsoAtual;
     private int quantidadeDefeituosaAtual;

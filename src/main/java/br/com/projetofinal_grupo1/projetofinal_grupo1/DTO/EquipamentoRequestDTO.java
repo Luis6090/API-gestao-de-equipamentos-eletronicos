@@ -15,31 +15,25 @@ import java.time.LocalDate;
 public class EquipamentoRequestDTO {
 
     @NotBlank(message = "Especificações são obrigatórias")
-    @JsonProperty("especificacoes")
     private String especificacoes;
 
     @NotBlank(message = "Número de série é obrigatório")
-    @JsonProperty("numeroSerie")
     private String numeroSerie;
 
     @NotBlank(message = "Marca é obrigatória")
-    @JsonProperty("marca")
     private String marca;
 
     @NotBlank(message = "Modelo é obrigatório")
-    @JsonProperty("modelo")
     private String modelo;
 
     @NotNull(message = "Data de aquisição é obrigatória")
     @PastOrPresent(message = "Data de aquisição não pode ser no futuro")
-    @JsonProperty("dataAquisicao")
     private LocalDate dataAquisicao;
 
-    @PositiveOrZero(message = "Meses de uso não pode ser negativo")
-    @JsonProperty("mesesDeUso")
-    private int mesesDeUso;
+    @PositiveOrZero(message = "Tempo de uso não pode ser negativo")
+    private int tempoUso;
 
-    @NotBlank(message = "Tipo de equipamento é obrigatório")
-    @JsonProperty("tipoEquipamento")
-    private String tipoEquipamento;
+    @NotNull(message = "ID do tipo de equipamento é obrigatório")
+    @JsonProperty("id_tipo_equipamento")
+    private Integer idTipoEquipamento;
 }
