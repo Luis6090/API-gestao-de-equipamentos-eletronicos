@@ -1,6 +1,6 @@
 package br.com.projetofinal_grupo1.projetofinal_grupo1.controller;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.*;
-import br.com.projetofinal_grupo1.projetofinal_grupo1.service.EquipamentoColaboradorService;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.service.EquipamentoToColaboradorService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -16,16 +16,16 @@ import java.util.List;
 @SecurityRequirement(name = "BearerAuth")
 @RestController
 @RequestMapping("/api/emprestimos")
-public class EquipamentoColaboradorController {
+public class EquipamentoToColaboradorController {
 
     @Autowired
-    private EquipamentoColaboradorService equipamentoColaboradorService;
+    private EquipamentoToColaboradorService equipamentoToColaboradorService;
 
     @Operation(summary = "Listar todos os envios")
     @GetMapping
-    public List<EquipamentoColaboradorResponseDTO> listar(){
+    public List<EquipamentoToColaboradorResponseDTO> listar(){
 
-        return equipamentoColaboradorService.listarTodos();
+        return equipamentoToColaboradorService.listarTodos();
     }
 
     @Operation(summary = "Buscar envios por ID")
@@ -34,15 +34,15 @@ public class EquipamentoColaboradorController {
             @ApiResponse(responseCode = "404", description = "Envio não encontrado")
     })
     @GetMapping("/{id}")
-    public ResponseEntity<EquipamentoColaboradorResponseDTO> buscarPorId(@PathVariable int id) {
-        return equipamentoColaboradorService.buscarPorId(id);
+    public ResponseEntity<EquipamentoToColaboradorResponseDTO> buscarPorId(@PathVariable int id) {
+        return equipamentoToColaboradorService.buscarPorId(id);
     }
 
     @Operation(summary = "Cadastrar novo envio")
     @PostMapping
-    public ResponseEntity<EquipamentoColaboradorResponseDTO> criar(
-            @RequestBody @Valid EquipamentoColaboradorRequestDTO dto) {
-        return equipamentoColaboradorService.salvar(dto);
+    public ResponseEntity<EquipamentoToColaboradorResponseDTO> criar(
+            @RequestBody @Valid EquipamentoToColaboradorRequestDTO dto) {
+        return equipamentoToColaboradorService.salvar(dto);
     }
 
     @Operation(summary = "Atualizar envio existente")
@@ -51,10 +51,10 @@ public class EquipamentoColaboradorController {
             @ApiResponse(responseCode = "404", description = "Envio não encontrado")
     })
     @PutMapping("/{id}")
-    public ResponseEntity<EquipamentoColaboradorResponseDTO> atualizar(
+    public ResponseEntity<EquipamentoToColaboradorResponseDTO> atualizar(
             @PathVariable Integer id,
-            @RequestBody @Valid EquipamentoColaboradorRequestDTO dto) {
-        return equipamentoColaboradorService.atualizar(id, dto);
+            @RequestBody @Valid EquipamentoToColaboradorRequestDTO dto) {
+        return equipamentoToColaboradorService.atualizar(id, dto);
     }
 
     @Operation(summary = "Deletar envio por ID")
@@ -64,6 +64,6 @@ public class EquipamentoColaboradorController {
     })
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Integer id){
-        return equipamentoColaboradorService.deletar(id);
+        return equipamentoToColaboradorService.deletar(id);
     }
 }

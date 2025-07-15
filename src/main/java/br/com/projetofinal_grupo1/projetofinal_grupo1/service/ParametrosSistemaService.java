@@ -1,12 +1,12 @@
 package br.com.projetofinal_grupo1.projetofinal_grupo1.service;
 
-import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.ParametroEstoqueRequestDTO;
-import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.ParametroEstoqueResponseDTO;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.ParametrosSistemaRequestDTO;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.ParametrosSistemaResponseDTO;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.PrevisaoFaltaResponseDTO;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.model.Estoque;
-import br.com.projetofinal_grupo1.projetofinal_grupo1.model.ParametroEstoque;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.model.ParametrosSistema;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.repository.EstoqueRepository;
-import br.com.projetofinal_grupo1.projetofinal_grupo1.repository.ParametroEstoqueRepository;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.repository.ParametrosSistemaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,18 +16,18 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class ParametroEstoqueService {
+public class ParametrosSistemaService {
 
-    private final ParametroEstoqueRepository parametroEstoqueRepository;
+    private final ParametrosSistemaRepository parametrosSistemaRepository;
     private final EstoqueRepository estoqueRepository;
 
-    public ParametroEstoqueService(ParametroEstoqueRepository parametroEstoqueRepository, EstoqueRepository estoqueRepository) {
-        this.parametroEstoqueRepository = parametroEstoqueRepository;
+    public ParametrosSistemaService(ParametrosSistemaRepository parametrosSistemaRepository, EstoqueRepository estoqueRepository) {
+        this.parametrosSistemaRepository = parametrosSistemaRepository;
         this.estoqueRepository = estoqueRepository;
     }
 
-    private ParametroEstoqueResponseDTO toResponseDTO(ParametroEstoque parametro) {
-        ParametroEstoqueResponseDTO dto = new ParametroEstoqueResponseDTO();
+    private ParametrosSistemaResponseDTO toResponseDTO(ParametrosSistema parametro) {
+        ParametrosSistemaResponseDTO dto = new ParametrosSistemaResponseDTO();
         dto.setIdParametro(parametro.getIdParametro());
         dto.setTempoMedioReposicao(parametro.getTempoMedioReposicao());
         dto.setTempoMedioConsumoEstoque(parametro.getTempoMedioConsumoEstoque());
@@ -37,8 +37,8 @@ public class ParametroEstoqueService {
         return dto;
     }
 
-    private ParametroEstoque toEntity(ParametroEstoqueRequestDTO dto) {
-        ParametroEstoque parametro = new ParametroEstoque();
+    private ParametrosSistema toEntity(ParametrosSistemaRequestDTO dto) {
+        ParametrosSistema parametro = new ParametrosSistema();
         parametro.setTempoMedioReposicao(dto.getTempoMedioReposicao());
         parametro.setTempoMedioConsumoEstoque(dto.getTempoMedioConsumoEstoque());
         parametro.setTempoMedioEnvio(dto.getTempoMedioEnvio());
@@ -49,28 +49,28 @@ public class ParametroEstoqueService {
 
 
     @Transactional
-    public ParametroEstoqueResponseDTO criarParametro(ParametroEstoqueRequestDTO dto) {
-        ParametroEstoque parametro = toEntity(dto);
-        ParametroEstoque salvo = parametroEstoqueRepository.save(parametro);
+    public ParametrosSistemaResponseDTO criarParametro(ParametrosSistemaRequestDTO dto) {
+        ParametrosSistema parametro = toEntity(dto);
+        ParametrosSistema salvo = parametrosSistemaRepository.save(parametro);
         return toResponseDTO(salvo);
     }
 
     @Transactional(readOnly = true)
-    public Optional<ParametroEstoqueResponseDTO> buscarParametroPorId(int id) {
-        return parametroEstoqueRepository.findById(id)
+    public Optional<ParametrosSistemaResponseDTO> buscarParametroPorId(int id) {
+        return parametrosSistemaRepository.findById(id)
                 .map(this::toResponseDTO);
     }
 
     @Transactional(readOnly = true)
-    public List<ParametroEstoqueResponseDTO> listarTodosParametros() {
-        return parametroEstoqueRepository.findAll().stream()
+    public List<ParametrosSistemaResponseDTO> listarTodosParametros() {
+        return parametrosSistemaRepository.findAll().stream()
                 .map(this::toResponseDTO)
                 .collect(Collectors.toList());
     }
 
     @Transactional
-    public ParametroEstoqueResponseDTO atualizarParametro(int id, ParametroEstoqueRequestDTO dto) {
-        ParametroEstoque existente = parametroEstoqueRepository.findById(id)
+    public ParametrosSistemaResponseDTO atualizarParametro(int id, ParametrosSistemaRequestDTO dto) {
+        ParametrosSistema existente = parametrosSistemaRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Parâmetro de estoque não encontrado com o ID: " + id));
 
         existente.setTempoMedioReposicao(dto.getTempoMedioReposicao());
@@ -79,27 +79,27 @@ public class ParametroEstoqueService {
         existente.setTaxaMediaEquipamentosDefeituosos(dto.getTaxaMediaEquipamentosDefeituosos());
         existente.setEstoqueMinimoSeguranca(dto.getEstoqueMinimoSeguranca());
 
-        ParametroEstoque atualizado = parametroEstoqueRepository.save(existente);
+        ParametrosSistema atualizado = parametrosSistemaRepository.save(existente);
         return toResponseDTO(atualizado);
     }
 
     @Transactional
     public void deletarParametro(int id) {
-        if (!parametroEstoqueRepository.existsById(id)) {
+        if (!parametrosSistemaRepository.existsById(id)) {
             throw new RuntimeException("Parâmetro de estoque não encontrado com o ID: " + id);
         }
-        parametroEstoqueRepository.deleteById(id);
+        parametrosSistemaRepository.deleteById(id);
     }
 
     @Transactional(readOnly = true)
-    public Optional<ParametroEstoque> getLatestParametroEstoque() {
-        return parametroEstoqueRepository.findAll().stream()
+    public Optional<ParametrosSistema> getLatestParametroEstoque() {
+        return parametrosSistemaRepository.findAll().stream()
                 .max((p1, p2) -> Integer.compare(p1.getIdParametro(), p2.getIdParametro()));
     }
 
     @Transactional(readOnly = true)
     public List<PrevisaoFaltaResponseDTO> gerarRelatorioPrevisaoFalta() {
-        ParametroEstoque parametros = parametroEstoqueRepository.getLatestParametroEstoque()
+        ParametrosSistema parametros = parametrosSistemaRepository.getLatestParametroEstoque()
                 .orElseThrow(() -> new RuntimeException("Parâmetros de estoque não configurados."));
 
         List<Estoque> todosEstoques = estoqueRepository.findAll();

@@ -9,7 +9,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ParametroEstoqueRequestDTO {
+public class ParametrosSistemaRequestDTO {
 
     @NotNull(message = "Tempo médio de reposição é obrigatório")
     @PositiveOrZero(message = "Tempo médio de reposição não pode ser negativo")

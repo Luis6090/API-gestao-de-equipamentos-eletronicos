@@ -1,6 +1,6 @@
 package br.com.projetofinal_grupo1.projetofinal_grupo1.dto;
 
-import br.com.projetofinal_grupo1.projetofinal_grupo1.model.EquipamentoColaborador;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.model.EquipamentoToColaborador;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +9,7 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-public class EquipamentoColaboradorRequestDTO {
+public class EquipamentoToColaboradorRequestDTO {
 
     @NotNull
     private Integer idEquipamento;
@@ -20,8 +20,8 @@ public class EquipamentoColaboradorRequestDTO {
     private LocalDate dataEntrega;
     private LocalDate dataDevolucao;
 
-    public EquipamentoColaborador toEntity() {
-        EquipamentoColaborador ec = new EquipamentoColaborador();
+    public EquipamentoToColaborador toEntity() {
+        EquipamentoToColaborador ec = new EquipamentoToColaborador();
         ec.setIdEquipamento(this.idEquipamento);
         ec.setIdColaborador(this.idColaborador);
         ec.setDataEntrega(this.dataEntrega != null ? this.dataEntrega : LocalDate.now());
@@ -29,5 +29,4 @@ public class EquipamentoColaboradorRequestDTO {
         return ec;
     }
 
-    // Getters e setters (ou use Lombok @Getter/@Setter se preferir)
 }

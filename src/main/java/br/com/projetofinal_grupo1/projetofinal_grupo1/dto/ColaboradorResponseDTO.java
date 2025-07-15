@@ -18,7 +18,7 @@ public class ColaboradorResponseDTO {
     private String especificacao_equipamento;
 
     public static ColaboradorResponseDTO converterParaColaboradorResponseDTO(Colaborador colaborador) {
-        return new ColaboradorResponseDTO(colaborador.getNome(), colaborador.getEmail(), colaborador.getCep(), colaborador.getData_aniversario(),
-                                            colaborador.getData_contratacao_inicio(), colaborador.getData_contratacao_recisao(), colaborador.getEquipamento_especificacao());
+        return new ColaboradorResponseDTO(colaborador.getNome(), colaborador.getEmail(), colaborador.getCep(), colaborador.getDataNascimento(),
+                                            colaborador.getDataContratacaoInicio(), colaborador.getDataContratacaoRecisao(), colaborador.getEquipamentoEspecificacao());
     }
 }

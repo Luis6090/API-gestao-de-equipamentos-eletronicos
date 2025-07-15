@@ -1,6 +1,6 @@
 package br.com.projetofinal_grupo1.projetofinal_grupo1.dto;
 
-import br.com.projetofinal_grupo1.projetofinal_grupo1.model.EquipamentoColaborador;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.model.EquipamentoToColaborador;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -8,7 +8,7 @@ import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
-public class EquipamentoColaboradorResponseDTO {
+public class EquipamentoToColaboradorResponseDTO {
 
     private int id;
     private int idEquipamento;
@@ -16,7 +16,7 @@ public class EquipamentoColaboradorResponseDTO {
     private LocalDate dataEntrega;
     private LocalDate dataDevolucao;
 
-    public EquipamentoColaboradorResponseDTO(EquipamentoColaborador ec) {
+    public EquipamentoToColaboradorResponseDTO(EquipamentoToColaborador ec) {
         this.id = ec.getId();
         this.idEquipamento = ec.getIdEquipamento();
         this.idColaborador = ec.getIdColaborador();
