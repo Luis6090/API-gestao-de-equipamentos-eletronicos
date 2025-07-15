@@ -1,4 +1,4 @@
-package br.com.projetofinal_grupo1.projetofinal_grupo1.DTO;
+package br.com.projetofinal_grupo1.projetofinal_grupo1.dto;
 
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;

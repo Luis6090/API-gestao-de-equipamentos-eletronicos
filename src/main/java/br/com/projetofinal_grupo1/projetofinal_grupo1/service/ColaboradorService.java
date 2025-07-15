@@ -28,16 +28,22 @@ public class ColaboradorService {
     }
 
     public void registrarColaborador(ColaboradorRequestDTO colaboradorRequestDTO){
-        colaboradorRepository.save(Colaborador.converterParaColaborador(colaboradorRequestDTO));
-        registrarEndereco(colaboradorRequestDTO.getCep());
+        Colaborador colaborador = Colaborador.converterParaColaborador(colaboradorRequestDTO);
+        Endereco enderecoDoColaborador = enderecoClient.retornarEnderecoPorCep(colaborador.getCep());
+
+        colaborador.setEnderco(enderecoDoColaborador);
+        enderecoDoColaborador.setColaborador(colaborador);
+
+        colaboradorRepository.save(colaborador);
+        enderecoRepository.save(enderecoDoColaborador);
     }
 
-    private void registrarEndereco(String cep){
-        Endereco enderecoDoColaborador = enderecoClient.retornarEnderecoPorCep(cep);
-        if (enderecoDoColaborador != null){
-            enderecoRepository.save(enderecoDoColaborador);
-        }
-    }
+//    private void registrarEndereco(String cep){
+//        Endereco enderecoDoColaborador = enderecoClient.retornarEnderecoPorCep(cep);
+//        if (enderecoDoColaborador != null){
+//            enderecoRepository.save(enderecoDoColaborador);
+//        }
+//    }
 
     public List<ColaboradorResponseDTO> devolverTodosOsColaborador(){
         List<Colaborador>listaDeColaboradores = colaboradorRepository.findAll();
@@ -54,6 +60,7 @@ public class ColaboradorService {
         Optional<Colaborador> colaborador = colaboradorRepository.findById(id);
         if(colaborador.isPresent()) {
             colaborador.get().atualizarColaborador(colaboradorUpdateDTO);
+            colaboradorRepository.
         }
     }
 

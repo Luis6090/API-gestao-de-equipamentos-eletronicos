@@ -1,8 +1,8 @@
 package br.com.projetofinal_grupo1.projetofinal_grupo1.controller;
 
-import br.com.projetofinal_grupo1.projetofinal_grupo1.DTO.ParametroEstoqueRequestDTO;
-import br.com.projetofinal_grupo1.projetofinal_grupo1.DTO.ParametroEstoqueResponseDTO;
-import br.com.projetofinal_grupo1.projetofinal_grupo1.DTO.PrevisaoFaltaResponseDTO;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.ParametroEstoqueRequestDTO;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.ParametroEstoqueResponseDTO;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.PrevisaoFaltaResponseDTO;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.service.ParametroEstoqueService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

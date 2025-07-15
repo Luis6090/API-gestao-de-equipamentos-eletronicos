@@ -1,8 +1,8 @@
 package br.com.projetofinal_grupo1.projetofinal_grupo1.service;
 
-import br.com.projetofinal_grupo1.projetofinal_grupo1.DTO.ParametroEstoqueRequestDTO;
-import br.com.projetofinal_grupo1.projetofinal_grupo1.DTO.ParametroEstoqueResponseDTO;
-import br.com.projetofinal_grupo1.projetofinal_grupo1.DTO.PrevisaoFaltaResponseDTO;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.ParametroEstoqueRequestDTO;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.ParametroEstoqueResponseDTO;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.PrevisaoFaltaResponseDTO;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.model.Estoque;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.model.ParametroEstoque;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.repository.EstoqueRepository;
