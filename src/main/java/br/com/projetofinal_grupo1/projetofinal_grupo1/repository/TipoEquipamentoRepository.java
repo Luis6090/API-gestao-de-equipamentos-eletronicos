@@ -7,4 +7,6 @@ import java.util.Optional;
 
 public interface TipoEquipamentoRepository extends JpaRepository<TipoEquipamento, Integer> {
     Optional<TipoEquipamento> findByNomeTipo(String nomeTipo);
+
+    boolean existsByNomeTipoIgnoreCase(String nomeTipo);
 }
