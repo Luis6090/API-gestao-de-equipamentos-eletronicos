@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ParametroEstoqueResponseDTO {
+public class ParametrosSistemaResponseDTO {
     private int idParametro;
     private int tempoMedioReposicao;
     private int tempoMedioConsumoEstoque;
