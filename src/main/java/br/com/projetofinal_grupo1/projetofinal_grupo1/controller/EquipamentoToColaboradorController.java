@@ -1,5 +1,6 @@
 package br.com.projetofinal_grupo1.projetofinal_grupo1.controller;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.*;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.model.IdEquipamentoToColaborador;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.service.EquipamentoToColaboradorService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -34,7 +35,7 @@ public class EquipamentoToColaboradorController {
             @ApiResponse(responseCode = "404", description = "Envio não encontrado")
     })
     @GetMapping("/{id}")
-    public ResponseEntity<EquipamentoToColaboradorResponseDTO> buscarPorId(@PathVariable int id) {
+    public ResponseEntity<EquipamentoToColaboradorResponseDTO> buscarPorId(@PathVariable IdEquipamentoToColaborador id) {
         return equipamentoToColaboradorService.buscarPorId(id);
     }
 
@@ -52,7 +53,7 @@ public class EquipamentoToColaboradorController {
     })
     @PutMapping("/{id}")
     public ResponseEntity<EquipamentoToColaboradorResponseDTO> atualizar(
-            @PathVariable Integer id,
+            @PathVariable IdEquipamentoToColaborador id,
             @RequestBody @Valid EquipamentoToColaboradorRequestDTO dto) {
         return equipamentoToColaboradorService.atualizar(id, dto);
     }
@@ -63,7 +64,7 @@ public class EquipamentoToColaboradorController {
             @ApiResponse(responseCode = "404", description = "Envio não encontrado")
     })
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable Integer id){
+    public ResponseEntity<Void> deletar(@PathVariable IdEquipamentoToColaborador id){
         return equipamentoToColaboradorService.deletar(id);
     }
 }

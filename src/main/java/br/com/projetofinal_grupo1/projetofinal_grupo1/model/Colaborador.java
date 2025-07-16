@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -29,9 +30,7 @@ public class Colaborador {
 
     @OneToOne(mappedBy = "colaborador", cascade = CascadeType.ALL, optional = false)
     @PrimaryKeyJoinColumn
-    private Endereco idEndereco;
-
-    @ManyToMany(mappedBy = "")
+    private Endereco endereco;
 
     public static Colaborador converterParaColaborador(ColaboradorRequestDTO colaboradorRequestDTO){
         Colaborador colaborador = new Colaborador();
