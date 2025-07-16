@@ -36,4 +36,6 @@ public class EquipamentoRequestDTO {
     @NotNull(message = "ID do tipo de equipamento é obrigatório")
     @JsonProperty("id_tipo_equipamento")
     private Integer idTipoEquipamento;
+
+    private Boolean disponivel;
 }

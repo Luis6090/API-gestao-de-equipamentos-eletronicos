@@ -47,5 +47,5 @@ public class Equipamento {
     private Estoque estoque;
 
     @Column(nullable = false)
-    private Boolean disponivel = true;
+    private Boolean disponivel;
 }
