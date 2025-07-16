@@ -52,7 +52,7 @@ public class EquipamentoService {
         estoque.setQuantidadeEmUso(0);
         estoque.setQuantidadeDefeituosa(0);
         estoque.setEquipamento(equipamento); // vincula o equipamento no estoque
-
+        estoque.setTipoEquipamento(tipoEquipamento);
         equipamento.setEstoque(estoque); // vincula o estoque no equipamento
 
         // Salva o equipamento com estoque via cascade
