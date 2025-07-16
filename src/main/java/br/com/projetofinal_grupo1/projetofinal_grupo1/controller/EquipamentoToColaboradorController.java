@@ -12,10 +12,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-@Tag(name = "Equipamento-Colaborador", description = "CRUD de envio de equipamentos para colaboradores (criar, listar, editar, excluir).")
+@Tag(name = "Equipamento-To-Colaborador", description = "CRUD de envio de equipamentos para colaboradores (criar, listar, editar, excluir).")
 @SecurityRequirement(name = "BearerAuth")
 @RestController
-@RequestMapping("/api/emprestimos")
+@RequestMapping("/emprestimos")
 public class EquipamentoToColaboradorController {
 
     @Autowired
@@ -65,5 +65,15 @@ public class EquipamentoToColaboradorController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Integer id){
         return equipamentoToColaboradorService.deletar(id);
+    }
+    @Operation(summary = "Registrar devolução do equipamento pelo ID do empréstimo")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Devolução registrada com sucesso"),
+            @ApiResponse(responseCode = "404", description = "Empréstimo não encontrado"),
+            @ApiResponse(responseCode = "400", description = "Equipamento já devolvido")
+    })
+    @PutMapping("/{id}/devolver")
+    public ResponseEntity<Void> registrarDevolucao(@PathVariable Integer id) {
+        return equipamentoToColaboradorService.registrarDevolucao(id);
     }
 }

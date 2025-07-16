@@ -45,4 +45,7 @@ public class Equipamento {
     @JsonManagedReference
     @OneToOne(mappedBy = "equipamento", cascade = CascadeType.ALL)
     private Estoque estoque;
+
+    @Column(nullable = false)
+    private Boolean disponivel = true;
 }

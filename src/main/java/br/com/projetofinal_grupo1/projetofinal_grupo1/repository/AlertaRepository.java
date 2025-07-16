@@ -14,6 +14,5 @@ public interface AlertaRepository extends JpaRepository<Alerta, Long> {
     // Busca o alerta mais recente para o tipoEquipamento com status na lista
     Optional<Alerta> findTopByTipoEquipamentoAndStatusInOrderByIdDesc(TipoEquipamento tipoEquipamento, List<String> statuses);
 
-    // (Opcional) Busca todos alertas ativos (status PENDENTE ou ENVIADO) para um tipo de equipamento
     List<Alerta> findByTipoEquipamentoAndStatusIn(TipoEquipamento tipoEquipamento, List<String> statuses);
 }
