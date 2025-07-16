@@ -2,7 +2,7 @@ package br.com.projetofinal_grupo1.projetofinal_grupo1.service;
 
 import br.com.projetofinal_grupo1.projetofinal_grupo1.model.Alerta;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.model.Estoque;
-import br.com.projetofinal_grupo1.projetofinal_grupo1.model.ParametrosSistema;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.model.ParametroSistema;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.model.TipoEquipamento;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.repository.AlertaRepository;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.repository.EstoqueRepository;
@@ -26,7 +26,7 @@ public class EstoqueAlertaService {
     private EstoqueRepository estoqueRepository;
 
     @Autowired
-    private ParametrosSistemaService parametrosSistemaService;
+    private ParametroSistemaService parametrosSistemaService;
 
     @Autowired
     private AlertaRepository alertaRepository;
@@ -39,7 +39,7 @@ public class EstoqueAlertaService {
     public void verificarEstoqueCritico() {
         System.out.println("Verificando estoque crítico por tipo de equipamento...");
 
-        ParametrosSistema parametros = parametrosSistemaService.getLatestParametroEstoque()
+        ParametroSistema parametros = parametrosSistemaService.getLatestParametroEstoque()
                 .orElseThrow(() -> new RuntimeException("Parâmetros de estoque não configurados. Não é possível verificar alertas."));
 
         int estoqueMinimoSeguranca = parametros.getEstoqueMinimoSeguranca();

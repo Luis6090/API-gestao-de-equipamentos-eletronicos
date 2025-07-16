@@ -1,9 +1,9 @@
 package br.com.projetofinal_grupo1.projetofinal_grupo1.controller;
 
-import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.ParametrosSistemaRequestDTO;
-import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.ParametrosSistemaResponseDTO;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.ParametroSistemaRequestDTO;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.ParametroSistemaResponseDTO;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.PrevisaoFaltaResponseDTO;
-import br.com.projetofinal_grupo1.projetofinal_grupo1.service.ParametrosSistemaService;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.service.ParametroSistemaService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -21,11 +21,11 @@ import java.util.List;
 @SecurityRequirement(name = "bearerAuth")
 @RestController
 @RequestMapping("/parametros-sistema")
-public class ParametrosSistemaController {
+public class ParametroSistemaController {
 
-    private final ParametrosSistemaService parametrosSistemaService;
+    private final ParametroSistemaService parametrosSistemaService;
 
-    public ParametrosSistemaController(ParametrosSistemaService parametrosSistemaService) {
+    public ParametroSistemaController(ParametroSistemaService parametrosSistemaService) {
         this.parametrosSistemaService = parametrosSistemaService;
     }
 
@@ -35,8 +35,8 @@ public class ParametrosSistemaController {
             @ApiResponse(responseCode = "401", description = "Não autorizado")
     })
     @GetMapping
-    public ResponseEntity<List<ParametrosSistemaResponseDTO>> listarParametros() {
-        List<ParametrosSistemaResponseDTO> parametros = parametrosSistemaService.listarTodosParametros();
+    public ResponseEntity<List<ParametroSistemaResponseDTO>> listarParametros() {
+        List<ParametroSistemaResponseDTO> parametros = parametrosSistemaService.listarTodosParametros();
         return ResponseEntity.ok(parametros);
     }
 
@@ -47,7 +47,7 @@ public class ParametrosSistemaController {
             @ApiResponse(responseCode = "401", description = "Não autorizado")
     })
     @GetMapping("/{id}")
-    public ResponseEntity<ParametrosSistemaResponseDTO> buscarParametroPorId(@PathVariable int id) {
+    public ResponseEntity<ParametroSistemaResponseDTO> buscarParametroPorId(@PathVariable int id) {
         return parametrosSistemaService.buscarParametroPorId(id)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
@@ -60,9 +60,9 @@ public class ParametrosSistemaController {
             @ApiResponse(responseCode = "401", description = "Não autorizado")
     })
     @PostMapping
-    public ResponseEntity<ParametrosSistemaResponseDTO> criarParametro(@Valid @RequestBody ParametrosSistemaRequestDTO dto) {
+    public ResponseEntity<ParametroSistemaResponseDTO> criarParametro(@Valid @RequestBody ParametroSistemaRequestDTO dto) {
         try {
-            ParametrosSistemaResponseDTO novoParametro = parametrosSistemaService.criarParametro(dto);
+            ParametroSistemaResponseDTO novoParametro = parametrosSistemaService.criarParametro(dto);
             return ResponseEntity.status(HttpStatus.CREATED).body(novoParametro);
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(null);
@@ -77,9 +77,9 @@ public class ParametrosSistemaController {
             @ApiResponse(responseCode = "401", description = "Não autorizado")
     })
     @PutMapping("/{id}")
-    public ResponseEntity<ParametrosSistemaResponseDTO> atualizarParametro(@PathVariable int id, @Valid @RequestBody ParametrosSistemaRequestDTO dto) {
+    public ResponseEntity<ParametroSistemaResponseDTO> atualizarParametro(@PathVariable int id, @Valid @RequestBody ParametroSistemaRequestDTO dto) {
         try {
-            ParametrosSistemaResponseDTO parametroAtualizado = parametrosSistemaService.atualizarParametro(id, dto);
+            ParametroSistemaResponseDTO parametroAtualizado = parametrosSistemaService.atualizarParametro(id, dto);
             return ResponseEntity.ok(parametroAtualizado);
         } catch (RuntimeException e) {
             if (e.getMessage().contains("não encontrado")) {
