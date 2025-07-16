@@ -31,7 +31,7 @@ public class ColaboradorService {
         Colaborador colaborador = Colaborador.converterParaColaborador(colaboradorRequestDTO);
         Endereco enderecoDoColaborador = enderecoClient.retornarEnderecoPorCep(colaborador.getCep());
 
-        colaborador.setEnderco(enderecoDoColaborador);
+        colaborador.setEndereco(enderecoDoColaborador);
         enderecoDoColaborador.setColaborador(colaborador);
 
         colaboradorRepository.save(colaborador);
@@ -57,11 +57,21 @@ public class ColaboradorService {
     }
 
     public void editarNomeEmailDataContratacaoDataRecisaoEspecificacaoEquipamentoDoColaborador(Long id, ColaboradorUpdateDTO colaboradorUpdateDTO){
-        Optional<Colaborador> colaborador = colaboradorRepository.findById(id);
-        if(colaborador.isPresent()) {
-            colaborador.get().atualizarColaborador(colaboradorUpdateDTO);
-            colaboradorRepository.
-        }
+        Colaborador colaborador = colaboradorRepository.findById(id).get();
+        colaborador.atualizarColaborador(colaboradorUpdateDTO);
+        colaboradorRepository.editarColaborador(id, colaborador.getNome(), colaborador.getEmail(), colaborador.getCep()
+                                                , colaborador.getDataContratacaoInicio(), colaborador.getDataContratacaoRecisao()
+                                                , colaborador.getEquipamentoEspecificacao());
+
+       Endereco enderecoNovo = enderecoClient.retornarEnderecoPorCep(colaborador.getCep());
+       Endereco enderecoDoColaborador = enderecoRepository.findById(id).get();
+
+       if(!enderecoNovo.getCep().equals(enderecoDoColaborador.getCep())){
+          enderecoRepository.editarEndereco(id, enderecoNovo.getCep(), enderecoNovo.getLogradouro(), enderecoNovo.getComplemento()
+                                            , enderecoNovo.getUnidade(), enderecoNovo.getBairro(), enderecoNovo.getLocalidade(), enderecoNovo.getUf()
+                                            , enderecoNovo.getEstado(), enderecoNovo.getRegiao(), enderecoNovo.getIbge(), enderecoNovo.getGia()
+                                            , enderecoNovo.getDdd(), enderecoNovo.getSiafi());
+       }
     }
 
     public void deletarColaboradorPorId(Long id){

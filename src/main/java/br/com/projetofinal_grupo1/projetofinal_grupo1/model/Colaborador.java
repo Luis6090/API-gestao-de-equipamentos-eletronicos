@@ -28,17 +28,17 @@ public class Colaborador {
     @Column(name = "cep")
     private String cep;
     @Column(name = "data_nascimento")
-    private LocalDate data_nascimento;
+    private LocalDate dataNascimento;
     @Column(name = "data_inicio_contrato")
-    private LocalDate data_contratacao_inicio;
+    private LocalDate dataContratacaoInicio;
     @Column(name = "data_rescisao_contrato")
-    private LocalDate data_contratacao_recisao;
+    private LocalDate dataContratacaoRecisao;
     @Column(name = "especificacoes_equipamentos_necessarios")
-    private String equipamento_especificacao;
+    private String equipamentoEspecificacao;
 
     @OneToOne(mappedBy = "colaborador", cascade = CascadeType.ALL, optional = false)
     @PrimaryKeyJoinColumn
-    private Endereco enderco;
+    private Endereco endereco;
 
 
     public static Colaborador converterParaColaborador(ColaboradorRequestDTO colaboradorRequestDTO){
@@ -47,10 +47,10 @@ public class Colaborador {
         colaborador.setCpf(colaboradorRequestDTO.getCpf());
         colaborador.setEmail(colaboradorRequestDTO.getEmail());
         colaborador.setCep(colaboradorRequestDTO.getCep());
-        colaborador.setData_nascimento(colaboradorRequestDTO.getData_aniversario());
-        colaborador.setData_contratacao_inicio(colaboradorRequestDTO.getData_contratacao_inicio());
-        colaborador.setData_contratacao_recisao(colaboradorRequestDTO.getData_contratacao_recisao());
-        colaborador.setEquipamento_especificacao(colaboradorRequestDTO.getEspecificacao_equipamento());
+        colaborador.setDataNascimento(colaboradorRequestDTO.getData_aniversario());
+        colaborador.setDataContratacaoInicio(colaboradorRequestDTO.getData_contratacao_inicio());
+        colaborador.setDataContratacaoRecisao(colaboradorRequestDTO.getData_contratacao_recisao());
+        colaborador.setEquipamentoEspecificacao(colaboradorRequestDTO.getEspecificacao_equipamento());
 
         return colaborador;
     }
@@ -59,7 +59,9 @@ public class Colaborador {
         setNome(colaboradorUpdateDTO.getNome());
         setCep(colaboradorUpdateDTO.getCep());
         setEmail(colaboradorUpdateDTO.getEmail());
-        setData_contratacao_inicio(colaboradorUpdateDTO.getDataContratacaoInicio());
-        setEquipamento_especificacao(colaboradorUpdateDTO.getEquipamentoEspecificacao());
+        setDataContratacaoInicio(colaboradorUpdateDTO.getDataContratacaoInicio());
+        setDataContratacaoRecisao(colaboradorUpdateDTO.getDataContratacaoRecisao());
+        setEquipamentoEspecificacao(colaboradorUpdateDTO.getEquipamentoEspecificacao());
+
     }
 }
