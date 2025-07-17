@@ -1,8 +1,9 @@
 package br.com.projetofinal_grupo1.projetofinal_grupo1.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
+
+
 
 @Getter
 @Setter
@@ -25,11 +26,6 @@ public class Estoque {
 
     @Column(name = "quantidade_defeituosa")
     private int quantidadeDefeituosa;
-
-    @JsonBackReference
-    @OneToOne
-    @JoinColumn(name = "id_equipamento", nullable = false, unique = true)
-    private Equipamento equipamento;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_tipo_equipamento")

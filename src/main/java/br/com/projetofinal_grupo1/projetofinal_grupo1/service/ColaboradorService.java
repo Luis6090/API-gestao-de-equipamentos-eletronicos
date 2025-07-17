@@ -28,15 +28,14 @@ public class ColaboradorService {
     }
 
     public void registrarColaborador(ColaboradorRequestDTO colaboradorRequestDTO){
-        colaboradorRepository.save(Colaborador.converterParaColaborador(colaboradorRequestDTO));
-        registrarEndereco(colaboradorRequestDTO.getCep());
-    }
+        Colaborador colaborador = Colaborador.converterParaColaborador(colaboradorRequestDTO);
+        Endereco enderecoDoColaborador = enderecoClient.retornarEnderecoPorCep(colaborador.getCep());
 
-    private void registrarEndereco(String cep){
-        Endereco enderecoDoColaborador = enderecoClient.retornarEnderecoPorCep(cep);
-        if (enderecoDoColaborador != null){
-            enderecoRepository.save(enderecoDoColaborador);
-        }
+        colaborador.setEndereco(enderecoDoColaborador);
+        enderecoDoColaborador.setColaborador(colaborador);
+
+        colaboradorRepository.save(colaborador);
+        enderecoRepository.save(enderecoDoColaborador);
     }
 
     public List<ColaboradorResponseDTO> devolverTodosOsColaborador(){
@@ -51,10 +50,21 @@ public class ColaboradorService {
     }
 
     public void editarNomeEmailDataContratacaoDataRecisaoEspecificacaoEquipamentoDoColaborador(Long id, ColaboradorUpdateDTO colaboradorUpdateDTO){
-        Optional<Colaborador> colaborador = colaboradorRepository.findById(id);
-        if(colaborador.isPresent()) {
-            colaborador.get().atualizarColaborador(colaboradorUpdateDTO);
-        }
+        Colaborador colaborador = colaboradorRepository.findById(id).get();
+        colaborador.atualizarColaborador(colaboradorUpdateDTO);
+        colaboradorRepository.editarColaborador(id, colaborador.getNome(), colaborador.getEmail(), colaborador.getCep()
+                                                , colaborador.getDataContratacaoInicio(), colaborador.getDataContratacaoRecisao()
+                                                , colaborador.getEquipamentoEspecificacao());
+
+       Endereco enderecoNovo = enderecoClient.retornarEnderecoPorCep(colaborador.getCep());
+       Endereco enderecoDoColaborador = enderecoRepository.findById(id).get();
+
+       if(!enderecoNovo.getCep().equals(enderecoDoColaborador.getCep())){
+          enderecoRepository.editarEndereco(id, enderecoNovo.getCep(), enderecoNovo.getLogradouro(), enderecoNovo.getComplemento()
+                                            , enderecoNovo.getUnidade(), enderecoNovo.getBairro(), enderecoNovo.getLocalidade(), enderecoNovo.getUf()
+                                            , enderecoNovo.getEstado(), enderecoNovo.getRegiao(), enderecoNovo.getIbge(), enderecoNovo.getGia()
+                                            , enderecoNovo.getDdd(), enderecoNovo.getSiafi());
+       }
     }
 
     public void deletarColaboradorPorId(Long id){

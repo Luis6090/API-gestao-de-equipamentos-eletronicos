@@ -17,21 +17,29 @@ import java.time.LocalDate;
 public class Colaborador {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_colaborador")
     private Long id;
+    @Column(name = "cpf")
     private String cpf;
+    @Column(name = "nome")
     private String nome;
+    @Column(name = "email_colaborador")
     private String email;
+    @Column(name = "cep")
     private String cep;
+    @Column(name = "data_nascimento")
     private LocalDate dataNascimento;
+    @Column(name = "data_inicio_contrato")
     private LocalDate dataContratacaoInicio;
+    @Column(name = "data_rescisao_contrato")
     private LocalDate dataContratacaoRecisao;
+    @Column(name = "especificacoes_equipamentos_necessarios")
     private String equipamentoEspecificacao;
 
     @OneToOne(mappedBy = "colaborador", cascade = CascadeType.ALL, optional = false)
     @PrimaryKeyJoinColumn
-    private Endereco idEndereco;
+    private Endereco endereco;
 
-    @ManyToMany(mappedBy = "")
 
     public static Colaborador converterParaColaborador(ColaboradorRequestDTO colaboradorRequestDTO){
         Colaborador colaborador = new Colaborador();
@@ -52,6 +60,8 @@ public class Colaborador {
         setCep(colaboradorUpdateDTO.getCep());
         setEmail(colaboradorUpdateDTO.getEmail());
         setDataContratacaoInicio(colaboradorUpdateDTO.getDataContratacaoInicio());
+        setDataContratacaoRecisao(colaboradorUpdateDTO.getDataContratacaoRecisao());
         setEquipamentoEspecificacao(colaboradorUpdateDTO.getEquipamentoEspecificacao());
+
     }
 }

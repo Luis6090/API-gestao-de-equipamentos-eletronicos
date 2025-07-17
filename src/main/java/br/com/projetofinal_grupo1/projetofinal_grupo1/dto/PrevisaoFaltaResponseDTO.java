@@ -9,6 +9,7 @@ public class PrevisaoFaltaResponseDTO {
 
     private int idTipoEquipamento;
     private String nomeTipoEquipamento;
+    private String numeroSerie;
 
     private int quantidadeDisponivelAtual;
     private int quantidadeEmUsoAtual;

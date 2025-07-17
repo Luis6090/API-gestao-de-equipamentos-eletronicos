@@ -40,23 +40,33 @@ public class EquipamentoService {
 
     @Transactional
     public Equipamento salvar(Equipamento equipamento) {
-        // Busca o tipo de equipamento
+
         TipoEquipamento tipoEquipamento = tipoEquipamentoRepository.findById(equipamento.getTipoEquipamento().getId())
                 .orElseThrow(() -> new RuntimeException("Tipo de equipamento não encontrado com o ID: " + equipamento.getTipoEquipamento().getId()));
 
         equipamento.setTipoEquipamento(tipoEquipamento);
+        equipamento.setDisponivel(true); // marca o novo como disponível
 
-        // Criação do estoque vinculado ao equipamento
-        Estoque estoque = new Estoque();
-        estoque.setQuantidadeDisponivel(1);
-        estoque.setQuantidadeEmUso(0);
-        estoque.setQuantidadeDefeituosa(0);
-        estoque.setEquipamento(equipamento); // vincula o equipamento no estoque
 
-        equipamento.setEstoque(estoque); // vincula o estoque no equipamento
+        Equipamento salvo = equipamentoRepository.save(equipamento);
 
-        // Salva o equipamento com estoque via cascade
-        return equipamentoRepository.save(equipamento);
+
+        Estoque estoque = estoqueRepository.findByTipoEquipamentoId(tipoEquipamento.getId())
+                .orElse(null);
+
+        if (estoque == null) {
+            estoque = new Estoque();
+            estoque.setTipoEquipamento(tipoEquipamento);
+            estoque.setQuantidadeDisponivel(1);
+            estoque.setQuantidadeEmUso(0);
+            estoque.setQuantidadeDefeituosa(0);
+        } else {
+            estoque.setQuantidadeDisponivel(estoque.getQuantidadeDisponivel() + 1);
+        }
+
+        estoqueRepository.save(estoque);
+
+        return salvo;
     }
 
     @Transactional
@@ -64,7 +74,6 @@ public class EquipamentoService {
         return equipamentoRepository.findById(id)
                 .map(existing -> {
                     equipamento.setId(id);
-                    equipamento.setEstoque(existing.getEstoque()); // preserva o estoque vinculado
                     return ResponseEntity.ok(equipamentoRepository.save(equipamento));
                 })
                 .orElse(ResponseEntity.notFound().build());

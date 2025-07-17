@@ -1,6 +1,5 @@
 package br.com.projetofinal_grupo1.projetofinal_grupo1.service;
 
-import br.com.projetofinal_grupo1.projetofinal_grupo1.model.Equipamento;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.model.Estoque;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.model.TipoEquipamento;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.repository.EquipamentoRepository;
@@ -21,24 +20,20 @@ public class EstoqueService {
         this.equipamentoRepository = equipamentoRepository;
     }
 
-    public Estoque atualizarEstoque(int idEstoque, Estoque estoqueAtualizado, int idTipoEquipamento, int idEquipamento) {
+    public Estoque atualizarEstoque(int idEstoque, Estoque estoqueAtualizado, int idTipoEquipamento) {
         Estoque estoqueExistente = estoqueRepository.findById(idEstoque)
                 .orElseThrow(() -> new RuntimeException("Estoque não encontrado"));
-
 
         estoqueExistente.setQuantidadeDisponivel(estoqueAtualizado.getQuantidadeDisponivel());
         estoqueExistente.setQuantidadeEmUso(estoqueAtualizado.getQuantidadeEmUso());
         estoqueExistente.setQuantidadeDefeituosa(estoqueAtualizado.getQuantidadeDefeituosa());
 
-
-        TipoEquipamento tipo = tipoEquipamentoRepository.findById(idTipoEquipamento)
-                .orElseThrow(() -> new RuntimeException("TipoEquipamento não encontrado"));
-        estoqueExistente.setTipoEquipamento(tipo);
-
-
-        Equipamento equipamento = equipamentoRepository.findById(idEquipamento)
-                .orElseThrow(() -> new RuntimeException("Equipamento não encontrado"));
-        estoqueExistente.setEquipamento(equipamento);
+        // Atualiza tipo, se necessário (opcional)
+        if (estoqueExistente.getTipoEquipamento().getId() != idTipoEquipamento) {
+            TipoEquipamento tipo = tipoEquipamentoRepository.findById(idTipoEquipamento)
+                    .orElseThrow(() -> new RuntimeException("TipoEquipamento não encontrado"));
+            estoqueExistente.setTipoEquipamento(tipo);
+        }
 
         return estoqueRepository.save(estoqueExistente);
     }
