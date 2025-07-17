@@ -12,4 +12,5 @@ import java.util.Optional;
 public interface EstoqueRepository extends JpaRepository<Estoque, Integer> {
 
     List<Estoque> findByTipoEquipamento(TipoEquipamento tipoEquipamento);
+    Optional<Estoque> findByTipoEquipamentoId(Integer tipoId);
 }
