@@ -11,8 +11,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "parametros_sistema")
-public class ParametrosSistema {
+@Table(name = "parametro_sistema")
+public class ParametroSistema {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
