@@ -8,7 +8,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 
     Optional<Usuario> findByEmail(String email);
 
-    //esse método poderia ser no service?
     boolean existsByEmail(String email);
 
     Optional<Usuario> findByTokenRecuperacao(String token);

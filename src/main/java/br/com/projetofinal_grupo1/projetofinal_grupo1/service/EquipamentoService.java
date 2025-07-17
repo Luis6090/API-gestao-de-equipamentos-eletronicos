@@ -40,22 +40,24 @@ public class EquipamentoService {
 
     @Transactional
     public Equipamento salvar(Equipamento equipamento) {
-        // Busca o tipo de equipamento
+
         TipoEquipamento tipoEquipamento = tipoEquipamentoRepository.findById(equipamento.getTipoEquipamento().getId())
                 .orElseThrow(() -> new RuntimeException("Tipo de equipamento não encontrado com o ID: " + equipamento.getTipoEquipamento().getId()));
 
         equipamento.setTipoEquipamento(tipoEquipamento);
 
-        // Criação do estoque vinculado ao equipamento
+
+        equipamento.setDisponivel(true);
+
+
         Estoque estoque = new Estoque();
         estoque.setQuantidadeDisponivel(1);
         estoque.setQuantidadeEmUso(0);
         estoque.setQuantidadeDefeituosa(0);
         estoque.setEquipamento(equipamento); // vincula o equipamento no estoque
-
+        estoque.setTipoEquipamento(tipoEquipamento);
         equipamento.setEstoque(estoque); // vincula o estoque no equipamento
 
-        // Salva o equipamento com estoque via cascade
         return equipamentoRepository.save(equipamento);
     }
 

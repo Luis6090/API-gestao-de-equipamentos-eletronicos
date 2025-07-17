@@ -11,8 +11,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "parametros_sistema")
-public class ParametroEstoque {
+@Table(name = "parametro_sistema")
+public class ParametroSistema {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,13 +20,13 @@ public class ParametroEstoque {
     private int idParametro;
 
     @Column(name = "tempo_medio_reposicao", nullable = false)
-    private int tempoMedioReposicao; // em dias, por exemplo
+    private int tempoMedioReposicao; // em dias
 
     @Column(name = "tempo_medio_consumo_estoque", nullable = false)
-    private int tempoMedioConsumoEstoque; // em dias, por exemplo
+    private int tempoMedioConsumoEstoque; // em dias
 
     @Column(name = "tempo_medio_envio", nullable = false)
-    private int tempoMedioEnvio; // em dias, por exemplo
+    private int tempoMedioEnvio; // em dias
 
     @Column(name = "taxa_media_equipamentos_defeituosos", nullable = false)
     private double taxaMediaEquipamentosDefeituosos;

@@ -26,7 +26,7 @@ public class Usuario implements UserDetails {
     private String email;
 
     @Column(nullable = false)
-    @JsonIgnore // <--- Adicionado
+    @JsonIgnore
     private String senha;
 
     private boolean emailConfirmado;

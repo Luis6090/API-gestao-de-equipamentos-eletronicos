@@ -8,6 +8,8 @@ import br.com.projetofinal_grupo1.projetofinal_grupo1.repository.EstoqueReposito
 import br.com.projetofinal_grupo1.projetofinal_grupo1.repository.TipoEquipamentoRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class EstoqueService {
 
@@ -33,7 +35,7 @@ public class EstoqueService {
 
         TipoEquipamento tipo = tipoEquipamentoRepository.findById(idTipoEquipamento)
                 .orElseThrow(() -> new RuntimeException("TipoEquipamento não encontrado"));
-        estoqueExistente.setTipoEquipamento(tipo);
+        estoqueExistente.setTipoEquipamento((TipoEquipamento) tipo);
 
 
         Equipamento equipamento = equipamentoRepository.findById(idEquipamento)

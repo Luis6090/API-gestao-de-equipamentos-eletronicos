@@ -83,12 +83,14 @@ Com base na descrição do projeto "Equipamentos Raros - Controle de inventário
 
 ---
 
-**5. Entidade: EMPRÉSTIMO_DEVOLUÇÃO**
+**5. Entidade: EQUIPAMENTO_TO_COLABORADOR**
 
 *   **Atributos:**
     *   `id_emprestimo_devolucao` (Identificador Único - Chave Primária)
     *   `data_entrega`
     *   `data_devolucao`
+    *   `id_colaborador` (Chave Estrangeira)
+    *   `id_equipamento` (Chave Estrangeira)
 
 ---
 
@@ -124,6 +126,27 @@ Com base na descrição do projeto "Equipamentos Raros - Controle de inventário
   
 
 ---
+**9. Entidade: ENDEREÇO**
+
+*   **Atributos:**
+    *   `id_endereco` (Identificador Único - Chave Primária)
+    *   `cep`
+    *   `logradouro`
+    *   `complemento`
+    *   `unidade`
+    *   `bairro`
+    *   `localidade`
+    *   `uf`
+    *   `estado`
+    *   `regiao`
+    *   `ibge`
+    *   `gia`
+    *   `ddd`
+    *   `siafi`
+
+---
+
+
 
 #### Relacionamentos (com Cardinalidades no padrão Peter Chen - (min, max)):
 
@@ -171,6 +194,10 @@ Com base na descrição do projeto "Equipamentos Raros - Controle de inventário
     *   **Descrição:** Os parâmetros do sistema definem políticas e limites como o estoque mínimo de segurança, que se aplicam à gestão dos estoques.Cada registro de estoque pode ser influenciado por apenas um conjunto de parâmetros.
     *   **Notação Peter Chen:**
         *   `PARÂMETROS_SISTEMA` (1,1) — `define_niveis` — (0,N) `ESTOQUE`
-                        
+
+10.  **COLABORADOR — (POSSUI) — ENDERECO**
+    *   **Descrição:** Um `Colaborador` pode ter um ou mais `Endereco`
+    *   **Notação Peter Chen:**
+        *   `COLABORADOR` (1,1) — `possui` — (1,1) `ENDEREÇO`
 
 ---

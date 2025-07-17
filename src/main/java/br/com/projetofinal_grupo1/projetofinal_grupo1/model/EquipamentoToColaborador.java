@@ -10,22 +10,15 @@ import lombok.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name ="emprestimo_devolucao")
+@Table(name ="equipamento_to_colaborador")
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class EquipamentoColaborador {
+public class EquipamentoToColaborador {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
-    @JsonProperty("idEquipamento")
-    private int idEquipamento;
-
-    @JsonProperty("idColaborador")
-    private int idColaborador;
+    @EmbeddedId
+    private IdEquipamentoToColaborador id;
 
     @JsonProperty("dataEntrega")
     private LocalDate dataEntrega;
