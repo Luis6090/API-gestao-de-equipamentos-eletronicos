@@ -1,5 +1,6 @@
 package br.com.projetofinal_grupo1.projetofinal_grupo1.dto;
 
+import br.com.projetofinal_grupo1.projetofinal_grupo1.annotation.CepValidation;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -19,6 +20,7 @@ public class ColaboradorUpdateDTO {
     @NotBlank
     private String email;
     @NotBlank
+    @CepValidation
     private String cep;
     @NotNull
     @PastOrPresent
