@@ -1,6 +1,8 @@
 package br.com.projetofinal_grupo1.projetofinal_grupo1.dto;
 
 import br.com.projetofinal_grupo1.projetofinal_grupo1.model.EquipamentoToColaborador;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.model.IdEquipamentoToColaborador;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -10,16 +12,13 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class EquipamentoToColaboradorResponseDTO {
 
-    private int id;
-    private int idEquipamento;
-    private int idColaborador;
     private LocalDate dataEntrega;
     private LocalDate dataDevolucao;
+    @NotNull
+    private IdEquipamentoToColaborador chaveCompostaEquipamentoColaborador;
 
     public EquipamentoToColaboradorResponseDTO(EquipamentoToColaborador ec) {
-        this.id = ec.getId();
-        this.idEquipamento = ec.getIdEquipamento();
-        this.idColaborador = ec.getIdColaborador();
+        this.chaveCompostaEquipamentoColaborador = ec.getId();
         this.dataEntrega = ec.getDataEntrega();
         this.dataDevolucao = ec.getDataDevolucao();
     }

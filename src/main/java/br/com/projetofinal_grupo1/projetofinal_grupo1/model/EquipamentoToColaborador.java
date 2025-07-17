@@ -17,15 +17,8 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class EquipamentoToColaborador {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
-    @JsonProperty("idEquipamento")
-    private int idEquipamento;
-
-    @JsonProperty("idColaborador")
-    private int idColaborador;
+    @EmbeddedId
+    private IdEquipamentoToColaborador id;
 
     @JsonProperty("dataEntrega")
     private LocalDate dataEntrega;

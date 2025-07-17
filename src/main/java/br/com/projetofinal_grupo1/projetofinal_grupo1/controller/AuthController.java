@@ -55,12 +55,12 @@ public class AuthController {
         return ResponseEntity.ok("E-mail confirmado com sucesso! Agora você pode fazer login.");
     }
 
-    @Operation(summary = "Solicitar redefinição de senha (esqueci minha senha)")
+    @Operation(summary = "Solicitar redefinição de senha")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Link de redefinição enviado para o e-mail"),
             @ApiResponse(responseCode = "404", description = "E-mail não encontrado")
     })
-    @PostMapping("/esqueci-senha")
+    @PostMapping("/esqueci minha senha")
     public ResponseEntity<String> esqueciSenha(@RequestParam String email) {
         authService.solicitarRecuperacaoSenha(email);
         return ResponseEntity.ok("Um link para redefinir sua senha foi enviado para o e-mail.");
@@ -71,12 +71,12 @@ public class AuthController {
             @ApiResponse(responseCode = "200", description = "Senha atualizada com sucesso"),
             @ApiResponse(responseCode = "400", description = "Token inválido ou expirado")
     })
-    @PostMapping("/alterar-senha")
+    @PostMapping("/alterar senha")
     public ResponseEntity<String> alterarSenha(@Valid @RequestBody AlterarSenhaDTO dto) {
         authService.alterarSenha(dto.getEmail(), dto.getSenhaAtual(), dto.getNovaSenha());
         return ResponseEntity.ok("Senha alterada com sucesso.");
     }
-    @PostMapping("/resetar-senha")
+    @PostMapping("/redefinir senha")
     @Operation(summary = "Redefinir senha com token de recuperação recebido no email após solicitação (esqueci minha senha)")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Senha redefinida com sucesso"),

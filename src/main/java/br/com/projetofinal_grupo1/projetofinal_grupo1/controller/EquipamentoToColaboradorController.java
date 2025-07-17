@@ -1,5 +1,6 @@
 package br.com.projetofinal_grupo1.projetofinal_grupo1.controller;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.*;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.model.IdEquipamentoToColaborador;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.service.EquipamentoToColaboradorService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -12,10 +13,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-@Tag(name = "Equipamento-Colaborador", description = "CRUD de envio de equipamentos para colaboradores (criar, listar, editar, excluir).")
-@SecurityRequirement(name = "BearerAuth")
+@Tag(name = "Equipamento-To-Colaborador", description = "CRUD de envio de equipamentos para colaboradores (criar, listar, editar, excluir).")
+@SecurityRequirement(name = "bearerAuth")
 @RestController
-@RequestMapping("/api/emprestimos")
+@RequestMapping("/emprestimos")
 public class EquipamentoToColaboradorController {
 
     @Autowired
@@ -34,7 +35,7 @@ public class EquipamentoToColaboradorController {
             @ApiResponse(responseCode = "404", description = "Envio não encontrado")
     })
     @GetMapping("/{id}")
-    public ResponseEntity<EquipamentoToColaboradorResponseDTO> buscarPorId(@PathVariable int id) {
+    public ResponseEntity<EquipamentoToColaboradorResponseDTO> buscarPorId(@PathVariable IdEquipamentoToColaborador id) {
         return equipamentoToColaboradorService.buscarPorId(id);
     }
 
@@ -52,7 +53,7 @@ public class EquipamentoToColaboradorController {
     })
     @PutMapping("/{id}")
     public ResponseEntity<EquipamentoToColaboradorResponseDTO> atualizar(
-            @PathVariable Integer id,
+            @PathVariable IdEquipamentoToColaborador id,
             @RequestBody @Valid EquipamentoToColaboradorRequestDTO dto) {
         return equipamentoToColaboradorService.atualizar(id, dto);
     }
@@ -63,7 +64,17 @@ public class EquipamentoToColaboradorController {
             @ApiResponse(responseCode = "404", description = "Envio não encontrado")
     })
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable Integer id){
+    public ResponseEntity<Void> deletar(@PathVariable IdEquipamentoToColaborador id){
         return equipamentoToColaboradorService.deletar(id);
+    }
+    @Operation(summary = "Registrar devolução do equipamento pelo ID do empréstimo")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Devolução registrada com sucesso"),
+            @ApiResponse(responseCode = "404", description = "Empréstimo não encontrado"),
+            @ApiResponse(responseCode = "400", description = "Equipamento já devolvido")
+    })
+    @PutMapping("/{id}/devolver")
+    public ResponseEntity<Void> registrarDevolucao(@PathVariable IdEquipamentoToColaborador id) {
+        return equipamentoToColaboradorService.registrarDevolucao(id);
     }
 }

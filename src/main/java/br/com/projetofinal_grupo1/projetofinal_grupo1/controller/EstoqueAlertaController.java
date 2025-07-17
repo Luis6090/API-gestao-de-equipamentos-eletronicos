@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "Alertas")
 @SecurityRequirement(name = "bearerAuth")
 @RestController
-@RequestMapping("/api/estoque-alerta")
+@RequestMapping("/estoque-alerta")
 public class EstoqueAlertaController {
 
     private final EstoqueAlertaService estoqueAlertaService;

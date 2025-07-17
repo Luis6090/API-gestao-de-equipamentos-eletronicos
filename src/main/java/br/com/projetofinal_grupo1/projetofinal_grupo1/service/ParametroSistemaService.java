@@ -1,12 +1,12 @@
 package br.com.projetofinal_grupo1.projetofinal_grupo1.service;
 
-import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.ParametrosSistemaRequestDTO;
-import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.ParametrosSistemaResponseDTO;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.ParametroSistemaRequestDTO;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.ParametroSistemaResponseDTO;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.PrevisaoFaltaResponseDTO;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.model.Estoque;
-import br.com.projetofinal_grupo1.projetofinal_grupo1.model.ParametrosSistema;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.model.ParametroSistema;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.repository.EstoqueRepository;
-import br.com.projetofinal_grupo1.projetofinal_grupo1.repository.ParametrosSistemaRepository;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.repository.ParametroSistemaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,18 +16,18 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class ParametrosSistemaService {
+public class ParametroSistemaService {
 
-    private final ParametrosSistemaRepository parametrosSistemaRepository;
+    private final ParametroSistemaRepository parametrosSistemaRepository;
     private final EstoqueRepository estoqueRepository;
 
-    public ParametrosSistemaService(ParametrosSistemaRepository parametrosSistemaRepository, EstoqueRepository estoqueRepository) {
+    public ParametroSistemaService(ParametroSistemaRepository parametrosSistemaRepository, EstoqueRepository estoqueRepository) {
         this.parametrosSistemaRepository = parametrosSistemaRepository;
         this.estoqueRepository = estoqueRepository;
     }
 
-    private ParametrosSistemaResponseDTO toResponseDTO(ParametrosSistema parametro) {
-        ParametrosSistemaResponseDTO dto = new ParametrosSistemaResponseDTO();
+    private ParametroSistemaResponseDTO toResponseDTO(ParametroSistema parametro) {
+        ParametroSistemaResponseDTO dto = new ParametroSistemaResponseDTO();
         dto.setIdParametro(parametro.getIdParametro());
         dto.setTempoMedioReposicao(parametro.getTempoMedioReposicao());
         dto.setTempoMedioConsumoEstoque(parametro.getTempoMedioConsumoEstoque());
@@ -37,8 +37,8 @@ public class ParametrosSistemaService {
         return dto;
     }
 
-    private ParametrosSistema toEntity(ParametrosSistemaRequestDTO dto) {
-        ParametrosSistema parametro = new ParametrosSistema();
+    private ParametroSistema toEntity(ParametroSistemaRequestDTO dto) {
+        ParametroSistema parametro = new ParametroSistema();
         parametro.setTempoMedioReposicao(dto.getTempoMedioReposicao());
         parametro.setTempoMedioConsumoEstoque(dto.getTempoMedioConsumoEstoque());
         parametro.setTempoMedioEnvio(dto.getTempoMedioEnvio());
@@ -49,28 +49,28 @@ public class ParametrosSistemaService {
 
 
     @Transactional
-    public ParametrosSistemaResponseDTO criarParametro(ParametrosSistemaRequestDTO dto) {
-        ParametrosSistema parametro = toEntity(dto);
-        ParametrosSistema salvo = parametrosSistemaRepository.save(parametro);
+    public ParametroSistemaResponseDTO criarParametro(ParametroSistemaRequestDTO dto) {
+        ParametroSistema parametro = toEntity(dto);
+        ParametroSistema salvo = parametrosSistemaRepository.save(parametro);
         return toResponseDTO(salvo);
     }
 
     @Transactional(readOnly = true)
-    public Optional<ParametrosSistemaResponseDTO> buscarParametroPorId(int id) {
+    public Optional<ParametroSistemaResponseDTO> buscarParametroPorId(int id) {
         return parametrosSistemaRepository.findById(id)
                 .map(this::toResponseDTO);
     }
 
     @Transactional(readOnly = true)
-    public List<ParametrosSistemaResponseDTO> listarTodosParametros() {
+    public List<ParametroSistemaResponseDTO> listarTodosParametros() {
         return parametrosSistemaRepository.findAll().stream()
                 .map(this::toResponseDTO)
                 .collect(Collectors.toList());
     }
 
     @Transactional
-    public ParametrosSistemaResponseDTO atualizarParametro(int id, ParametrosSistemaRequestDTO dto) {
-        ParametrosSistema existente = parametrosSistemaRepository.findById(id)
+    public ParametroSistemaResponseDTO atualizarParametro(int id, ParametroSistemaRequestDTO dto) {
+        ParametroSistema existente = parametrosSistemaRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Parâmetro de estoque não encontrado com o ID: " + id));
 
         existente.setTempoMedioReposicao(dto.getTempoMedioReposicao());
@@ -79,7 +79,7 @@ public class ParametrosSistemaService {
         existente.setTaxaMediaEquipamentosDefeituosos(dto.getTaxaMediaEquipamentosDefeituosos());
         existente.setEstoqueMinimoSeguranca(dto.getEstoqueMinimoSeguranca());
 
-        ParametrosSistema atualizado = parametrosSistemaRepository.save(existente);
+        ParametroSistema atualizado = parametrosSistemaRepository.save(existente);
         return toResponseDTO(atualizado);
     }
 
@@ -92,14 +92,14 @@ public class ParametrosSistemaService {
     }
 
     @Transactional(readOnly = true)
-    public Optional<ParametrosSistema> getLatestParametroEstoque() {
+    public Optional<ParametroSistema> getLatestParametroEstoque() {
         return parametrosSistemaRepository.findAll().stream()
                 .max((p1, p2) -> Integer.compare(p1.getIdParametro(), p2.getIdParametro()));
     }
 
     @Transactional(readOnly = true)
     public List<PrevisaoFaltaResponseDTO> gerarRelatorioPrevisaoFalta() {
-        ParametrosSistema parametros = parametrosSistemaRepository.getLatestParametroEstoque()
+        ParametroSistema parametros = parametrosSistemaRepository.getLatestParametroEstoque()
                 .orElseThrow(() -> new RuntimeException("Parâmetros de estoque não configurados."));
 
         List<Estoque> todosEstoques = estoqueRepository.findAll();
