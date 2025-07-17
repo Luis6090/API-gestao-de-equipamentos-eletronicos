@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @Tag(name = "Equipamento-To-Colaborador", description = "CRUD de envio de equipamentos para colaboradores (criar, listar, editar, excluir).")
-@SecurityRequirement(name = "BearerAuth")
+@SecurityRequirement(name = "bearerAuth")
 @RestController
 @RequestMapping("/emprestimos")
 public class EquipamentoToColaboradorController {
@@ -74,7 +74,7 @@ public class EquipamentoToColaboradorController {
             @ApiResponse(responseCode = "400", description = "Equipamento já devolvido")
     })
     @PutMapping("/{id}/devolver")
-    public ResponseEntity<Void> registrarDevolucao(@PathVariable Integer id) {
+    public ResponseEntity<Void> registrarDevolucao(@PathVariable IdEquipamentoToColaborador id) {
         return equipamentoToColaboradorService.registrarDevolucao(id);
     }
 }

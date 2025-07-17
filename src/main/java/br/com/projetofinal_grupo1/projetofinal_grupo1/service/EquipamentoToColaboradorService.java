@@ -4,6 +4,7 @@ import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.EquipamentoToColaborad
 import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.EquipamentoToColaboradorResponseDTO;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.model.Equipamento;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.model.EquipamentoToColaborador;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.model.IdEquipamentoToColaborador;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.repository.EquipamentoRepository;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.repository.EquipamentoToColaboradorRepository;
 import jakarta.transaction.Transactional;
@@ -29,7 +30,7 @@ public class EquipamentoToColaboradorService {
                 .collect(Collectors.toList());
     }
 
-    public ResponseEntity<EquipamentoToColaboradorResponseDTO> buscarPorId(Integer id) {
+    public ResponseEntity<EquipamentoToColaboradorResponseDTO> buscarPorId(IdEquipamentoToColaborador id) {
         Optional<EquipamentoToColaborador> encontrado = equipamentoToColaboradorRepository.findById(id);
         return encontrado
                 .map(ec -> ResponseEntity.ok(new EquipamentoToColaboradorResponseDTO(ec)))
@@ -41,7 +42,7 @@ public class EquipamentoToColaboradorService {
 
     @Transactional
     public ResponseEntity<EquipamentoToColaboradorResponseDTO> salvar(EquipamentoToColaboradorRequestDTO dto) {
-        Equipamento equipamento = equipamentoRepository.findById(dto.getIdEquipamento())
+        Equipamento equipamento = equipamentoRepository.findById(dto.getChaveCompostaEquipamentoColaborador().getIdEquipamento())
                 .orElseThrow(() -> new RuntimeException("Equipamento não encontrado"));
 
         if (!Boolean.TRUE.equals(equipamento.getDisponivel())) {
@@ -56,7 +57,7 @@ public class EquipamentoToColaboradorService {
     }
 
     @Transactional
-    public ResponseEntity<EquipamentoToColaboradorResponseDTO> atualizar(Integer id, EquipamentoToColaboradorRequestDTO dto) {
+    public ResponseEntity<EquipamentoToColaboradorResponseDTO> atualizar(IdEquipamentoToColaborador id, EquipamentoToColaboradorRequestDTO dto) {
         return equipamentoToColaboradorRepository.findById(id)
                 .map(ec -> {
                     EquipamentoToColaborador atualizado = dto.toEntity();
@@ -68,7 +69,7 @@ public class EquipamentoToColaboradorService {
     }
 
     @Transactional
-    public ResponseEntity<Void> deletar(Integer id) {
+    public ResponseEntity<Void> deletar(IdEquipamentoToColaborador id) {
         if (equipamentoToColaboradorRepository.existsById(id)) {
             equipamentoToColaboradorRepository.deleteById(id);
             return ResponseEntity.noContent().build();
@@ -77,7 +78,7 @@ public class EquipamentoToColaboradorService {
         }
     }
     @Transactional
-    public ResponseEntity<Void> registrarDevolucao(Integer idEmprestimo) {
+    public ResponseEntity<Void> registrarDevolucao(IdEquipamentoToColaborador idEmprestimo) {
         EquipamentoToColaborador emprestimo = equipamentoToColaboradorRepository.findById(idEmprestimo)
                 .orElseThrow(() -> new RuntimeException("Empréstimo não encontrado"));
 
@@ -88,7 +89,7 @@ public class EquipamentoToColaboradorService {
         emprestimo.setDataDevolucao(LocalDate.now());
         equipamentoToColaboradorRepository.save(emprestimo);
 
-        Equipamento equipamento = equipamentoRepository.findById(emprestimo.getIdEquipamento())
+        Equipamento equipamento = equipamentoRepository.findById(emprestimo.getId().getIdEquipamento())
                 .orElseThrow(() -> new RuntimeException("Equipamento não encontrado"));
 
         equipamento.setDisponivel(true);
