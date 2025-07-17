@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
 @Tag(name = "Parâmetros do sistema", description = "Define os parametros de sistema (tempo de reposição, consumo, envio, taxa de equipamentos defeituosos e estoque minimo de segurança).")
 @SecurityRequirement(name = "bearerAuth")
 @RestController

@@ -26,7 +26,7 @@ public class EstoqueAlertaService {
     private EstoqueRepository estoqueRepository;
 
     @Autowired
-    private ParametroSistemaService parametrosSistemaService;
+    private ParametroSistemaService parametroSistemaService;
 
     @Autowired
     private AlertaRepository alertaRepository;
@@ -39,7 +39,7 @@ public class EstoqueAlertaService {
     public void verificarEstoqueCritico() {
         System.out.println("Verificando estoque crítico por tipo de equipamento...");
 
-        ParametroSistema parametros = parametrosSistemaService.getLatestParametroEstoque()
+        ParametroSistema parametros = parametroSistemaService.getLatestParametroSistema()
                 .orElseThrow(() -> new RuntimeException("Parâmetros de estoque não configurados. Não é possível verificar alertas."));
 
         int estoqueMinimoSeguranca = parametros.getEstoqueMinimoSeguranca();

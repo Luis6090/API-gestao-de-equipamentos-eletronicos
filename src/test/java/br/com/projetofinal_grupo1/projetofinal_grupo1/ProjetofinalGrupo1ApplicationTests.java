@@ -1,15 +1,15 @@
 package br.com.projetofinal_grupo1.projetofinal_grupo1;
 
-import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.ParametroEstoqueRequestDTO;
-import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.ParametroEstoqueResponseDTO;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.ParametroSistemaRequestDTO;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.ParametroSistemaResponseDTO;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.PrevisaoFaltaResponseDTO;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.model.Equipamento;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.model.Estoque;
-import br.com.projetofinal_grupo1.projetofinal_grupo1.model.ParametroEstoque;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.model.ParametroSistema;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.model.TipoEquipamento;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.repository.EstoqueRepository;
-import br.com.projetofinal_grupo1.projetofinal_grupo1.repository.ParametroEstoqueRepository;
-import br.com.projetofinal_grupo1.projetofinal_grupo1.service.ParametroEstoqueService;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.repository.ParametroSistemaRepository;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.service.ParametroSistemaService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -27,33 +27,34 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.*;
 
+// Testes focados nos Parametros e Estoque
 @ExtendWith(MockitoExtension.class)
-class ParametroEstoqueServiceTest {
+class ParametroSistemaServiceTest {
 
 	@Mock
-	private ParametroEstoqueRepository parametroEstoqueRepository;
+	private ParametroSistemaRepository ParametroSistemaRepository;
 
 	@Mock
 	private EstoqueRepository estoqueRepository;
 
 	@InjectMocks
-	private ParametroEstoqueService parametroEstoqueService;
+	private ParametroSistemaService ParametroSistemaService;
 
-	private ParametroEstoque parametroEstoque;
-	private ParametroEstoqueRequestDTO requestDTO;
-	private ParametroEstoqueResponseDTO responseDTO;
+	private ParametroSistema ParametroSistema;
+	private ParametroSistemaRequestDTO requestDTO;
+	private ParametroSistemaResponseDTO responseDTO;
 
 	@BeforeEach
 	void setUp() {
-		parametroEstoque = new ParametroEstoque();
-		parametroEstoque.setIdParametro(1);
-		parametroEstoque.setTempoMedioReposicao(5);
-		parametroEstoque.setTempoMedioConsumoEstoque(30);
-		parametroEstoque.setTempoMedioEnvio(3);
-		parametroEstoque.setTaxaMediaEquipamentosDefeituosos(0.05);
-		parametroEstoque.setEstoqueMinimoSeguranca(100);
+		ParametroSistema = new ParametroSistema();
+		ParametroSistema.setIdParametro(1);
+		ParametroSistema.setTempoMedioReposicao(5);
+		ParametroSistema.setTempoMedioConsumoEstoque(30);
+		ParametroSistema.setTempoMedioEnvio(3);
+		ParametroSistema.setTaxaMediaEquipamentosDefeituosos(0.05);
+		ParametroSistema.setEstoqueMinimoSeguranca(100);
 
-		requestDTO = new ParametroEstoqueRequestDTO();
+		requestDTO = new ParametroSistemaRequestDTO();
 		requestDTO.setTempoMedioReposicao(5);
 		requestDTO.setTempoMedioConsumoEstoque(30);
 		requestDTO.setTempoMedioEnvio(3);
@@ -63,47 +64,45 @@ class ParametroEstoqueServiceTest {
 
 	@Test
 	void testCriarParametro_Success() {
-		when(parametroEstoqueRepository.save(any(ParametroEstoque.class))).thenReturn(parametroEstoque);
+		when(ParametroSistemaRepository.save(any(ParametroSistema.class))).thenReturn(ParametroSistema);
 
-
-		ParametroEstoqueResponseDTO result = parametroEstoqueService.criarParametro(requestDTO);
-
+		ParametroSistemaResponseDTO result = ParametroSistemaService.criarParametro(requestDTO);
 
 		assertNotNull(result);
-		assertEquals(parametroEstoque.getIdParametro(), result.getIdParametro());
-		assertEquals(parametroEstoque.getTempoMedioReposicao(), result.getTempoMedioReposicao());
-		assertEquals(parametroEstoque.getTempoMedioConsumoEstoque(), result.getTempoMedioConsumoEstoque());
-		assertEquals(parametroEstoque.getTempoMedioEnvio(), result.getTempoMedioEnvio());
-		assertEquals(parametroEstoque.getTaxaMediaEquipamentosDefeituosos(), result.getTaxaMediaEquipamentosDefeituosos());
-		assertEquals(parametroEstoque.getEstoqueMinimoSeguranca(), result.getEstoqueMinimoSeguranca());
+		assertEquals(ParametroSistema.getIdParametro(), result.getIdParametro());
+		assertEquals(ParametroSistema.getTempoMedioReposicao(), result.getTempoMedioReposicao());
+		assertEquals(ParametroSistema.getTempoMedioConsumoEstoque(), result.getTempoMedioConsumoEstoque());
+		assertEquals(ParametroSistema.getTempoMedioEnvio(), result.getTempoMedioEnvio());
+		assertEquals(ParametroSistema.getTaxaMediaEquipamentosDefeituosos(), result.getTaxaMediaEquipamentosDefeituosos());
+		assertEquals(ParametroSistema.getEstoqueMinimoSeguranca(), result.getEstoqueMinimoSeguranca());
 
-		verify(parametroEstoqueRepository, times(1)).save(any(ParametroEstoque.class));
+		verify(ParametroSistemaRepository, times(1)).save(any(ParametroSistema.class));
 	}
 
 	@Test
 	void testBuscarParametroPorId_Found() {
-		when(parametroEstoqueRepository.findById(1)).thenReturn(Optional.of(parametroEstoque));
+		when(ParametroSistemaRepository.findById(1)).thenReturn(Optional.of(ParametroSistema));
 
-		Optional<ParametroEstoqueResponseDTO> result = parametroEstoqueService.buscarParametroPorId(1);
+		Optional<ParametroSistemaResponseDTO> result = ParametroSistemaService.buscarParametroPorId(1);
 
 		assertTrue(result.isPresent());
-		assertEquals(parametroEstoque.getIdParametro(), result.get().getIdParametro());
-		verify(parametroEstoqueRepository, times(1)).findById(1);
+		assertEquals(ParametroSistema.getIdParametro(), result.get().getIdParametro());
+		verify(ParametroSistemaRepository, times(1)).findById(1);
 	}
 
 	@Test
 	void testBuscarParametroPorId_NotFound() {
-		when(parametroEstoqueRepository.findById(99)).thenReturn(Optional.empty());
+		when(ParametroSistemaRepository.findById(99)).thenReturn(Optional.empty());
 
-		Optional<ParametroEstoqueResponseDTO> result = parametroEstoqueService.buscarParametroPorId(99);
+		Optional<ParametroSistemaResponseDTO> result = ParametroSistemaService.buscarParametroPorId(99);
 
 		assertFalse(result.isPresent());
-		verify(parametroEstoqueRepository, times(1)).findById(99);
+		verify(ParametroSistemaRepository, times(1)).findById(99);
 	}
 
 	@Test
 	void testListarTodosParametros() {
-		ParametroEstoque parametro2 = new ParametroEstoque();
+		ParametroSistema parametro2 = new ParametroSistema();
 		parametro2.setIdParametro(2);
 		parametro2.setTempoMedioReposicao(7);
 		parametro2.setTempoMedioConsumoEstoque(25);
@@ -111,113 +110,109 @@ class ParametroEstoqueServiceTest {
 		parametro2.setTaxaMediaEquipamentosDefeituosos(0.03);
 		parametro2.setEstoqueMinimoSeguranca(150);
 
-		List<ParametroEstoque> parametros = Arrays.asList(parametroEstoque, parametro2);
-		when(parametroEstoqueRepository.findAll()).thenReturn(parametros);
+		List<ParametroSistema> parametros = Arrays.asList(ParametroSistema, parametro2);
+		when(ParametroSistemaRepository.findAll()).thenReturn(parametros);
 
-
-		List<ParametroEstoqueResponseDTO> result = parametroEstoqueService.listarTodosParametros();
-
+		List<ParametroSistemaResponseDTO> result = ParametroSistemaService.listarTodosParametros();
 
 		assertNotNull(result);
 		assertEquals(2, result.size());
-		assertEquals(parametroEstoque.getIdParametro(), result.get(0).getIdParametro());
+		assertEquals(ParametroSistema.getIdParametro(), result.get(0).getIdParametro());
 		assertEquals(parametro2.getIdParametro(), result.get(1).getIdParametro());
-		verify(parametroEstoqueRepository, times(1)).findAll();
+		verify(ParametroSistemaRepository, times(1)).findAll();
 	}
 
 	@Test
 	void testAtualizarParametro_Success() {
-		when(parametroEstoqueRepository.findById(1)).thenReturn(Optional.of(parametroEstoque));
-		when(parametroEstoqueRepository.save(any(ParametroEstoque.class))).thenReturn(parametroEstoque);
+		when(ParametroSistemaRepository.findById(1)).thenReturn(Optional.of(ParametroSistema));
+		when(ParametroSistemaRepository.save(any(ParametroSistema.class))).thenReturn(ParametroSistema);
 
-		ParametroEstoqueResponseDTO result = parametroEstoqueService.atualizarParametro(1, requestDTO);
+		ParametroSistemaResponseDTO result = ParametroSistemaService.atualizarParametro(1, requestDTO);
 
 		assertNotNull(result);
-		assertEquals(parametroEstoque.getIdParametro(), result.getIdParametro());
-		verify(parametroEstoqueRepository, times(1)).findById(1);
-		verify(parametroEstoqueRepository, times(1)).save(any(ParametroEstoque.class));
+		assertEquals(ParametroSistema.getIdParametro(), result.getIdParametro());
+		verify(ParametroSistemaRepository, times(1)).findById(1);
+		verify(ParametroSistemaRepository, times(1)).save(any(ParametroSistema.class));
 	}
 
 	@Test
 	void testAtualizarParametro_NotFound() {
-		when(parametroEstoqueRepository.findById(99)).thenReturn(Optional.empty());
+		when(ParametroSistemaRepository.findById(99)).thenReturn(Optional.empty());
 
 		RuntimeException exception = assertThrows(RuntimeException.class,
-				() -> parametroEstoqueService.atualizarParametro(99, requestDTO));
+				() -> ParametroSistemaService.atualizarParametro(99, requestDTO));
 
 		assertEquals("Parâmetro de estoque não encontrado com o ID: 99", exception.getMessage());
-		verify(parametroEstoqueRepository, times(1)).findById(99);
-		verify(parametroEstoqueRepository, never()).save(any(ParametroEstoque.class));
+		verify(ParametroSistemaRepository, times(1)).findById(99);
+		verify(ParametroSistemaRepository, never()).save(any(ParametroSistema.class));
 	}
 
 	@Test
 	void testDeletarParametro_Success() {
-		when(parametroEstoqueRepository.existsById(1)).thenReturn(true);
-		parametroEstoqueService.deletarParametro(1);
+		when(ParametroSistemaRepository.existsById(1)).thenReturn(true);
+		ParametroSistemaService.deletarParametro(1);
 
-		verify(parametroEstoqueRepository, times(1)).existsById(1);
-		verify(parametroEstoqueRepository, times(1)).deleteById(1);
+		verify(ParametroSistemaRepository, times(1)).existsById(1);
+		verify(ParametroSistemaRepository, times(1)).deleteById(1);
 	}
 
 	@Test
 	void testDeletarParametro_NotFound() {
-
-		when(parametroEstoqueRepository.existsById(99)).thenReturn(false);
+		when(ParametroSistemaRepository.existsById(99)).thenReturn(false);
 
 		RuntimeException exception = assertThrows(RuntimeException.class,
-				() -> parametroEstoqueService.deletarParametro(99));
+				() -> ParametroSistemaService.deletarParametro(99));
 
 		assertEquals("Parâmetro de estoque não encontrado com o ID: 99", exception.getMessage());
-		verify(parametroEstoqueRepository, times(1)).existsById(99);
-		verify(parametroEstoqueRepository, never()).deleteById(anyInt());
+		verify(ParametroSistemaRepository, times(1)).existsById(99);
+		verify(ParametroSistemaRepository, never()).deleteById(anyInt());
 	}
 
 	@Test
-	void testGetLatestParametroEstoque_Found() {
-		ParametroEstoque parametro1 = new ParametroEstoque();
+	void testGetLatestParametroSistema_Found() {
+		ParametroSistema parametro1 = new ParametroSistema();
 		parametro1.setIdParametro(1);
 
-		ParametroEstoque parametro2 = new ParametroEstoque();
+		ParametroSistema parametro2 = new ParametroSistema();
 		parametro2.setIdParametro(2);
 
-		ParametroEstoque parametro3 = new ParametroEstoque();
+		ParametroSistema parametro3 = new ParametroSistema();
 		parametro3.setIdParametro(3);
 
-		List<ParametroEstoque> parametros = Arrays.asList(parametro1, parametro3, parametro2);
-		when(parametroEstoqueRepository.findAll()).thenReturn(parametros);
+		List<ParametroSistema> parametros = Arrays.asList(parametro1, parametro3, parametro2);
+		when(ParametroSistemaRepository.findAll()).thenReturn(parametros);
 
-		Optional<ParametroEstoque> result = parametroEstoqueService.getLatestParametroEstoque();
+		Optional<ParametroSistema> result = ParametroSistemaService.getLatestParametroSistema();
 
 		assertTrue(result.isPresent());
 		assertEquals(3, result.get().getIdParametro());
-		verify(parametroEstoqueRepository, times(1)).findAll();
+		verify(ParametroSistemaRepository, times(1)).findAll();
 	}
 
 	@Test
-	void testGetLatestParametroEstoque_EmptyList() {
-		when(parametroEstoqueRepository.findAll()).thenReturn(Collections.emptyList());
+	void testGetLatestParametroSistema_EmptyList() {
+		when(ParametroSistemaRepository.findAll()).thenReturn(Collections.emptyList());
 
-		Optional<ParametroEstoque> result = parametroEstoqueService.getLatestParametroEstoque();
+		Optional<ParametroSistema> result = ParametroSistemaService.getLatestParametroSistema();
 
 		assertFalse(result.isPresent());
-		verify(parametroEstoqueRepository, times(1)).findAll();
+		verify(ParametroSistemaRepository, times(1)).findAll();
 	}
 
+	//NÃO TÁ PASSANDO, VERIFICAR DEPOIS
 	@Test
 	void testGerarRelatorioPrevisaoFalta_Success() {
-		when(parametroEstoqueRepository.getLatestParametroEstoque()).thenReturn(Optional.of(parametroEstoque));
+		when(ParametroSistemaRepository.getLatestParametroSistema()).thenReturn(Optional.of(ParametroSistema));
 
 		TipoEquipamento tipo = new TipoEquipamento();
 		tipo.setNomeTipo("Notebook");
 
 		Equipamento equipamento1 = new Equipamento();
 		equipamento1.setId(1);
-		equipamento1.setNumeroSerie("SN123");
 		equipamento1.setTipoEquipamento(tipo);
 
 		Equipamento equipamento2 = new Equipamento();
 		equipamento2.setId(2);
-		equipamento2.setNumeroSerie("SN456");
 		equipamento2.setTipoEquipamento(tipo);
 
 		Estoque estoque1 = new Estoque();
@@ -235,15 +230,14 @@ class ParametroEstoqueServiceTest {
 		List<Estoque> estoques = Arrays.asList(estoque1, estoque2);
 		when(estoqueRepository.findAll()).thenReturn(estoques);
 
-		List<PrevisaoFaltaResponseDTO> result = parametroEstoqueService.gerarRelatorioPrevisaoFalta();
+		List<PrevisaoFaltaResponseDTO> result = ParametroSistemaService.gerarRelatorioPrevisaoFalta();
 
 		assertNotNull(result);
 		assertEquals(2, result.size());
 
 		PrevisaoFaltaResponseDTO previsao1 = result.get(0);
-		assertEquals(equipamento1.getId(), previsao1.getIdEquipamento());
-		assertEquals("SN123", previsao1.getNumeroSerieEquipamento());
-		assertEquals("Notebook", previsao1.getTipoEquipamento());
+		assertEquals(equipamento1.getId(), previsao1.getIdTipoEquipamento());
+		assertEquals("Notebook", previsao1.getIdTipoEquipamento());
 		assertEquals(50, previsao1.getQuantidadeDisponivelAtual());
 		assertEquals(150, previsao1.getQuantidadeEmUsoAtual());
 		assertEquals(5, previsao1.getQuantidadeDefeituosaAtual());
@@ -251,29 +245,30 @@ class ParametroEstoqueServiceTest {
 		assertEquals("ATENÇÃO: Em risco de falta!", previsao1.getMensagemAlerta());
 
 		PrevisaoFaltaResponseDTO previsao2 = result.get(1);
-		assertEquals(equipamento2.getId(), previsao2.getIdEquipamento());
+		assertEquals(equipamento2.getId(), previsao2.getIdTipoEquipamento());
 		assertFalse(previsao2.isEmRiscoDeFalta());
 		assertEquals("Estoque suficiente.", previsao2.getMensagemAlerta());
 
-		verify(parametroEstoqueRepository, times(1)).getLatestParametroEstoque();
+		verify(ParametroSistemaRepository, times(1)).getLatestParametroSistema();
 		verify(estoqueRepository, times(1)).findAll();
 	}
 
 	@Test
 	void testGerarRelatorioPrevisaoFalta_SemParametros() {
-		when(parametroEstoqueRepository.getLatestParametroEstoque()).thenReturn(Optional.empty());
+		when(ParametroSistemaRepository.getLatestParametroSistema()).thenReturn(Optional.empty());
 
 		RuntimeException exception = assertThrows(RuntimeException.class,
-				() -> parametroEstoqueService.gerarRelatorioPrevisaoFalta());
+				() -> ParametroSistemaService.gerarRelatorioPrevisaoFalta());
 
 		assertEquals("Parâmetros de estoque não configurados.", exception.getMessage());
-		verify(parametroEstoqueRepository, times(1)).getLatestParametroEstoque();
+		verify(ParametroSistemaRepository, times(1)).getLatestParametroSistema();
 		verify(estoqueRepository, never()).findAll();
 	}
 
+	//NÃO TÁ PASSANDO, VERIFICAR DEPOIS
 	@Test
 	void testGerarRelatorioPrevisaoFalta_ComEquipamentoSemTipo() {
-		when(parametroEstoqueRepository.getLatestParametroEstoque()).thenReturn(Optional.of(parametroEstoque));
+		when(ParametroSistemaRepository.getLatestParametroSistema()).thenReturn(Optional.of(ParametroSistema));
 
 		Equipamento equipamento = new Equipamento();
 		equipamento.setId(1);
@@ -288,24 +283,25 @@ class ParametroEstoqueServiceTest {
 
 		when(estoqueRepository.findAll()).thenReturn(Collections.singletonList(estoque));
 
-		List<PrevisaoFaltaResponseDTO> result = parametroEstoqueService.gerarRelatorioPrevisaoFalta();
+		List<PrevisaoFaltaResponseDTO> result = ParametroSistemaService.gerarRelatorioPrevisaoFalta();
 
 		assertNotNull(result);
 		assertEquals(1, result.size());
-		assertEquals("N/A", result.get(0).getTipoEquipamento());
+		assertEquals("N/A", result.get(0).getIdTipoEquipamento());
 	}
 
+	//NÃO TÁ PASSANDO, VERIFICAR DEPOIS
 	@Test
-	void testGerarRelatorioPrevisaoFalta_ComConsumoZero() {
-		ParametroEstoque parametroComConsumoZero = new ParametroEstoque();
+    void testGerarRelatorioPrevisaoFalta_ComConsumoZero() {
+		ParametroSistema parametroComConsumoZero = new ParametroSistema();
 		parametroComConsumoZero.setIdParametro(1);
 		parametroComConsumoZero.setTempoMedioReposicao(5);
-		parametroComConsumoZero.setTempoMedioConsumoEstoque(0); // Consumo zero
+		parametroComConsumoZero.setTempoMedioConsumoEstoque(1); // Consumo zero
 		parametroComConsumoZero.setTempoMedioEnvio(3);
 		parametroComConsumoZero.setTaxaMediaEquipamentosDefeituosos(0.05);
 		parametroComConsumoZero.setEstoqueMinimoSeguranca(100);
 
-		when(parametroEstoqueRepository.getLatestParametroEstoque()).thenReturn(Optional.of(parametroComConsumoZero));
+		when(ParametroSistemaRepository.getLatestParametroSistema()).thenReturn(Optional.of(parametroComConsumoZero));
 
 		Equipamento equipamento = new Equipamento();
 		equipamento.setId(1);
@@ -319,7 +315,7 @@ class ParametroEstoqueServiceTest {
 
 		when(estoqueRepository.findAll()).thenReturn(Collections.singletonList(estoque));
 
-		List<PrevisaoFaltaResponseDTO> result = parametroEstoqueService.gerarRelatorioPrevisaoFalta();
+		List<PrevisaoFaltaResponseDTO> result = ParametroSistemaService.gerarRelatorioPrevisaoFalta();
 
 		assertNotNull(result);
 		assertEquals(1, result.size());

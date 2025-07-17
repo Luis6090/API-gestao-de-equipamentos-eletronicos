@@ -8,5 +8,5 @@ import java.util.Optional;
 
 public interface ParametroSistemaRepository extends JpaRepository<ParametroSistema, Integer> {
     @Query("SELECT p FROM ParametroSistema p ORDER BY p.id DESC LIMIT 1")
-    Optional<ParametroSistema> getLatestParametroEstoque();
+    Optional<ParametroSistema> getLatestParametroSistema();
 }

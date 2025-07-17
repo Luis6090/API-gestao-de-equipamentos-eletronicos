@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
 @Tag(name = "Tipos de equipamentos", description = "CRUD de tipos de equipamentos (divide em categorias).")
 @SecurityRequirement(name = "bearerAuth")
 @RestController

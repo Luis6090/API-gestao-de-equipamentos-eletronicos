@@ -38,13 +38,6 @@ public class ColaboradorService {
         enderecoRepository.save(enderecoDoColaborador);
     }
 
-//    private void registrarEndereco(String cep){
-//        Endereco enderecoDoColaborador = enderecoClient.retornarEnderecoPorCep(cep);
-//        if (enderecoDoColaborador != null){
-//            enderecoRepository.save(enderecoDoColaborador);
-//        }
-//    }
-
     public List<ColaboradorResponseDTO> devolverTodosOsColaborador(){
         List<Colaborador>listaDeColaboradores = colaboradorRepository.findAll();
         List<ColaboradorResponseDTO> listaDeColaboradoresResponseDTO = new ArrayList<>();

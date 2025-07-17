@@ -1,31 +1,26 @@
 package br.com.projetofinal_grupo1.projetofinal_grupo1.controller;
 
-
+import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.UsuarioAtualizacaoDTO;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.UsuarioCriacaoDTO;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.UsuarioResponseDTO;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.model.Usuario;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.repository.UsuarioRepository;
-import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.UsuarioCriacaoDTO;
-import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.UsuarioAtualizacaoDTO;
-import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.UsuarioResponseDTO;
-
 import br.com.projetofinal_grupo1.projetofinal_grupo1.service.UsuarioService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import io.swagger.v3.oas.annotations.Parameter;
-
-
 
 @Tag(name = "Usuário", description = "CRUD de usuários (criar, listar, editar, excluir).")
 @RestController
@@ -83,7 +78,6 @@ public class UsuarioController {
         );
     }
 
-
     @Operation(summary = "Criar um novo usuário")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Usuário criado com sucesso"),
@@ -96,7 +90,6 @@ public class UsuarioController {
         if (usuarioRepository.existsByEmail(usuarioCriacaoDTO.getEmail())) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Email já cadastrado.");
         }
-
 
         usuarioService.cadastrarUsuarioComConfirmacao(usuarioCriacaoDTO);
 
@@ -140,8 +133,4 @@ public class UsuarioController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-
 }
-
-
-

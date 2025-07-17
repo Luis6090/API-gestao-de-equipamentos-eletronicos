@@ -92,14 +92,14 @@ public class ParametroSistemaService {
     }
 
     @Transactional(readOnly = true)
-    public Optional<ParametroSistema> getLatestParametroEstoque() {
+    public Optional<ParametroSistema> getLatestParametroSistema() {
         return parametrosSistemaRepository.findAll().stream()
                 .max((p1, p2) -> Integer.compare(p1.getIdParametro(), p2.getIdParametro()));
     }
 
     @Transactional(readOnly = true)
     public List<PrevisaoFaltaResponseDTO> gerarRelatorioPrevisaoFalta() {
-        ParametroSistema parametros = parametrosSistemaRepository.getLatestParametroEstoque()
+        ParametroSistema parametros = parametrosSistemaRepository.getLatestParametroSistema()
                 .orElseThrow(() -> new RuntimeException("Parâmetros de estoque não configurados."));
 
         List<Estoque> todosEstoques = estoqueRepository.findAll();
