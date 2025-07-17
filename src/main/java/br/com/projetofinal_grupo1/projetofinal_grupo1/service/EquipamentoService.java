@@ -45,20 +45,28 @@ public class EquipamentoService {
                 .orElseThrow(() -> new RuntimeException("Tipo de equipamento não encontrado com o ID: " + equipamento.getTipoEquipamento().getId()));
 
         equipamento.setTipoEquipamento(tipoEquipamento);
+        equipamento.setDisponivel(true); // marca o novo como disponível
 
 
-        equipamento.setDisponivel(true);
+        Equipamento salvo = equipamentoRepository.save(equipamento);
 
 
-        Estoque estoque = new Estoque();
-        estoque.setQuantidadeDisponivel(1);
-        estoque.setQuantidadeEmUso(0);
-        estoque.setQuantidadeDefeituosa(0);
-        estoque.setEquipamento(equipamento); // vincula o equipamento no estoque
-        estoque.setTipoEquipamento(tipoEquipamento);
-        equipamento.setEstoque(estoque); // vincula o estoque no equipamento
+        Estoque estoque = estoqueRepository.findByTipoEquipamentoId(tipoEquipamento.getId())
+                .orElse(null);
 
-        return equipamentoRepository.save(equipamento);
+        if (estoque == null) {
+            estoque = new Estoque();
+            estoque.setTipoEquipamento(tipoEquipamento);
+            estoque.setQuantidadeDisponivel(1);
+            estoque.setQuantidadeEmUso(0);
+            estoque.setQuantidadeDefeituosa(0);
+        } else {
+            estoque.setQuantidadeDisponivel(estoque.getQuantidadeDisponivel() + 1);
+        }
+
+        estoqueRepository.save(estoque);
+
+        return salvo;
     }
 
     @Transactional
@@ -66,7 +74,6 @@ public class EquipamentoService {
         return equipamentoRepository.findById(id)
                 .map(existing -> {
                     equipamento.setId(id);
-                    equipamento.setEstoque(existing.getEstoque()); // preserva o estoque vinculado
                     return ResponseEntity.ok(equipamentoRepository.save(equipamento));
                 })
                 .orElse(ResponseEntity.notFound().build());

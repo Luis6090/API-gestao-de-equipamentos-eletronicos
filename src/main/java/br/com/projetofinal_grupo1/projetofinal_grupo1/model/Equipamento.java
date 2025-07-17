@@ -41,9 +41,6 @@ public class Equipamento {
     @JoinColumn(name = "id_tipo_equipamento", nullable = false)
     private TipoEquipamento tipoEquipamento;
 
-    @JsonManagedReference
-    @OneToOne(mappedBy = "equipamento", cascade = CascadeType.ALL)
-    private Estoque estoque;
 
     @Column(nullable = false)
     private Boolean disponivel;
