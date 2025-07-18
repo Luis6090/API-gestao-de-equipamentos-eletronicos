@@ -33,7 +33,6 @@ CREATE TABLE estoque (
     quantidade_disponivel INTEGER,
     quantidade_em_uso INTEGER,
     quantidade_defeituosa INTEGER,
-    id_equipamento INTEGER UNIQUE NOT NULL REFERENCES equipamento(id_equipamento),
     id_tipo_equipamento INTEGER NOT NULL REFERENCES tipo_equipamento(id_tipo_equipamento)
 );
 
