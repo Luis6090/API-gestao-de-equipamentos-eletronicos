@@ -28,15 +28,12 @@ INSERT INTO colaborador (cpf, nome, email_colaborador, cep, data_nascimento, dat
 ('55566677788', 'João', 'ana@empresa.com', '65970-003', '1995-09-30', '2021-02-05', NULL, 'Teclado, Mouse'),
 ('99988877766', 'Paulo', 'paulo@empresa.com', '65970-004', '1985-12-11', '2022-04-01', NULL, 'Monitor');
 
--- ENDEREÇOS (IDs iguais aos IDs dos colaboradores)
-INSERT INTO endereco (id, cep, logradouro, complemento, unidade, bairro, localidade, uf, estado, regiao, ibge, gia, ddd, siafi, colaborador_id_fk) VALUES
-(1, '65600-160', 'Rua Principal', 'Casa 2', '', 'Centro', 'Caxias', 'MA', 'Maranhão', 'Nordeste', '2103001', NULL, '99', '1234', 1),
-(2, '50010-000', 'Avenida Guararapes', 'Apto 101', '', 'Santo Antônio', 'Recife', 'PE', 'Pernambuco', 'Nordeste', '2611606', NULL, '81', '1235', 2),
-(3, '95010-000', 'Rua Sinimbu', 'Sala 202', '', 'Centro', 'Caxias do Sul', 'RS', 'Rio Grande do Sul', 'Sul', '4305108', NULL, '54', '1236', 3),
-(4, '65970-001', 'Rua da Liberdade', 'Casa 5', '', 'Bela Vista', 'Porto Franco', 'MA', 'Maranhão', 'Nordeste', '2109052', NULL, '99', '1237', 4),
-(5, '65970-002', 'Avenida Maranhão', 'Fundos', '', 'São José', 'Porto Franco', 'MA', 'Maranhão', 'Nordeste', '2109052', NULL, '99', '1238', 5);
-
-
+-- ENDERECOS (IDs iguais aos IDs dos colaboradores)
+INSERT INTO endereco (id, cep, logradouro, numero, complemento, unidade, bairro, localidade, uf, estado, regiao, ibge, gia, ddd, siafi, colaborador_id_fk) VALUES
+(1, '65600-160', 'Rua Principal', 1467, 'Casa 2', NULL, 'Centro', 'Caxias', 'MA', 'Maranhão', 'Nordeste', '2103001', NULL, '99', '1234', 1),
+(2, '50010-000', 'Avenida Guararapes', 3062, 'Apto 101', NULL, 'Santo Antônio', 'Recife', 'PE', 'Pernambuco', 'Nordeste', '2611606', NULL, '81', '1235', 2),
+(3, '95010-000', 'Rua Sinimbu', 1576, 'Sala 202', NULL, 'Centro', 'Caxias do Sul', 'RS', 'Rio Grande do Sul', 'Sul', '4305108', NULL, '54', '1236', 3),
+(4, '65970-001', 'Rua da Liberdade', 1500, 'Casa 5', NULL, 'Bela Vista', 'Porto Franco', 'MA', 'Maranhão', 'Nordeste', '2109052', NULL, '99', '1237', 4);
 -- EQUIPAMENTOS
 INSERT INTO equipamento (especificacoes, numero_serie, marca, modelo, data_aquisicao, tempo_uso, disponivel, id_tipo_equipamento) VALUES
 ('Notebook com 8GB RAM', 'NB001', 'Dell', 'Inspiron 14', '2022-01-01', 12, false, 1),

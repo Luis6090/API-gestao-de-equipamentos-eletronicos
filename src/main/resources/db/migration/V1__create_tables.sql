@@ -54,6 +54,7 @@ CREATE TABLE endereco (
     id BIGINT PRIMARY KEY,
     cep VARCHAR(20),
     logradouro VARCHAR(255),
+    numero VARCHAR(20),
     complemento VARCHAR(255),
     unidade VARCHAR(100),
     bairro VARCHAR(100),

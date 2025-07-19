@@ -159,6 +159,7 @@ Com base na descrição do projeto "Equipamentos Raros - Controle de inventário
     *   `gia`
     *   `ddd`
     *   `siafi`
+    *   `numero`
     (A chave estrangeira `colaborador_id_fk` também será Chave Primária de `ENDEREÇO`)
 ---
 
