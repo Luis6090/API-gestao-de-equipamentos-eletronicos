@@ -31,11 +31,17 @@ public class ColaboradorController {
         colaboradorService.registrarColaborador(colaboradorRequestDTO);
         return ResponseEntity.ok().build();
     }
-    @Operation(summary = "Listar todos Colaboradores Cadastrados")
+    @Operation(summary = "Listar todos colaboradores cadastrados")
     @GetMapping
     public ResponseEntity<List<ColaboradorResponseDTO>> imprimir(){
         List<ColaboradorResponseDTO> listaDeColaborador = colaboradorService.devolverTodosOsColaborador();
         return ResponseEntity.status(HttpStatus.OK).body(listaDeColaborador);
+    }
+    @Operation(summary = "Busca um colaborador por id")
+    @GetMapping("/{id}")
+    public ResponseEntity<ColaboradorResponseDTO> buscarColaboradorPorId(@PathVariable Long id){
+        ColaboradorResponseDTO colaboradorResponse = colaboradorService.devolverColaboradorPorId(id);
+        return ResponseEntity.status(HttpStatus.OK).body(colaboradorResponse);
     }
     @Operation(summary = "Atualizar dados")
     @PatchMapping

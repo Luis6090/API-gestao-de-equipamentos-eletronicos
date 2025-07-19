@@ -30,6 +30,7 @@ public class ColaboradorService {
     public void registrarColaborador(ColaboradorRequestDTO colaboradorRequestDTO){
         Colaborador colaborador = Colaborador.converterParaColaborador(colaboradorRequestDTO);
         Endereco enderecoDoColaborador = enderecoClient.retornarEnderecoPorCep(colaborador.getCep());
+        enderecoDoColaborador.setNumeroCasa(colaboradorRequestDTO.getNumeroCasa());
 
         colaborador.setEndereco(enderecoDoColaborador);
         enderecoDoColaborador.setColaborador(colaborador);
@@ -47,6 +48,10 @@ public class ColaboradorService {
         }
 
         return listaDeColaboradoresResponseDTO;
+    }
+
+    public ColaboradorResponseDTO devolverColaboradorPorId(Long id){
+        return ColaboradorResponseDTO.converterParaColaboradorResponseDTO(colaboradorRepository.findById(id).get());
     }
 
     public void editarNomeEmailDataContratacaoDataRecisaoEspecificacaoEquipamentoDoColaborador(Long id, ColaboradorUpdateDTO colaboradorUpdateDTO){

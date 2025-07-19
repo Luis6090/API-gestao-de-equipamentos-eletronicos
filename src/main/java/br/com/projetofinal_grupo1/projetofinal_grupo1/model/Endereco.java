@@ -28,6 +28,8 @@ public class Endereco {
     private String ddd;
     private String siafi;
 
+    private Integer numeroCasa;
+
     @OneToOne
     @MapsId
     @JoinColumn(name = "colaborador_id_fk")
