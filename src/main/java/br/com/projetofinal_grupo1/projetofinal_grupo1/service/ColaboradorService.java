@@ -30,6 +30,7 @@ public class ColaboradorService {
     public void registrarColaborador(ColaboradorRequestDTO colaboradorRequestDTO){
         Colaborador colaborador = Colaborador.converterParaColaborador(colaboradorRequestDTO);
         Endereco enderecoDoColaborador = enderecoClient.retornarEnderecoPorCep(colaborador.getCep());
+        enderecoDoColaborador.setNumeroCasa(colaboradorRequestDTO.getNumeroCasa());
 
         colaborador.setEndereco(enderecoDoColaborador);
         enderecoDoColaborador.setColaborador(colaborador);
@@ -48,23 +49,26 @@ public class ColaboradorService {
 
         return listaDeColaboradoresResponseDTO;
     }
+    public ColaboradorResponseDTO devolverColaboradorPorId(Long id){
+        return ColaboradorResponseDTO.converterParaColaboradorResponseDTO(colaboradorRepository.findById(Math.toIntExact(id)).get());
+    }
 
     public void editarNomeEmailDataContratacaoDataRecisaoEspecificacaoEquipamentoDoColaborador(int id, ColaboradorUpdateDTO colaboradorUpdateDTO){
         Colaborador colaborador = colaboradorRepository.findById(Math.toIntExact(id)).get();
         colaborador.atualizarColaborador(colaboradorUpdateDTO);
         colaboradorRepository.editarColaborador(Math.toIntExact(id), colaborador.getNome(), colaborador.getEmail(), colaborador.getCep()
-                                                , colaborador.getDataContratacaoInicio(), colaborador.getDataContratacaoRecisao()
-                                                , colaborador.getEquipamentoEspecificacao());
+                , colaborador.getDataContratacaoInicio(), colaborador.getDataContratacaoRecisao()
+                , colaborador.getEquipamentoEspecificacao());
 
-       Endereco enderecoNovo = enderecoClient.retornarEnderecoPorCep(colaborador.getCep());
-       Endereco enderecoDoColaborador = enderecoRepository.findById((long) id).get();
+        Endereco enderecoNovo = enderecoClient.retornarEnderecoPorCep(colaborador.getCep());
+        Endereco enderecoDoColaborador = enderecoRepository.findById((long) id).get();
 
-       if(!enderecoNovo.getCep().equals(enderecoDoColaborador.getCep())){
-          enderecoRepository.editarEndereco(Math.toIntExact(id), enderecoNovo.getCep(), enderecoNovo.getLogradouro(), enderecoNovo.getComplemento()
-                                            , enderecoNovo.getUnidade(), enderecoNovo.getBairro(), enderecoNovo.getLocalidade(), enderecoNovo.getUf()
-                                            , enderecoNovo.getEstado(), enderecoNovo.getRegiao(), enderecoNovo.getIbge(), enderecoNovo.getGia()
-                                            , enderecoNovo.getDdd(), enderecoNovo.getSiafi());
-       }
+        if(!enderecoNovo.getCep().equals(enderecoDoColaborador.getCep())){
+            enderecoRepository.editarEndereco(Math.toIntExact(id), enderecoNovo.getCep(), enderecoNovo.getLogradouro(), enderecoNovo.getComplemento()
+                    , enderecoNovo.getUnidade(), enderecoNovo.getBairro(), enderecoNovo.getLocalidade(), enderecoNovo.getUf()
+                    , enderecoNovo.getEstado(), enderecoNovo.getRegiao(), enderecoNovo.getIbge(), enderecoNovo.getGia()
+                    , enderecoNovo.getDdd(), enderecoNovo.getSiafi());
+        }
     }
 
     public void deletarColaboradorPorId(int id){
@@ -74,3 +78,4 @@ public class ColaboradorService {
         }
     }
 }
+
