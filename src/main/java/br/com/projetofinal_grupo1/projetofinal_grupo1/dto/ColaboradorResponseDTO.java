@@ -3,11 +3,15 @@ package br.com.projetofinal_grupo1.projetofinal_grupo1.dto;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.model.Colaborador;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
+@Setter
 @Getter
 @AllArgsConstructor
+@NoArgsConstructor
 public class ColaboradorResponseDTO {
     private String nome;
     private String email;

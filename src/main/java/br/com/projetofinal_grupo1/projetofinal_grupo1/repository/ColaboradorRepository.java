@@ -10,12 +10,12 @@ import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
 
-public interface ColaboradorRepository extends JpaRepository<Colaborador, Long> {
+public interface ColaboradorRepository extends JpaRepository<Colaborador, Integer> {
     @Modifying
     @Transactional
     @Query("UPDATE Colaborador col SET col.nome = :nome, col.email = :email, col.cep = :cep, col.dataContratacaoInicio = :dataContratacaoInicio" +
             ", col.dataContratacaoRecisao = :dataContratacaoRecisao, col.equipamentoEspecificacao = :equipamentoEspecificacao WHERE col.id = :id")
-    void editarColaborador(@Param("id") Long id, @Param("nome") String nome, @Param("email") String email, @Param("cep") String cep
+    void editarColaborador(@Param("id") int id, @Param("nome") String nome, @Param("email") String email, @Param("cep") String cep
             , @Param("dataContratacaoInicio")LocalDate dataInicio, @Param("dataContratacaoRecisao") LocalDate dataRecisao
             , @Param("equipamentoEspecificacao") String equipamentoEspecificacao);
 }

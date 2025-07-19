@@ -38,14 +38,14 @@ public class ColaboradorController {
         return ResponseEntity.status(HttpStatus.OK).body(listaDeColaborador);
     }
     @Operation(summary = "Atualizar dados")
-    @PatchMapping
-    public ResponseEntity<Void> editarColaborador (@PathVariable Long id, @RequestBody @Valid ColaboradorUpdateDTO colaboradorUpdateDTO){
+    @PatchMapping("/{id}")
+    public ResponseEntity<Void> editarColaborador (@PathVariable int id, @RequestBody @Valid ColaboradorUpdateDTO colaboradorUpdateDTO){
         colaboradorService.editarNomeEmailDataContratacaoDataRecisaoEspecificacaoEquipamentoDoColaborador(id, colaboradorUpdateDTO);
         return ResponseEntity.noContent().build();
     }
     @Operation(summary = "Deletar colaborador pelo ID")
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletarColaborador(@PathVariable Long id){
+    public ResponseEntity<Void> deletarColaborador(@PathVariable int id){
         colaboradorService.deletarColaboradorPorId(id);
         return ResponseEntity.noContent().build();
     }

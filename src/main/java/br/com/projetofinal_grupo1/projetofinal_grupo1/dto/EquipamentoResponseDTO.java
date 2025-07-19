@@ -35,4 +35,6 @@ public class EquipamentoResponseDTO {
 
     // Novo campo opcional, para evitar referência cíclica
     private EstoqueResumoDTO estoque;
+
+    private LocalDate previsaoEntrega;
 }

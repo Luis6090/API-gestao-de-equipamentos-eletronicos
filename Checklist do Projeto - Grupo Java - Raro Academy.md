@@ -55,11 +55,11 @@
 - [ ] Cobertura mínima de funcionalidades principais
 
 ## 📚 Etapa 10 - Adicição do Flyway (João)
-- [✅ ] Adição no projeto do flyway para versionamento do banco de dados
+- [✅] Adição no projeto do flyway para versionamento do banco de dados
 
 ## 📚 Etapa 11 - Documentação Final (Rodrigo)
 - [✅] Finalizar README com instruções de uso
--  ✅] Adicionar o MER e DER ao repositório
+- [✅] Adicionar o MER e DER ao repositório
 - [✅] Garantir que Swagger está funcional e documentado
 
 ## 🗣️ Etapa 11 - Apresentação (TODOS)

@@ -68,12 +68,12 @@ CREATE TABLE endereco (
     colaborador_id_fk BIGINT UNIQUE REFERENCES colaborador(id_colaborador)
 );
 
--- TABELA: equipamento_to_colaborador
 CREATE TABLE equipamento_to_colaborador (
     id_equipamento INTEGER NOT NULL,
     id_colaborador INTEGER NOT NULL,
     data_entrega DATE,
     data_devolucao DATE,
+    previsao_entrega DATE,
     PRIMARY KEY (id_equipamento, id_colaborador),
     FOREIGN KEY (id_equipamento) REFERENCES equipamento(id_equipamento),
     FOREIGN KEY (id_colaborador) REFERENCES colaborador(id_colaborador)

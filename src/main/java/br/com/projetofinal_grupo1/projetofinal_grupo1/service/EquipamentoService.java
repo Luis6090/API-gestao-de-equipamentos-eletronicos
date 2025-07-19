@@ -80,14 +80,12 @@ public class EquipamentoService {
     }
 
     @Transactional
-    public ResponseEntity<Void> deletar(int id) {
-        Optional<Equipamento> equipamentoOpt = equipamentoRepository.findById(id);
-
-        if (equipamentoOpt.isPresent()) {
-            equipamentoRepository.delete(equipamentoOpt.get());
-            return ResponseEntity.noContent().build();
+    public ResponseEntity<Void> deletar(Integer id) {
+        if (!equipamentoRepository.existsById(id)) {
+            return ResponseEntity.notFound().build();
         }
 
-        return ResponseEntity.notFound().build();
+        equipamentoRepository.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 }

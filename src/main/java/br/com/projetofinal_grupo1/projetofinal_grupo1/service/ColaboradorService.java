@@ -49,25 +49,25 @@ public class ColaboradorService {
         return listaDeColaboradoresResponseDTO;
     }
 
-    public void editarNomeEmailDataContratacaoDataRecisaoEspecificacaoEquipamentoDoColaborador(Long id, ColaboradorUpdateDTO colaboradorUpdateDTO){
-        Colaborador colaborador = colaboradorRepository.findById(id).get();
+    public void editarNomeEmailDataContratacaoDataRecisaoEspecificacaoEquipamentoDoColaborador(int id, ColaboradorUpdateDTO colaboradorUpdateDTO){
+        Colaborador colaborador = colaboradorRepository.findById(Math.toIntExact(id)).get();
         colaborador.atualizarColaborador(colaboradorUpdateDTO);
-        colaboradorRepository.editarColaborador(id, colaborador.getNome(), colaborador.getEmail(), colaborador.getCep()
+        colaboradorRepository.editarColaborador(Math.toIntExact(id), colaborador.getNome(), colaborador.getEmail(), colaborador.getCep()
                                                 , colaborador.getDataContratacaoInicio(), colaborador.getDataContratacaoRecisao()
                                                 , colaborador.getEquipamentoEspecificacao());
 
        Endereco enderecoNovo = enderecoClient.retornarEnderecoPorCep(colaborador.getCep());
-       Endereco enderecoDoColaborador = enderecoRepository.findById(id).get();
+       Endereco enderecoDoColaborador = enderecoRepository.findById((long) id).get();
 
        if(!enderecoNovo.getCep().equals(enderecoDoColaborador.getCep())){
-          enderecoRepository.editarEndereco(id, enderecoNovo.getCep(), enderecoNovo.getLogradouro(), enderecoNovo.getComplemento()
+          enderecoRepository.editarEndereco(Math.toIntExact(id), enderecoNovo.getCep(), enderecoNovo.getLogradouro(), enderecoNovo.getComplemento()
                                             , enderecoNovo.getUnidade(), enderecoNovo.getBairro(), enderecoNovo.getLocalidade(), enderecoNovo.getUf()
                                             , enderecoNovo.getEstado(), enderecoNovo.getRegiao(), enderecoNovo.getIbge(), enderecoNovo.getGia()
                                             , enderecoNovo.getDdd(), enderecoNovo.getSiafi());
        }
     }
 
-    public void deletarColaboradorPorId(Long id){
+    public void deletarColaboradorPorId(int id){
         Optional<Colaborador> colaboradorDemitido = colaboradorRepository.findById(id);
         if(colaboradorDemitido.isPresent()){
             colaboradorRepository.delete(colaboradorDemitido.get());

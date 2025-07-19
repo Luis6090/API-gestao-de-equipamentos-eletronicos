@@ -62,7 +62,7 @@ INSERT INTO equipamento (especificacoes, numero_serie, marca, modelo, data_aquis
 
 
 -- EQUIPAMENTO_TO_COLABORADOR (2 registros apenas)
-INSERT INTO equipamento_to_colaborador (id_equipamento, id_colaborador, data_entrega, data_devolucao) VALUES
-(1, 1, '2023-01-15', NULL),
-(2, 2, '2023-02-01', '2024-01-01');
+INSERT INTO equipamento_to_colaborador (id_equipamento, id_colaborador, data_entrega, data_devolucao, previsao_entrega) VALUES
+(1, 1, '2023-01-15', NULL, '2023-01-20'),
+(2, 2, '2023-02-01', '2024-01-01', NULL);
 

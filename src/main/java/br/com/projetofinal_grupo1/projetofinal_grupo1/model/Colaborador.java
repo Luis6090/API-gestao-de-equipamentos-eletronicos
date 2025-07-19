@@ -18,7 +18,7 @@ public class Colaborador {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_colaborador")
-    private Long id;
+    private int id;
     @Column(name = "cpf")
     private String cpf;
     @Column(name = "nome")

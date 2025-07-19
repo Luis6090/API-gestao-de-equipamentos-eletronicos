@@ -13,7 +13,7 @@ import lombok.Setter;
 @Entity
 public class Endereco {
     @Id
-    private Long id;
+    private long id;
     private String cep;
     private String logradouro;
     private String complemento;
