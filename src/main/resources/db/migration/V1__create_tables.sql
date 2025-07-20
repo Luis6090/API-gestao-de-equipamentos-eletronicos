@@ -46,7 +46,8 @@ CREATE TABLE colaborador (
     data_nascimento DATE,
     data_inicio_contrato DATE,
     data_rescisao_contrato DATE,
-    especificacoes_equipamentos_necessarios TEXT
+    especificacoes_equipamentos_necessarios TEXT,
+    ativo BOOLEAN DEFAULT TRUE
 );
 
 -- TABELA: endereco

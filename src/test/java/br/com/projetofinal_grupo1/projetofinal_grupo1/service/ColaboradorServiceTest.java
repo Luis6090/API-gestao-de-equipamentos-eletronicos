@@ -119,7 +119,7 @@ class ColaboradorServiceTest {
         enderecoExistente.setCep("54321-987");  // cep diferente pra entrar no if e editar o endereco
 
         when(enderecoClient.retornarEnderecoPorCep("12345-678")).thenReturn(enderecoNovo);
-        when(enderecoRepository.findById((long) id)).thenReturn(Optional.of(enderecoExistente));
+        when(enderecoRepository.findById((int) id)).thenReturn(Optional.of(enderecoExistente));
 
         doNothing().when(enderecoRepository).editarEndereco(
                 (int) anyLong(), anyString(), anyString(), anyString(), anyString(), anyString(),
@@ -144,7 +144,7 @@ class ColaboradorServiceTest {
         );
 
         verify(enderecoClient).retornarEnderecoPorCep("12345-678");
-        verify(enderecoRepository).findById((long) id);
+        verify(enderecoRepository).findById((int) id);
         verify(enderecoRepository).editarEndereco(
                 eq(id),
                 eq("12345-678"),
@@ -164,10 +164,11 @@ class ColaboradorServiceTest {
     }
 
     @Test
-    void deletarColaboradorPorId_DeveDeletarQuandoEncontrado() {
+    void deletarColaboradorPorId_DeveInativarQuandoEncontrado() {
         // Arrange
-        int id = Math.toIntExact(1L);
+        int id = 1;
         Colaborador colaborador = new Colaborador();
+        colaborador.setAtivo(true);
 
         when(colaboradorRepository.findById(id)).thenReturn(Optional.of(colaborador));
 
@@ -175,7 +176,8 @@ class ColaboradorServiceTest {
         colaboradorService.deletarColaboradorPorId(id);
 
         // Assert
-        verify(colaboradorRepository).delete(colaborador);
+        assertFalse(colaborador.isAtivo(), "Colaborador deve estar inativo após soft delete");
+        verify(colaboradorRepository).save(colaborador);
     }
 
     @Test

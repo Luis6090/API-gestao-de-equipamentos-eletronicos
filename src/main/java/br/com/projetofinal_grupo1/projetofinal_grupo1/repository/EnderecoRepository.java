@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-public interface EnderecoRepository extends JpaRepository<Endereco, Long> {
+public interface EnderecoRepository extends JpaRepository<Endereco, Integer> {
     @Modifying
     @Transactional
     @Query("UPDATE Endereco end SET end.cep = :cep, end.logradouro = :logradouro, end.complemento = :complemento, end.unidade = :unidade," +

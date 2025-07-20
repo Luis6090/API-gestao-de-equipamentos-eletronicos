@@ -48,11 +48,11 @@
 - [✅] Criar A entidade Alerta
 - [✅] Disparar e-mail quando estoque estiver abaixo do mínimo de segurança
 
-## 🧪 Etapa 9 - Testes Unitários (Todos)
-- [ ] Escrever testes unitários para autenticação
-- [ ] Escrever testes unitários para colaboradores
-- [ ] Escrever testes unitários para equipamentos
-- [ ] Cobertura mínima de funcionalidades principais
+## 🧪 Etapa 9 - Testes Unitários (Rodrigo)
+- [✅] Escrever testes unitários para autenticação
+- [✅] Escrever testes unitários para colaboradores
+- [✅ ] Escrever testes unitários para equipamentos
+- [✅ ] Cobertura mínima de funcionalidades principais
 
 ## 📚 Etapa 10 - Adicição do Flyway (João)
 - [✅] Adição no projeto do flyway para versionamento do banco de dados
@@ -62,7 +62,10 @@
 - [✅] Adicionar o MER e DER ao repositório
 - [✅] Garantir que Swagger está funcional e documentado
 
-## 🗣️ Etapa 11 - Apresentação (TODOS)
-- [ ] Criar slides com visão geral do projeto
-- [ ] Criar video mostrando as funcionalidades
-- [ ] Ensaio da apresentação (10 minutos)
+## ⚙️ Etapa 12 - Extras (Rodrigo)
+- [✅] Implementação do softe delete para tornar o colaborador inativo 
+
+## 🗣️ Etapa 13 - Apresentação (TODOS)
+- [✅ ] Criar slides com visão geral do projeto
+- [✅ ] Criar video mostrando as funcionalidades
+- [✅ ] Ensaio da apresentação (10 minutos)

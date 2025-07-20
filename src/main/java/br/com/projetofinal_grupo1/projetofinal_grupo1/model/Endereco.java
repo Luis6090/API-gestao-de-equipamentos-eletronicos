@@ -1,5 +1,6 @@
 package br.com.projetofinal_grupo1.projetofinal_grupo1.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,7 +14,8 @@ import lombok.Setter;
 @Entity
 public class Endereco {
     @Id
-    private long id;
+    private int id;
+
     private String cep;
     private String logradouro;
     private String complemento;
@@ -27,12 +29,10 @@ public class Endereco {
     private String gia;
     private String ddd;
     private String siafi;
-
-    private Integer numeroCasa;
+    private Integer numero;
 
     @OneToOne
-    @MapsId
-    @JoinColumn(name = "colaborador_id_fk")
+    @JoinColumn(name = "colaborador_id_fk", unique = true)
+    @JsonBackReference
     private Colaborador colaborador;
-
 }

@@ -2,6 +2,8 @@ package br.com.projetofinal_grupo1.projetofinal_grupo1.model;
 
 import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.ColaboradorRequestDTO;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.ColaboradorUpdateDTO;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,9 +38,14 @@ public class Colaborador {
     @Column(name = "especificacoes_equipamentos_necessarios")
     private String equipamentoEspecificacao;
 
-    @OneToOne(mappedBy = "colaborador", cascade = CascadeType.ALL, optional = false)
+    @Column(name = "ativo")
+    private boolean ativo = true;
+
+    @JsonManagedReference
+    @OneToOne(mappedBy = "colaborador", cascade = CascadeType.ALL, optional = false, fetch = FetchType.EAGER)
     @PrimaryKeyJoinColumn
     private Endereco endereco;
+
 
 
     public static Colaborador converterParaColaborador(ColaboradorRequestDTO colaboradorRequestDTO){

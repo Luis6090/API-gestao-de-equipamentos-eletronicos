@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -122,5 +123,46 @@ public class AuthServiceTest {
         });
 
         assertEquals("E-mail não confirmado", ex.getMessage());
+    }
+    @Test
+    void confirmarEmail_deveConfirmarQuandoTokenValidoENaoExpirado() {
+        String token = "valid-token";
+        Usuario usuario = new Usuario();
+        usuario.setTokenRecuperacao(token);
+        usuario.setTokenRecuperacaoValidade(LocalDateTime.now().plusMinutes(30));
+
+        when(usuarioRepository.findByTokenRecuperacao(token)).thenReturn(Optional.of(usuario));
+
+        authService.confirmarEmail(token);
+
+        assertTrue(usuario.isEmailConfirmado());
+        assertNull(usuario.getTokenRecuperacao());
+        assertNull(usuario.getTokenRecuperacaoValidade());
+        verify(usuarioRepository).save(usuario);
+    }
+
+    @Test
+    void confirmarEmail_deveLancarExcecaoQuandoTokenNaoExiste() {
+        when(usuarioRepository.findByTokenRecuperacao("invalido")).thenReturn(Optional.empty());
+
+        RuntimeException ex = assertThrows(RuntimeException.class, () -> {
+            authService.confirmarEmail("invalido");
+        });
+
+        assertEquals("Token inválido ou usuário não encontrado", ex.getMessage());
+    }
+
+    @Test
+    void confirmarEmail_deveLancarExcecaoQuandoTokenExpirado() {
+        Usuario usuario = new Usuario();
+        usuario.setTokenRecuperacaoValidade(LocalDateTime.now().minusHours(1));
+
+        when(usuarioRepository.findByTokenRecuperacao("token-expirado")).thenReturn(Optional.of(usuario));
+
+        RuntimeException ex = assertThrows(RuntimeException.class, () -> {
+            authService.confirmarEmail("token-expirado");
+        });
+
+        assertEquals("Token expirado", ex.getMessage());
     }
 }

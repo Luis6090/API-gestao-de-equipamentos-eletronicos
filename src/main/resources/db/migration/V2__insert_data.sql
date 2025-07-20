@@ -33,7 +33,9 @@ INSERT INTO endereco (id, cep, logradouro, numero, complemento, unidade, bairro,
 (1, '65600-160', 'Rua Principal', 1467, 'Casa 2', NULL, 'Centro', 'Caxias', 'MA', 'Maranhão', 'Nordeste', '2103001', NULL, '99', '1234', 1),
 (2, '50010-000', 'Avenida Guararapes', 3062, 'Apto 101', NULL, 'Santo Antônio', 'Recife', 'PE', 'Pernambuco', 'Nordeste', '2611606', NULL, '81', '1235', 2),
 (3, '95010-000', 'Rua Sinimbu', 1576, 'Sala 202', NULL, 'Centro', 'Caxias do Sul', 'RS', 'Rio Grande do Sul', 'Sul', '4305108', NULL, '54', '1236', 3),
-(4, '65970-001', 'Rua da Liberdade', 1500, 'Casa 5', NULL, 'Bela Vista', 'Porto Franco', 'MA', 'Maranhão', 'Nordeste', '2109052', NULL, '99', '1237', 4);
+(4, '65970-001', 'Rua da Liberdade', 1500, 'Casa 5', NULL, 'Bela Vista', 'Porto Franco', 'MA', 'Maranhão', 'Nordeste', '2109052', NULL, '99', '1237', 4),
+(5, '70000-000', 'Rua Nova', 1789, 'Casa', NULL, 'Centro', 'Brasília', 'DF', 'Distrito Federal', 'Centro-Oeste', '5300108', NULL, '61', '1238', 5);
+
 -- EQUIPAMENTOS
 INSERT INTO equipamento (especificacoes, numero_serie, marca, modelo, data_aquisicao, tempo_uso, disponivel, id_tipo_equipamento) VALUES
 ('Notebook com 8GB RAM', 'NB001', 'Dell', 'Inspiron 14', '2022-01-01', 12, false, 1),

@@ -1,4 +1,5 @@
 package br.com.projetofinal_grupo1.projetofinal_grupo1.controller;
+
 import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.*;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.model.IdEquipamentoToColaborador;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.service.EquipamentoToColaboradorService;
@@ -24,16 +25,20 @@ public class EquipamentoToColaboradorController {
     private EquipamentoToColaboradorService equipamentoToColaboradorService;
 
     @Operation(summary = "Listar todos os envios")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Lista de envios retornada com sucesso"),
+            @ApiResponse(responseCode = "401", description = "Não autorizado")
+    })
     @GetMapping
-    public List<EquipamentoToColaboradorResponseDTO> listar(){
-
+    public List<EquipamentoToColaboradorResponseDTO> listar() {
         return equipamentoToColaboradorService.listarTodos();
     }
 
     @Operation(summary = "Buscar envios por ID")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Envio encontrado"),
-            @ApiResponse(responseCode = "404", description = "Envio não encontrado")
+            @ApiResponse(responseCode = "404", description = "Envio não encontrado"),
+            @ApiResponse(responseCode = "401", description = "Não autorizado")
     })
     @GetMapping("/{id}")
     public ResponseEntity<EquipamentoToColaboradorResponseDTO> buscarPorId(@PathVariable IdEquipamentoToColaborador id) {
@@ -41,6 +46,11 @@ public class EquipamentoToColaboradorController {
     }
 
     @Operation(summary = "Cadastrar novo envio")
+    @ApiResponses({
+            @ApiResponse(responseCode = "201", description = "Envio criado com sucesso"),
+            @ApiResponse(responseCode = "400", description = "Dados inválidos"),
+            @ApiResponse(responseCode = "401", description = "Não autorizado")
+    })
     @PostMapping
     public ResponseEntity<EquipamentoToColaboradorResponseDTO> criar(
             @RequestBody @Valid EquipamentoToColaboradorRequestDTO dto) {
@@ -50,7 +60,9 @@ public class EquipamentoToColaboradorController {
     @Operation(summary = "Atualizar envio existente")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Atualizado com sucesso"),
-            @ApiResponse(responseCode = "404", description = "Envio não encontrado")
+            @ApiResponse(responseCode = "404", description = "Envio não encontrado"),
+            @ApiResponse(responseCode = "400", description = "Dados inválidos"),
+            @ApiResponse(responseCode = "401", description = "Não autorizado")
     })
     @PutMapping("/{id}")
     public ResponseEntity<EquipamentoToColaboradorResponseDTO> atualizar(
@@ -62,17 +74,20 @@ public class EquipamentoToColaboradorController {
     @Operation(summary = "Deletar envio por ID")
     @ApiResponses({
             @ApiResponse(responseCode = "204", description = "Removido com sucesso"),
-            @ApiResponse(responseCode = "404", description = "Envio não encontrado")
+            @ApiResponse(responseCode = "404", description = "Envio não encontrado"),
+            @ApiResponse(responseCode = "401", description = "Não autorizado")
     })
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable IdEquipamentoToColaborador id){
+    public ResponseEntity<Void> deletar(@PathVariable IdEquipamentoToColaborador id) {
         return equipamentoToColaboradorService.deletar(id);
     }
+
     @Operation(summary = "Registrar devolução do equipamento pelo ID do empréstimo")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Devolução registrada com sucesso"),
             @ApiResponse(responseCode = "404", description = "Empréstimo não encontrado"),
-            @ApiResponse(responseCode = "400", description = "Equipamento já devolvido")
+            @ApiResponse(responseCode = "400", description = "Equipamento já devolvido"),
+            @ApiResponse(responseCode = "401", description = "Não autorizado")
     })
     @PutMapping("/{id}/devolver")
     public ResponseEntity<Void> registrarDevolucao(@PathVariable IdEquipamentoToColaborador id) {

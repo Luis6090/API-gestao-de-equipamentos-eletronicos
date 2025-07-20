@@ -30,7 +30,7 @@ public class ColaboradorService {
     public void registrarColaborador(ColaboradorRequestDTO colaboradorRequestDTO){
         Colaborador colaborador = Colaborador.converterParaColaborador(colaboradorRequestDTO);
         Endereco enderecoDoColaborador = enderecoClient.retornarEnderecoPorCep(colaborador.getCep());
-        enderecoDoColaborador.setNumeroCasa(colaboradorRequestDTO.getNumeroCasa());
+        enderecoDoColaborador.setNumero(colaboradorRequestDTO.getNumeroCasa());
 
         colaborador.setEndereco(enderecoDoColaborador);
         enderecoDoColaborador.setColaborador(colaborador);
@@ -61,7 +61,7 @@ public class ColaboradorService {
                 , colaborador.getEquipamentoEspecificacao());
 
         Endereco enderecoNovo = enderecoClient.retornarEnderecoPorCep(colaborador.getCep());
-        Endereco enderecoDoColaborador = enderecoRepository.findById((long) id).get();
+        Endereco enderecoDoColaborador = enderecoRepository.findById((int) id).get();
 
         if(!enderecoNovo.getCep().equals(enderecoDoColaborador.getCep())){
             enderecoRepository.editarEndereco(Math.toIntExact(id), enderecoNovo.getCep(), enderecoNovo.getLogradouro(), enderecoNovo.getComplemento()
@@ -72,10 +72,24 @@ public class ColaboradorService {
     }
 
     public void deletarColaboradorPorId(int id){
-        Optional<Colaborador> colaboradorDemitido = colaboradorRepository.findById(id);
-        if(colaboradorDemitido.isPresent()){
-            colaboradorRepository.delete(colaboradorDemitido.get());
+        Optional<Colaborador> colaboradorOptional = colaboradorRepository.findById(id);
+        if(colaboradorOptional.isPresent()){
+            Colaborador colaborador = colaboradorOptional.get();
+            colaborador.setAtivo(false);
+            colaboradorRepository.save(colaborador);
         }
     }
+    public List<ColaboradorResponseDTO> devolverColaboradoresInativos() {
+        List<Colaborador> inativos = colaboradorRepository.findByAtivoFalse();
+        List<ColaboradorResponseDTO> listaDTO = new ArrayList<>();
+        for (Colaborador c : inativos) {
+            listaDTO.add(ColaboradorResponseDTO.converterParaColaboradorResponseDTO(c));
+        }
+        return listaDTO;
+    }
+    public void reativarColaborador(int id) {
+        colaboradorRepository.reativarColaborador(id);
+    }
+
 }
 

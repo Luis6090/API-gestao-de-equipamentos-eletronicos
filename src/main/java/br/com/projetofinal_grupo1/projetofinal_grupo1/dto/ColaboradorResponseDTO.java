@@ -13,6 +13,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ColaboradorResponseDTO {
+    private int id;
     private String nome;
     private String email;
     private String cep;
@@ -21,8 +22,19 @@ public class ColaboradorResponseDTO {
     private LocalDate data_contratacao_recisao;
     private String especificacao_equipamento;
 
+    private EnderecoResponseDTO endereco;  // campo para endereço
+
     public static ColaboradorResponseDTO converterParaColaboradorResponseDTO(Colaborador colaborador) {
-        return new ColaboradorResponseDTO(colaborador.getNome(), colaborador.getEmail(), colaborador.getCep(), colaborador.getDataNascimento(),
-                                            colaborador.getDataContratacaoInicio(), colaborador.getDataContratacaoRecisao(), colaborador.getEquipamentoEspecificacao());
+        return new ColaboradorResponseDTO(
+                colaborador.getId(),
+                colaborador.getNome(),
+                colaborador.getEmail(),
+                colaborador.getCep(),
+                colaborador.getDataNascimento(),
+                colaborador.getDataContratacaoInicio(),
+                colaborador.getDataContratacaoRecisao(),
+                colaborador.getEquipamentoEspecificacao(),
+                EnderecoResponseDTO.fromEntity(colaborador.getEndereco())  // seta o endereço
+        );
     }
 }
