@@ -33,7 +33,6 @@ CREATE TABLE estoque (
     quantidade_disponivel INTEGER,
     quantidade_em_uso INTEGER,
     quantidade_defeituosa INTEGER,
-    id_equipamento INTEGER UNIQUE NOT NULL REFERENCES equipamento(id_equipamento),
     id_tipo_equipamento INTEGER NOT NULL REFERENCES tipo_equipamento(id_tipo_equipamento)
 );
 
@@ -47,7 +46,8 @@ CREATE TABLE colaborador (
     data_nascimento DATE,
     data_inicio_contrato DATE,
     data_rescisao_contrato DATE,
-    especificacoes_equipamentos_necessarios TEXT
+    especificacoes_equipamentos_necessarios TEXT,
+    ativo BOOLEAN DEFAULT TRUE
 );
 
 -- TABELA: endereco
@@ -55,6 +55,7 @@ CREATE TABLE endereco (
     id BIGINT PRIMARY KEY,
     cep VARCHAR(20),
     logradouro VARCHAR(255),
+    numero VARCHAR(20),
     complemento VARCHAR(255),
     unidade VARCHAR(100),
     bairro VARCHAR(100),
@@ -69,12 +70,12 @@ CREATE TABLE endereco (
     colaborador_id_fk BIGINT UNIQUE REFERENCES colaborador(id_colaborador)
 );
 
--- TABELA: equipamento_to_colaborador
 CREATE TABLE equipamento_to_colaborador (
     id_equipamento INTEGER NOT NULL,
     id_colaborador INTEGER NOT NULL,
     data_entrega DATE,
     data_devolucao DATE,
+    previsao_entrega DATE,
     PRIMARY KEY (id_equipamento, id_colaborador),
     FOREIGN KEY (id_equipamento) REFERENCES equipamento(id_equipamento),
     FOREIGN KEY (id_colaborador) REFERENCES colaborador(id_colaborador)

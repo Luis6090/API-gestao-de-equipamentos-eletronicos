@@ -1,7 +1,6 @@
 package br.com.projetofinal_grupo1.projetofinal_grupo1.model;
 
-//Implementar registro de entregas
-//Implementar registro de devoluções
+
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
@@ -25,5 +24,8 @@ public class EquipamentoToColaborador {
 
     @JsonProperty("dataDevolucao")
     private LocalDate dataDevolucao;
+
+    @Column(name = "previsao_entrega")
+    private LocalDate previsaoEntrega;
 
 }

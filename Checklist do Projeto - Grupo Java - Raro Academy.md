@@ -15,7 +15,7 @@
 - [✅] Configurar envio de e-mails (Mailtrap ou similar)
 
 ## 👤 Etapa 3 - Autenticação e Usuário (Rodrigo)
-- [✅ ] Criar entidade `User`
+- [✅] Criar entidade `User`
 - [✅] Implementar cadastro com verificação por email
 - [✅] Implementar login com JWT
 - [✅] Implementar recuperação de senha com validade de 2 horas
@@ -32,34 +32,40 @@
 - [✅] Implementar CRUD completo com número de série, marca, modelo, etc.
 
 ## 🔁 Etapa 6 - Entregas e Devoluções (João)
-- [ ] Criar entidade `EquipamentoColaborador`
-- [ ] Implementar registro de entregas
-- [ ] Implementar registro de devoluções
+-  ✅] Criar entidade `EquipamentoColaborador`
+- [✅] Implementar registro de entregas
+- [✅] Implementar registro de devoluções
 
 ## 📊 Etapa 7 - Parâmetros + Relatórios (Lara)
 - [✅] Criar entidade `ParametroEstoque`
 - [✅] Implementar CRUD com estoque mínimo, tempos médios, etc.
 - [✅] Criar endpoint de relatório de previsão de falta de equipamentos
 
-## 💻 Etapa 7.5 - Alertas (Rodrigo)
-- [ ] Criar o CRUD tipo_Equipamento
+## 💻 Etapa 7.5 - Mapeamento (Rodrigo)
+- [✅] Mapeamento entre estoque, equipamento e tipo de equipamento
 
 ## 🔔 Etapa 8 - Alertas (Rodrigo)
-- [ ] Criar A entidade Alerta
-- [ ] Disparar e-mail quando estoque estiver abaixo do mínimo de segurança
+- [✅] Criar A entidade Alerta
+- [✅] Disparar e-mail quando estoque estiver abaixo do mínimo de segurança
 
 ## 🧪 Etapa 9 - Testes Unitários (Rodrigo)
-- [ ] Escrever testes unitários para autenticação
-- [ ] Escrever testes unitários para colaboradores
-- [ ] Escrever testes unitários para equipamentos
-- [ ] Cobertura mínima de funcionalidades principais
+- [✅] Escrever testes unitários para autenticação
+- [✅] Escrever testes unitários para colaboradores
+- [✅ ] Escrever testes unitários para equipamentos
+- [✅ ] Cobertura mínima de funcionalidades principais
 
-## 📚 Etapa 10 - Documentação Final (Pessoa 1)
-- [ ] Finalizar README com instruções de uso
-- [ ] Adicionar o MER e DER ao repositório
-- [ ] Garantir que Swagger está funcional e documentado
+## 📚 Etapa 10 - Adicição do Flyway (João)
+- [✅] Adição no projeto do flyway para versionamento do banco de dados
 
-## 🗣️ Etapa 11 - Apresentação (TODOS)
-- [ ] Criar slides com visão geral do projeto
-- [ ] Dividir falas entre os integrantes
-- [ ] Ensaio da apresentação (10 minutos)
+## 📚 Etapa 11 - Documentação Final (Rodrigo)
+- [✅] Finalizar README com instruções de uso
+- [✅] Adicionar o MER e DER ao repositório
+- [✅] Garantir que Swagger está funcional e documentado
+
+## ⚙️ Etapa 12 - Extras (Rodrigo)
+- [✅] Implementação do softe delete para tornar o colaborador inativo 
+
+## 🗣️ Etapa 13 - Apresentação (TODOS)
+- [✅ ] Criar slides com visão geral do projeto
+- [✅ ] Criar video mostrando as funcionalidades
+- [✅ ] Ensaio da apresentação (10 minutos)

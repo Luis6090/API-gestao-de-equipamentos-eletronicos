@@ -12,6 +12,7 @@ Esta API REST foi desenvolvida como parte do projeto final da disciplina, com o 
 - Lombok
 - Swagger/OpenAPI
 - Jakarta Validation
+- Flyway (controle de versões do banco de dados)
 
 ---
 
@@ -23,6 +24,7 @@ Esta API REST foi desenvolvida como parte do projeto final da disciplina, com o 
 - Confirmação de e-mail
 - Recuperação e redefinição de senha
 - Refresh de token
+(OBS: A api atua com dois tipos de token, o token do email para confirmação da conta e recuperação de senha e o Acess Token para acessar os endpoints no Swagger.)
 
 #### Endpoints
 
@@ -56,12 +58,12 @@ CRUD completo com controle de disponibilidade.
 
 | Método | Rota                                 | Descrição                           |
 |--------|--------------------------------------|-------------------------------------|
-| GET    | /api/emprestimos                     | Listar todos os envios              |
-| GET    | /api/emprestimos/{id}                | Buscar envio por ID                 |
-| POST   | /api/emprestimos                     | Cadastrar novo envio                |
-| PUT    | /api/emprestimos/{id}                | Atualizar envio existente           |
-| DELETE | /api/emprestimos/{id}                | Deletar envio por ID                |
-| PUT    | /api/emprestimos/{id}/devolver       | Registrar devolução do equipamento  |
+| GET    | /emprestimos                     | Listar todos os envios              |
+| GET    | /emprestimos/{id}                | Buscar envio por ID                 |
+| POST   | /emprestimos                     | Cadastrar novo envio                |
+| PUT    | /emprestimos/{id}                | Atualizar envio existente           |
+| DELETE | /emprestimos/{id}                | Deletar envio por ID                |
+| PUT    | /emprestimos/{id}/devolver       | Registrar devolução do equipamento  |
 
 ---
 
@@ -113,9 +115,9 @@ Categoria de equipamentos (ex: notebook, celular).
 
 | Método | Rota                                 | Descrição                     |
 |--------|--------------------------------------|-------------------------------|
-| POST   | /colaborador/cadastrar-colaborador   | Cadastrar novo colaborador    |
-| PATCH  | /colaborador/editar-colaborador/{id} | Editar colaborador existente  |
-| GET    | /colaborador/imprimir-colaboradores  | Imprimir lista de colaboradores |
+| POST   | /colaborador/                        | Cadastrar novo colaborador    |
+| PATCH  | /colaborador/                        | Editar colaborador existente  |
+| GET    | /colaborador/                        | Imprimir lista de colaboradores |
 | DELETE | /colaborador/deleta-colaborador/{id} | Deletar colaborador           |
 
 ---
@@ -124,71 +126,85 @@ Categoria de equipamentos (ex: notebook, celular).
 
 | Método | Rota                          | Descrição                        |
 |--------|-------------------------------|----------------------------------|
-| POST   | /api/estoque-alerta/verificar | Verifica alerta de estoque baixo|
+| POST   | /estoque-alerta/verificar | Verifica alerta de estoque baixo|
 
 ---
 
-## 🧪 Como Rodar o Projeto
+🧪 Como Rodar o Projeto
 
-### 1. Pré-requisitos
+1. Pré-requisitos
 
-- Java 21
-- PostgreSQL
-- Maven
+Java 21
 
-### 2. Configuração do Banco
+PostgreSQL
 
-```properties
+Maven
+
+2. Configuração do Banco
+
 spring.datasource.url=jdbc:postgresql://localhost:5432/seu_banco
 spring.datasource.username=seu_usuario
 spring.datasource.password=sua_senha
 spring.jpa.hibernate.ddl-auto=update
-```
 
-### 3. Rodar a aplicação
+2.1. Migrações com Flyway
 
-```bash
+O projeto utiliza o Flyway para controle de versão do banco de dados. As migrações SQL ficam localizadas em:
+
+src/main/resources/db/migration
+
+Ao iniciar a aplicação, o Flyway executa automaticamente os scripts que ainda não foram aplicados.
+
+💡 Você pode utilizar os scripts do Flyway para popular tabelas com dados de teste durante o desenvolvimento.
+
+📊 Importante: Se estiver utilizando o Flyway, configure o application.properties da seguinte forma:
+
+spring.jpa.hibernate.ddl-auto=none
+
+3. Rodar a aplicação
+
 ./mvnw spring-boot:run
-```
 
 Acesse em:
 
-```
 http://localhost:8080
-```
 
 ---
 
-## 📘 Documentação Swagger
+## 📂 Diagramas do Banco de Dados
 
-```
+- [MER - Modelo Entidade-Relacionamento](./diagramas/mer.md)
+- [DER - Diagrama Entidade-Relacionamento](./diagramas/der.png)
+
+---
+
+📘 Documentação Swagger
+
 http://localhost:8080/swagger-ui/index.html
-```
 
----
+🔐 Autenticação JWT
 
-## 🔐 Autenticação JWT
+Login via POST /auth/login
 
-- Login via `POST /auth/login`
-- Copie o token JWT e clique em **Authorize** no Swagger
-- Formato:  
-```
+Copie o token JWT e clique em Authorize no Swagger
+
+Formato:
+
 Bearer seu_token_jwt_aqui
-```
 
----
+👨‍💻 Desenvolvedores
 
-## 👨‍💻 Desenvolvedores
+JRLL TECH – Grupo de Desenvolvimento
 
-**JRLL TECH** – Grupo de Desenvolvimento
+João Paulo Fernandes Conceição
 
-- João Paulo Fernandes Conceição  
-- Rodrigo Mayer Alves  
-- Luis Felipe Assunção Pereira  
-- Lara Freire de Oliveira  
+Rodrigo Mayer Alves
 
----
+Luis Felipe Assunção Pereira
 
-## 📜 Licença
+Lara Freire de Oliveira
+
+📜 Licença
 
 Este projeto é de uso educacional.
+

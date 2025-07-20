@@ -3,6 +3,8 @@ package br.com.projetofinal_grupo1.projetofinal_grupo1.service;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.ParametroSistemaRequestDTO;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.ParametroSistemaResponseDTO;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.dto.PrevisaoFaltaResponseDTO;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.exception.BadRequestException;
+import br.com.projetofinal_grupo1.projetofinal_grupo1.exception.ResourceNotFoundException;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.model.Estoque;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.model.ParametroSistema;
 import br.com.projetofinal_grupo1.projetofinal_grupo1.repository.EstoqueRepository;
@@ -70,8 +72,17 @@ public class ParametroSistemaService {
 
     @Transactional
     public ParametroSistemaResponseDTO atualizarParametro(int id, ParametroSistemaRequestDTO dto) {
+        // Validação simples (exemplo: valores negativos não permitidos)
+        if (dto.getTempoMedioReposicao() < 0
+                || dto.getTempoMedioConsumoEstoque() < 0
+                || dto.getTempoMedioEnvio() < 0
+                || dto.getTaxaMediaEquipamentosDefeituosos() < 0
+                || dto.getEstoqueMinimoSeguranca() < 0) {
+            throw new BadRequestException("Os valores do parâmetro não podem ser negativos.");
+        }
+
         ParametroSistema existente = parametrosSistemaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Parâmetro de estoque não encontrado com o ID: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Parâmetro de estoque não encontrado com o ID: " + id));
 
         existente.setTempoMedioReposicao(dto.getTempoMedioReposicao());
         existente.setTempoMedioConsumoEstoque(dto.getTempoMedioConsumoEstoque());

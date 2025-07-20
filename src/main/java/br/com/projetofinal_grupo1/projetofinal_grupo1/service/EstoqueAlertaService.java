@@ -20,19 +20,19 @@ import java.util.Optional;
 public class EstoqueAlertaService {
 
     @Autowired
-    private TipoEquipamentoRepository tipoEquipamentoRepository;
+    TipoEquipamentoRepository tipoEquipamentoRepository;
 
     @Autowired
-    private EstoqueRepository estoqueRepository;
+    EstoqueRepository estoqueRepository;
 
     @Autowired
-    private ParametroSistemaService parametroSistemaService;
+    ParametroSistemaService parametroSistemaService;
 
     @Autowired
-    private AlertaRepository alertaRepository;
+    AlertaRepository alertaRepository;
 
     @Autowired
-    private EmailService emailService;
+    EmailService emailService;
 
     @Scheduled(fixedRate = 10000) // Roda a cada 10 segundos (ajuste conforme necessário)
     @Transactional
